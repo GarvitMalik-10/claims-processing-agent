@@ -31,6 +31,7 @@ class EventType(StrEnum):
     PAYOUT_CALCULATED = "payout.calculated"
     ROUTING_DECIDED = "routing.decided"
     HUMAN_REVIEW_REQUESTED = "human.review_requested"
+    REVIEW_BRIEF = "human.review_brief"
     HUMAN_DECISION = "human.decision"
     REPORT_GENERATED = "report.generated"
     LETTER_GENERATED = "letter.generated"

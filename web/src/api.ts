@@ -57,6 +57,8 @@ export const api = {
   replay: (cid: string) => fetch(`/api/claims/${cid}/audit/replay`).then(j<any>),
   resetDemo: () => post("/api/demo/reset").then(j<{ archived_to: string }>),
   exportUrl: (cid: string) => `/api/claims/${cid}/audit/export`,
+  exportPdfUrl: (cid: string) => `/api/claims/${cid}/audit/export.pdf`,
+  letterPdfUrl: (cid: string) => `/api/claims/${cid}/letter.pdf`,
   blobUrl: (digest: string) => `/api/blobs/${digest}`,
 };
 

@@ -225,6 +225,12 @@ function GroupCard({ g, all }: { g: Group; all: Ev[] }) {
     }
     case "human.review_requested":
       return <Shell icon="🧑‍⚖️" title={`Sent to ${p.queue === "siu" ? "special investigations" : "human review"}`} who={who(e)} raw={g.events} tone="border-l-amber-500"><Chips items={p.reasons} /></Shell>;
+    case "human.review_brief":
+      return <Shell icon="🗒️" title="Briefing for the reviewer (advice only)" who={who(e)} raw={g.events} tone="border-l-violet-500">
+        <div className="font-medium">{p.headline}</div>
+        <ul className="list-disc pl-5 text-[13px]">{p.key_points.map((k: string, i: number) => <li key={i}>{k}</li>)}</ul>
+        <div className="text-[13px] mt-1">suggestion: {human(p.suggested_action)}</div>
+      </Shell>;
     case "human.decision":
       return <Shell icon="✍️" title={`Reviewer ${e.actor.id} (${e.actor.role}): ${human(p.action)}`} who={who(e)} raw={g.events} tone="border-l-violet-500">
         {p.reason && <div>reason: {p.reason}</div>}{p.payout_override != null && <div>payout set to {eur(p.payout_override)}</div>}

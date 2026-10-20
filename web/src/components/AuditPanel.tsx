@@ -33,8 +33,11 @@ export function AuditPanel({ cid }: { cid: string | null }) {
         {replay?.note && replay.replayable && <div className="text-xs text-amber-700 mt-1">{replay.note}</div>}
       </Card>
 
-      <Card title="4 · Export audit file" text="One JSON bundle: every event, the decision report, chain verification, replay result and the raw model requests and responses.">
-        <a href={api.exportUrl(cid)} className="inline-block bg-slate-800 text-white rounded-full px-5 py-2">Download {cid}-audit.json</a>
+      <Card title="4 · Export audit file" text="A readable PDF for compliance (decision, integrity and replay, payout, clauses, checks, risk, full timeline with hashes), or the complete JSON bundle including the raw model requests and responses.">
+        <div className="flex gap-2">
+          <a href={api.exportPdfUrl(cid)} className="inline-block bg-brand text-white rounded-full px-5 py-2">Download PDF</a>
+          <a href={api.exportUrl(cid)} className="inline-block bg-slate-800 text-white rounded-full px-5 py-2">Download JSON bundle</a>
+        </div>
       </Card>
     </div>
   );

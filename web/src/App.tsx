@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api, Gallery, Persona } from "./api";
 import { AuditPanel } from "./components/AuditPanel";
+import { CheatSheet } from "./components/CheatSheet";
 import { Chat } from "./components/Chat";
 import { EventStream } from "./components/EventStream";
 import { ProcessMap } from "./components/ProcessMap";
@@ -20,6 +21,7 @@ export default function App() {
   const [tab, setTab] = useState<Tab>("live");
   const [pace, setPace] = useState<Pace>("normal");
   const [backstage, setBackstage] = useState(true);
+  const [help, setHelp] = useState(false);
   const feed = useClaimFeed(cid, pace);
 
   useEffect(() => { api.personas().then(setPersonas); api.gallery().then(setGallery); }, []);
@@ -36,6 +38,8 @@ export default function App() {
       if ((e.target as HTMLElement)?.tagName === "TEXTAREA" || (e.target as HTMLElement)?.tagName === "INPUT") return;
       if (e.key === "b") setBackstage((v) => !v);
       if (e.key === "g") feed.openGate();
+      if (e.key === "?") setHelp((v) => !v);
+      if (e.key === "Escape") setHelp(false);
       const tabs: Tab[] = ["live", "report", "review", "audit"];
       if (["1", "2", "3", "4"].includes(e.key)) { setTab(tabs[Number(e.key) - 1]); setBackstage(true); }
     };
@@ -80,6 +84,7 @@ export default function App() {
               {p === "normal" ? "Normal" : p === "slow" ? "Slow-mo" : "Pause at gate"}</button>))}
         </div>
         <button onClick={() => setBackstage((v) => !v)} className="text-sm border border-line rounded-full px-3 py-1 whitespace-nowrap" title="Hotkey B">{backstage ? "Hide backstage" : "Show backstage"}</button>
+        <button onClick={() => setHelp(true)} title="Presenter cheat sheet (?)" className="w-8 h-8 rounded-full border border-line text-sm font-semibold">?</button>
         <button title="Archive all demo claims and start clean (use before each session)"
           onClick={async () => {
             if (!confirm("Archive all demo claims and start a clean session?")) return;
@@ -118,6 +123,7 @@ export default function App() {
           </section>
         )}
       </main>
+      {help && <CheatSheet onClose={() => setHelp(false)} />}
       <footer className="text-[11px] text-muted px-5 pb-2">
         Demo with synthetic customers and policies. Photos: Wikimedia Commons contributors (CC BY / CC BY-SA / CC0 / public domain) - see data/synthetic/media/images/CREDITS.md.
       </footer>

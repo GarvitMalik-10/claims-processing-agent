@@ -53,6 +53,9 @@ class StubClaude:
             out = self.queue[output_model].popleft()
         elif output_model.__name__ == "CustomerLetter":
             out = _letter()
+        elif output_model.__name__ == "ReviewerBrief":
+            out = output_model(headline="Needs a human", key_points=["p"], open_questions=["q"],
+                               suggested_action="needs_judgement", suggestion_rationale="r")
         else:
             out = DEFAULTS[output_model]()
         return ModelCall(output=out, model="stub-sonnet", stop_reason="end_turn", usage={},

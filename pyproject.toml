@@ -1,4 +1,4 @@
-[project]
+﻿[project]
 name = "tecto-claims"
 version = "0.1.0"
 description = "Tecto - explainable multi-agent property claims STP engine (demo)"
@@ -15,6 +15,7 @@ dependencies = [
     "pillow>=13",
     "imagehash>=4.3",
     "python-dotenv>=1",
+    "reportlab>=5",
 ]
 
 [project.optional-dependencies]

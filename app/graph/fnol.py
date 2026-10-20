@@ -48,7 +48,7 @@ def _language(deps: Deps, claim_id: str) -> str:
 def _send(deps: Deps, claim_id: str, text: str, language: str, *, kind: str, provenance=None) -> None:
     deps.store.append(claim_id, NewEvent(type=EventType.MESSAGE_SENT, actor=CONVERSATION,
                                          payload={"channel": "chat", "kind": kind, "language": language, "text": text},
-                                         **({"provenance": provenance} if provenance else {})))
+                                         **({"provenance": provenance} if provenance is not None else {})))
 
 
 def build_fnol_graph(deps: Deps, checkpointer: Any):

@@ -198,9 +198,11 @@ def inbox() -> list[dict]:
         pay = deps.store.events(cid, {EventType.PAYOUT_CALCULATED})
         rec = pay[-1].payload.get("recommendation") if pay else None
         note = deps.store.events(cid, {EventType.CLAIM_NOTIFIED})[0].payload
+        brief = deps.store.events(cid, {EventType.REVIEW_BRIEF})
         items.append({"claim_id": cid, "customer": deps.data.customers[note["customer_id"]].name,
                       "queue": req["queue"], "reasons": req["reasons"], "approver": req["approver"],
-                      "proposed_payout": rec["payout"] if rec else None})
+                      "proposed_payout": rec["payout"] if rec else None,
+                      "brief": brief[-1].payload if brief else None})
     return items
 
 
@@ -262,6 +264,28 @@ def export(cid: str) -> JSONResponse:
               "report": service.report(cid).model_dump(mode="json"),
               "events": [e.model_dump(mode="json") for e in events], "raw_model_io": raw}
     return JSONResponse(bundle, headers={"Content-Disposition": f'attachment; filename="{cid}-audit.json"'})
+
+
+@app.get("/api/claims/{cid}/audit/export.pdf")
+def export_pdf(cid: str) -> Response:
+    """Human-readable audit file: decision, integrity + replay, payout, clauses, checks, risk, timeline."""
+    _known(cid)
+    from app.report.pdf import audit_pdf
+
+    return Response(audit_pdf(deps.store, deps.data, cid), media_type="application/pdf",
+                     headers={"Content-Disposition": f'attachment; filename="{cid}-audit.pdf"'})
+
+
+@app.get("/api/claims/{cid}/letter.pdf")
+def letter_pdf_endpoint(cid: str) -> Response:
+    _known(cid)
+    from app.report.pdf import letter_pdf
+
+    letters_ = deps.store.events(cid, {EventType.LETTER_GENERATED})
+    if not letters_:
+        raise HTTPException(404, "no decision letter yet")
+    return Response(letter_pdf(letters_[-1].payload["letter"], claim_id=cid), media_type="application/pdf",
+                    headers={"Content-Disposition": f'inline; filename="{cid}-letter.pdf"'})
 
 
 # --- demo housekeeping ------------------------------------------------------------------------

@@ -14,7 +14,7 @@ from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field, model_validator
 
-from app.agents import conversation, letters
+from app.agents import conversation, letters, reviewer_brief
 from app.graph.deps import Deps
 from app.graph.emit import claude_provenance, emit_error, emit_rule
 from app.graph.fnol import _customer, _language, _send
@@ -168,10 +168,46 @@ def add_decision(g: StateGraph, deps: Deps) -> None:
         store.append(cid, NewEvent(type=EventType.HUMAN_REVIEW_REQUESTED, actor=SYSTEM,
                                    payload={"stage": "decision", "queue": queue, "reasons": routing["reasons"],
                                             "approver": routing["approver"]}))
+        try:
+            call = reviewer_brief.write_brief(deps.claude, _review_record(cid, routing))
+            store.append(cid, NewEvent(type=EventType.REVIEW_BRIEF, actor=Actor(kind="agent", id="reviewer_brief"),
+                                       payload={"queue": queue, **call.output.model_dump()},
+                                       provenance=claude_provenance(call, reviewer_brief.PROMPT_VERSION)))
+        except Exception as exc:  # the reviewer still has the full file; the brief is a convenience
+            emit_error(store, cid, node="decision.reviewer_brief", error=exc)
         customer = _customer(deps, cid)
         lang = _language(deps, cid)
         _send(deps, cid, conversation.template("handover", lang, name=customer.name.split()[0]), lang, kind="handover")
         return {"stage": "review", "pending_interrupt": "awaiting_human_review"}
+
+    def _review_record(cid: str, routing: dict) -> dict:
+        """Structured decision record for the reviewer brief: findings and reason codes, no agent prose."""
+        cov = proj.latest(store, cid, EventType.COVERAGE_RESOLVED)
+        pay = proj.latest(store, cid, EventType.PAYOUT_CALCULATED)
+        joined = proj.latest(store, cid, EventType.RISK_SCORED, stage="join")
+        dmg, rsk = _latest_finding(deps, cid, "damage_agent"), _latest_finding(deps, cid, "risk_agent")
+        book = deps.data.policy_book
+        rec = pay.payload.get("recommendation") if pay else None
+        return {
+            "route": routing["route"], "reason_codes": routing["reasons"], "required_approver": routing["approver"],
+            "customer_messages": [t.text for t in proj.customer_texts(store, cid)],
+            "coverage": cov.payload["status"] if cov else None,
+            "clauses_not_in_customers_favour": [
+                {"clause": c["clause_id"], "title": book.clauses[c["clause_id"]].title["en"], "status": c["status"],
+                 "facts": c["facts_used"]}
+                for c in (cov.payload["clauses"] if cov else []) if c["status"] in ("excluded", "unresolved")
+                and c["clause_id"] in book.clauses],
+            "photo_checks_not_passed": [{k: c[k] for k in ("check", "result", "detail")}
+                                        for c in (dmg or {}).get("checks", []) if c["result"] in ("fail", "unresolved")],
+            "photo_observations": {ev: {"room": o["room_type"], "damage": o["damage_types"], "quality": o["image_quality"]}
+                                   for ev, o in (dmg or {}).get("images", {}).items()},
+            "risk": {"final_score": joined.payload["score"] if joined else None,
+                     "hard_flags": joined.payload["hard_flags"] if joined else [],
+                     "signals": [{k: s[k] for k in ("signal", "contribution", "detail")}
+                                 for s in (rsk or {}).get("signals", []) if s["contribution"] > 0]},
+            "payout": None if not rec else {"proposed": rec["payout"], "deductible": rec["deductible"],
+                                            "lines": [{k: l[k] for k in ("description", "claimed", "covered", "reason")} for l in rec["lines"]]},
+        }
 
     def human_review(state: ClaimGraphState) -> dict:
         # Separate node: on resume LangGraph re-runs the interrupted node, so nothing is emitted before interrupt().
@@ -233,15 +269,19 @@ def add_decision(g: StateGraph, deps: Deps) -> None:
                                  if cl in book.clauses},
             "claim_level_reasons": [book.clauses[r.split(":")[1]].title[lang] for r in cov["reasons"]
                                     if r.startswith("EXCLUDED:") and r.split(":")[1] in book.clauses],
+            "total_claimed": round(sum(l["claimed"] for l in rec["lines"]), 2),
+            "total_covered": rec["eligible"], "caps_applied": rec.get("caps_applied", []),
             "deductible": rec["deductible"], "payout": amount, "payment_ref": payment_ref,
         }
         try:
-            call = letters.write_letter(deps.claude, language=lang, record=record)
-            store.append(cid, NewEvent(type=EventType.LETTER_GENERATED, actor=Actor(kind="agent", id="letter_writer"),
-                                       payload={"language": lang, "letter": call.output.letter, "record": record},
-                                       provenance=claude_provenance(call, letters.PROMPT_VERSION)))
-            _send(deps, cid, call.output.chat_message, lang, kind="decision",
-                  provenance=claude_provenance(call, letters.PROMPT_VERSION))
+            letter, call, warnings = letters.write_letter(deps.claude, language=lang, record=record)
+            prov = claude_provenance(call, letters.PROMPT_VERSION) if call else None
+            store.append(cid, NewEvent(type=EventType.LETTER_GENERATED,
+                                       actor=Actor(kind="agent" if call else "rule", id="letter_writer" if call else "letter_template"),
+                                       payload={"language": lang, "letter": letter.letter, "record": record,
+                                                "amount_check_warnings": warnings},
+                                       **({"provenance": prov} if prov else {})))
+            _send(deps, cid, letter.chat_message, lang, kind="decision", provenance=prov)
         except Exception as exc:
             emit_error(store, cid, node="decision.letter", error=exc)
             _send(deps, cid, f"{cid}: EUR {amount:.2f}" + (f" ({payment_ref})" if payment_ref else ""), lang,

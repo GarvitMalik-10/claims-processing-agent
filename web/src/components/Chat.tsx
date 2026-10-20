@@ -30,10 +30,25 @@ export function Chat({ cid, persona, events, status, gallery, onNewClaim }: {
                 <div className="text-sm text-slate-600">{p.estimate.lines.length} regels · {eur(p.estimate.total)}</div></div></div>),
         });
       }
-      if (e.type === "message.sent") out.push({ side: "bot", seq: e.seq, time, node: <p className="whitespace-pre-wrap">{e.payload.text}</p> });
+      if (e.type === "message.sent") {
+        const withLetter = e.payload.kind === "decision" && cid && events.some((x) => x.type === "letter.generated");
+        out.push({
+          side: "bot", seq: e.seq, time, node: (
+            <div>
+              <p className="whitespace-pre-wrap">{e.payload.text}</p>
+              {withLetter && (
+                <a href={api.letterPdfUrl(cid!)} target="_blank" rel="noreferrer"
+                  className="mt-2 flex items-center gap-2 bg-slate-50 border border-line rounded-md px-2 py-1.5 hover:bg-slate-100">
+                  <span className="text-xl">📄</span>
+                  <span className="text-sm font-medium">{e.payload.language === "nl" ? "Besluit (PDF)" : "Decision letter (PDF)"}</span>
+                </a>
+              )}
+            </div>),
+        });
+      }
     }
     return out;
-  }, [events]);
+  }, [events, cid]);
 
   const typing = !!status?.busy || sending;
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [bubbles.length, typing]);

@@ -58,6 +58,18 @@ function Decide({ item, onDone }: { item: any; onDone: () => void }) {
       <h3 className="font-semibold text-lg">{item.claim_id} · {item.customer}</h3>
       <div className="flex flex-wrap gap-1">{item.reasons.map((r: string) => <span key={r} className="bg-amber-100 text-amber-900 rounded px-1.5 py-0.5 text-xs">{r}</span>)}</div>
       <div className="text-sm">Proposed payout <b>{eur(item.proposed_payout)}</b> · required approver: {human(item.approver)}</div>
+      {item.brief && (
+        <div className="bg-slate-50 border border-line rounded-lg p-3 text-sm space-y-1.5">
+          <div className="text-xs text-muted">Briefing (Sonnet, from the decision record only - advice, you decide)</div>
+          <div className="font-semibold">{item.brief.headline}</div>
+          <ul className="list-disc pl-5 space-y-0.5">{item.brief.key_points.map((p: string, i: number) => <li key={i}>{p}</li>)}</ul>
+          {item.brief.open_questions.length > 0 && (
+            <div><span className="font-medium">Worth checking:</span>
+              <ul className="list-disc pl-5">{item.brief.open_questions.map((q: string, i: number) => <li key={i}>{q}</li>)}</ul></div>
+          )}
+          <div className="text-xs"><span className="font-medium">Suggestion:</span> {human(item.brief.suggested_action)} - {item.brief.suggestion_rationale}</div>
+        </div>
+      )}
       <div className="flex gap-2">
         {(["approve", "override", "request_info", "escalate_siu"] as const).map((a) => (
           <button key={a} onClick={() => setAction(a)} className={`px-3 py-1.5 rounded-full text-sm border ${action === a ? "bg-brand text-white border-brand" : "border-line"}`}>{human(a)}</button>
