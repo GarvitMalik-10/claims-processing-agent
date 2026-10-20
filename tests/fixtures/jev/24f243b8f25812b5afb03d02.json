@@ -1,0 +1,55 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie."
+    },
+    "questions": {
+      "peril": {
+        "type": "choice",
+        "instructions": "What caused the damage the customer describes in `messages`?",
+        "criteria": {
+          "water_burst_or_leak": "Water escaped from a pipe, hose, appliance, tap, drain, heating or plumbing inside the home",
+          "flood_surface_water": "Water came in from outside at ground level: flooded street, river, rain runoff or groundwater",
+          "storm_wind_hail": "Storm, wind, hail or a fallen tree caused the damage, including rain entering through storm damage",
+          "fire_smoke": "Fire, smoke, soot, scorching or an electrical fire",
+          "theft_burglary": "Break-in, attempted break-in, forced entry, theft or vandalism by intruders",
+          "accidental_damage": "Accidental breakage, such as glass broken by a ball or something dropped, knocked or hit",
+          "other_unclear_cause": "Another cause, or the messages do not say what caused the damage"
+        }
+      },
+      "only_informing": {
+        "type": "noul",
+        "instructions": "In `messages`, does the customer explicitly say they are only informing the insurer and do not want compensation or a repair (for example 'just letting you know', 'no damage', 'no need to pay anything')?"
+      }
+    },
+    "question_set_version": "fnol_v2"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 620,
+      "output_tokens": 118
+    },
+    "answers": {
+      "peril": {
+        "type": "choice",
+        "choice": "water_burst_or_leak",
+        "confidence": 1.0,
+        "probabilities": {
+          "water_burst_or_leak": 1.0,
+          "flood_surface_water": 0.0,
+          "storm_wind_hail": 0.0,
+          "fire_smoke": 0.0,
+          "theft_burglary": 0.0,
+          "accidental_damage": 0.0,
+          "other_unclear_cause": 0.0
+        }
+      },
+      "only_informing": {
+        "type": "noul",
+        "noul": 0.02
+      }
+    }
+  }
+}

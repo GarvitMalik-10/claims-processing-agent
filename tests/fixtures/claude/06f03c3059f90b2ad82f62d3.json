@@ -1,0 +1,112 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-18T08:12:00+02:00:\nGoedemorgen, vanochtend stond er water in het keukenkastje onder de gootsteen. De sifon lekt, ik heb de kraan dichtgedraaid. De bodem van het kastje is opgezwollen en het laminaat ervoor ook. Foto van de sifon bijgevoegd. Offerte van de klusjesman volgt.\n\nRepair estimate lines:\n- PLB-TRAP-REPL: Nieuwe sifon plaatsen (age on estimate: not stated)\n- KITCH-BASE-CAB: Onderkast spoelkeuken vervangen (age on estimate: 7.0)\n- FLOOR-LAMINATE-REPL: Laminaat vervangen voor de keuken (age on estimate: 4.0)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-18",
+        "quote": "vanochtend stond er water in het keukenkastje onder de gootsteen",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Water found in the kitchen cabinet under the sink because the trap is leaking",
+        "quote": "vanochtend stond er water in het keukenkastje onder de gootsteen. De sifon lekt",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "leaking sink trap (sifon)",
+        "quote": "De sifon lekt",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "kitchen, cabinet under the sink",
+        "quote": "het keukenkastje onder de gootsteen",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "ik heb de kraan dichtgedraaid",
+        "evidence_id": "EV-0001"
+      },
+      "emergency_measures": {
+        "value": "Closed the tap",
+        "quote": "ik heb de kraan dichtgedraaid",
+        "evidence_id": "EV-0001"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Cabinet base under the sink",
+          "quote": "De bodem van het kastje is opgezwollen",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Laminate flooring in front of the cabinet",
+          "quote": "het laminaat ervoor ook",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.9,
+      "reasoning": "Customer gave no ages for any item; the ages on the estimate were not stated by the customer so none were extracted. 'Vanochtend' resolved against the 2026-10-18 timestamp. No time of loss given.",
+      "summary": "Customer reports a leaking sink trap that flooded the kitchen sink cabinet, swelling the cabinet base and the laminate in front; the tap has been closed."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3258,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3258,
+          "model": null,
+          "output_tokens": 697,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 697,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

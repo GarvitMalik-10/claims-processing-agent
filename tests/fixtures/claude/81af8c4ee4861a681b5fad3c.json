@@ -1,0 +1,115 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-17T23:40:00+02:00:\nSomeone broke into my flat this evening while I was out. They forced the door to my study - the frame is split - and took my laptop (bought 2 years ago, EUR 1,299). Police report number PV-2026-118734. Locksmith quote attached.\n\nRepair estimate lines:\n- DOOR-FRAME-REPAIR: Repair split door frame (age on estimate: not stated)\n- LOCK-REPL: Replace bolt and keeper (age on estimate: not stated)\n- CONT-LAPTOP: Laptop (stolen), purchase 2024 (age on estimate: 2.0)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "en",
+      "loss_date": {
+        "value": "2026-10-17",
+        "quote": "this evening",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Someone broke into the flat while the customer was out, forced the study door and stole a laptop",
+        "quote": "Someone broke into my flat this evening while I was out.",
+        "evidence_id": "EV-0001"
+      },
+      "source": null,
+      "location": {
+        "value": "Study",
+        "quote": "They forced the door to my study",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": null,
+      "third_party_involved": null,
+      "police_report_ref": {
+        "value": "PV-2026-118734",
+        "quote": "Police report number PV-2026-118734",
+        "evidence_id": "EV-0001"
+      },
+      "fire_brigade_report_ref": null,
+      "theft_reported": {
+        "value": true,
+        "quote": "took my laptop",
+        "evidence_id": "EV-0001"
+      },
+      "affected_items": [
+        {
+          "label": "Study door frame",
+          "quote": "the frame is split",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Laptop",
+          "quote": "took my laptop (bought 2 years ago, EUR 1,299)",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [
+        {
+          "line_code": "CONT-LAPTOP",
+          "age_years": 2.0,
+          "quote": "bought 2 years ago",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "extraction_confidence": 0.9,
+      "reasoning": "Message sent 23:40 on 2026-10-17, so 'this evening' resolves to 2026-10-17. Exact time not stated. The lock replacement was not mentioned by the customer, so it is not listed as affected. Locksmith quote is mentioned as attached only.",
+      "summary": "Customer reports a burglary this evening in which the study door frame was split and a 2-year-old laptop was stolen; a police report number was provided."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3198,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3198,
+          "model": null,
+          "output_tokens": 636,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 636,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

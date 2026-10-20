@@ -1,0 +1,112 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-17T19:40:00+02:00:\nEergisteren is de toevoerslang van de wasmachine op zolder geknapt. Voordat ik het doorhad was het water door het plafond van de slaapkamer eronder gelopen. De verf komt er in grote stukken af. Slang is al vervangen. Hierbij foto en offerte van de stukadoor.\n\nRepair estimate lines:\n- PLB-HOSE-REPL: Nieuwe toevoerslang wasmachine (age on estimate: not stated)\n- CEIL-PLAST-REPAIR: Plafond plaatselijk herstellen (age on estimate: not stated)\n- CEIL-PAINT: Plafond slaapkamer sausen (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-15",
+        "quote": "Eergisteren is de toevoerslang van de wasmachine op zolder geknapt.",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "The supply hose of the washing machine in the attic burst and water ran through the bedroom ceiling below",
+        "quote": "Eergisteren is de toevoerslang van de wasmachine op zolder geknapt. Voordat ik het doorhad was het water door het plafond van de slaapkamer eronder gelopen.",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "washing machine supply hose",
+        "quote": "de toevoerslang van de wasmachine op zolder geknapt",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "bedroom ceiling (below the attic)",
+        "quote": "het water door het plafond van de slaapkamer eronder gelopen",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "Slang is al vervangen.",
+        "evidence_id": "EV-0001"
+      },
+      "emergency_measures": {
+        "value": "The hose has already been replaced",
+        "quote": "Slang is al vervangen.",
+        "evidence_id": "EV-0001"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Bedroom ceiling paint",
+          "quote": "De verf komt er in grote stukken af.",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Bedroom ceiling",
+          "quote": "het water door het plafond van de slaapkamer eronder gelopen",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.9,
+      "reasoning": "Message sent 2026-10-17, so 'eergisteren' (day before yesterday) resolves to 2026-10-15. No item ages stated. No time of loss given.",
+      "summary": "Customer reports that a washing machine supply hose in the attic burst two days before the message, causing water damage to the bedroom ceiling below; the hose is already replaced and a photo and plasterer's quote were provided."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3240,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3240,
+          "model": null,
+          "output_tokens": 755,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 755,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

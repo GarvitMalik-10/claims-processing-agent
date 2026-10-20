@@ -1,0 +1,93 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-15T10:05:00+02:00:\nEven ter info: bij de storm is de grote es in de voortuin omgevallen. Hij heeft het huis en de garage gelukkig gemist, er is geen schade. Ik wil het alleen even gemeld hebben. Ik laat hem zelf weghalen.\n\nNo repair estimate received yet."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": null,
+      "loss_time": null,
+      "what_happened": {
+        "value": "During the storm the large ash tree in the front garden fell over; it missed the house and garage and there is no damage",
+        "quote": "bij de storm is de grote es in de voortuin omgevallen",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "storm",
+        "quote": "bij de storm",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "front garden",
+        "quote": "in de voortuin",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": {
+        "value": "Customer will have the fallen tree removed themselves",
+        "quote": "Ik laat hem zelf weghalen.",
+        "evidence_id": "EV-0001"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [],
+      "item_ages": [],
+      "extraction_confidence": 0.85,
+      "reasoning": "The customer says the storm date is not given, so loss_date is null. The customer explicitly states there is no damage and only wants to report the fallen tree for information. No estimate lines exist, so no item ages.",
+      "summary": "Customer reports that a large ash tree fell in the front garden during the storm without damaging the house or garage, and will remove it themselves."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3101,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3101,
+          "model": null,
+          "output_tokens": 457,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 457,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

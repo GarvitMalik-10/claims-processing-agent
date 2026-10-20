@@ -11,5 +11,6 @@ price_tolerance: 0.10
 missing_info:
   max_rounds: 2
 claim_vs_incident:
-  # Jev noul "is the customer asking for compensation?" below this -> incident only
-  incident_below: 0.3
+  # Incident only when Jev noul "customer explicitly says they are only informing" >= this
+  # AND no repair estimate was sent. Otherwise it is a claim (the safe default).
+  incident_from: 0.75

@@ -1,0 +1,108 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-15T09:20:00+02:00:\nTijdens de storm van gisteravond is de schoorsteen omgewaaid en op het dak gevallen. Een paar pannen zijn kapot. De dakdekker heeft het vanochtend al noodafgedekt. Foto en offerte bijgevoegd.\n\nRepair estimate lines:\n- CHIMNEY-REBUILD: Schoorsteen herbouwen incl. rookkanaal (age on estimate: not stated)\n- ROOF-TILE-REPL: Dakpannen vervangen (age on estimate: 18.0)\n- SCAFFOLD: Steiger 1 week (age on estimate: not stated)\n- TEMP-COVER: Noodafdekking (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-14",
+        "quote": "Tijdens de storm van gisteravond",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "During the storm the chimney blew over and fell onto the roof; a few roof tiles are broken",
+        "quote": "is de schoorsteen omgewaaid en op het dak gevallen. Een paar pannen zijn kapot.",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "storm",
+        "quote": "Tijdens de storm van gisteravond",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "roof and chimney",
+        "quote": "de schoorsteen omgewaaid en op het dak gevallen",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": {
+        "value": "The roofer made an emergency cover this morning",
+        "quote": "De dakdekker heeft het vanochtend al noodafgedekt.",
+        "evidence_id": "EV-0001"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Chimney",
+          "quote": "de schoorsteen omgewaaid",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Roof tiles",
+          "quote": "Een paar pannen zijn kapot.",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.9,
+      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-15. Customer gave no ages; the 18.0 age on the estimate line is not from the customer message so not extracted. Storm is the cause; no stop statement beyond the emergency cover, so source_stopped left null.",
+      "summary": "Customer reports that last night's storm blew the chimney onto the roof and broke several tiles; a roofer has already applied an emergency cover."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3245,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3245,
+          "model": null,
+          "output_tokens": 670,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 670,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

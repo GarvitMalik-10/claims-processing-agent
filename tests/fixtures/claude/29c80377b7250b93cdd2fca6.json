@@ -1,0 +1,104 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-16T21:05:00+02:00:\nHi, water came through my bedroom ceiling from the flat upstairs - their shower leaked I think. There's a brown stain and a crack where the ceiling meets the wall. Can you cover the repair? Quote attached.\n\nRepair estimate lines:\n- CEIL-PLAST-REPAIR: Repair ceiling and joint crack (age on estimate: not stated)\n- CEIL-PAINT: Repaint bedroom ceiling (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "en",
+      "loss_date": null,
+      "loss_time": null,
+      "what_happened": {
+        "value": "Water came through the bedroom ceiling from the flat upstairs",
+        "quote": "water came through my bedroom ceiling from the flat upstairs",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "Leaking shower in the flat upstairs (customer's assumption)",
+        "quote": "their shower leaked I think",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "Bedroom ceiling",
+        "quote": "my bedroom ceiling",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": null,
+      "third_party_involved": {
+        "value": "Neighbour in the flat upstairs, whose shower is thought to have leaked",
+        "quote": "the flat upstairs - their shower leaked I think",
+        "evidence_id": "EV-0001"
+      },
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Bedroom ceiling (brown stain)",
+          "quote": "There's a brown stain",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Crack where ceiling meets wall",
+          "quote": "a crack where the ceiling meets the wall",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.85,
+      "reasoning": "No loss date or time given. Cause (upstairs shower) is stated with uncertainty ('I think'). Source stopped status not mentioned. No item ages given.",
+      "summary": "Customer reports water leaking through the bedroom ceiling from the upstairs flat, probably a leaking shower, leaving a brown stain and a crack, and asks whether the repair is covered."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3158,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3158,
+          "model": null,
+          "output_tokens": 593,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 593,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

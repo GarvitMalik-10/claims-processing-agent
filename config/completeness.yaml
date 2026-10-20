@@ -8,7 +8,10 @@ perils:
   fire_smoke: [damage_photo, fire_brigade_report]
   theft_burglary: [damage_photo, police_report_ref_if_theft]
   accidental_damage: [damage_photo]
-  other_unclear: [damage_photo]
+  other_unclear_cause: [damage_photo]
+# A peril is only accepted when Jev's choice confidence reaches thresholds.min_choice_confidence and
+# it is not the catch-all; otherwise "peril" is missing and the customer is asked what happened.
+catch_all_peril: other_unclear_cause
 # Fire brigade report only required above this estimated amount (small socket fires have none).
 fire_brigade_report_required_above: 2500
 # Item age is required for every estimate line whose category is depreciable.

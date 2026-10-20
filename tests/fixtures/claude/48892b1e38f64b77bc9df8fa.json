@@ -1,0 +1,96 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-19T18:00:00+02:00:\nEr is lekkage geweest in de woonkamer, de muren en de vloer zijn beschadigd. Hierbij een foto. Ik wil graag dat de vloer en de muren worden vergoed.\n\nRepair estimate lines:\n- FLOOR-WOOD-REPL: Vloer woonkamer (age on estimate: not stated)\n- WALL-PAINT: Muren schilderen (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": null,
+      "loss_time": null,
+      "what_happened": {
+        "value": "There has been a leak in the living room",
+        "quote": "Er is lekkage geweest in de woonkamer",
+        "evidence_id": "EV-0001"
+      },
+      "source": null,
+      "location": {
+        "value": "living room",
+        "quote": "in de woonkamer",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": null,
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "walls",
+          "quote": "de muren en de vloer zijn beschadigd",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "floor",
+          "quote": "de muren en de vloer zijn beschadigd",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.85,
+      "reasoning": "Customer gave no date, time, source of the leak, or whether it was stopped. No item ages stated. A photo is mentioned but cannot be read here.",
+      "summary": "Customer reports a leak in the living room that damaged the walls and floor and asks for both to be reimbursed."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3144,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3144,
+          "model": null,
+          "output_tokens": 410,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 410,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

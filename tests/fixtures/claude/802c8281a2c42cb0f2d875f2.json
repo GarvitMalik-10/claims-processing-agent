@@ -1,0 +1,111 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-16T21:05:00+02:00:\nHi, water came through my bedroom ceiling from the flat upstairs - their shower leaked I think. There's a brown stain and a crack where the ceiling meets the wall. Can you cover the repair? Quote attached.\n\n[EV-0004] sent 2026-10-17T10:00:00+02:00:\nIt happened on Thursday the 15th. The neighbours turned their water off that night and their plumber has fixed the shower.\n\nRepair estimate lines:\n- CEIL-PLAST-REPAIR: Repair ceiling and joint crack (age on estimate: not stated)\n- CEIL-PAINT: Repaint bedroom ceiling (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "en",
+      "loss_date": {
+        "value": "2026-10-15",
+        "quote": "It happened on Thursday the 15th.",
+        "evidence_id": "EV-0004"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Water came through the bedroom ceiling from the flat upstairs",
+        "quote": "water came through my bedroom ceiling from the flat upstairs",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "Upstairs neighbour's shower leak",
+        "quote": "their shower leaked I think",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "Bedroom ceiling",
+        "quote": "water came through my bedroom ceiling",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "The neighbours turned their water off that night and their plumber has fixed the shower.",
+        "evidence_id": "EV-0004"
+      },
+      "emergency_measures": {
+        "value": "Neighbours turned their water off that night",
+        "quote": "The neighbours turned their water off that night",
+        "evidence_id": "EV-0004"
+      },
+      "third_party_involved": {
+        "value": "Upstairs neighbours; the leak came from their shower",
+        "quote": "the flat upstairs - their shower leaked I think",
+        "evidence_id": "EV-0001"
+      },
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Bedroom ceiling",
+          "quote": "There's a brown stain and a crack where the ceiling meets the wall.",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.9,
+      "reasoning": "Customer states the date as Thursday the 15th; 2026-10-15 is a Thursday, consistent with the message timestamps. Cause (shower leak) is stated with uncertainty ('I think'). No item ages were given. No time of loss given, only 'that night'.",
+      "summary": "Customer reports water damage to the bedroom ceiling from an upstairs neighbour's leaking shower on 2026-10-15, now fixed, and asks for repair cover."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3225,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3225,
+          "model": null,
+          "output_tokens": 707,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 707,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

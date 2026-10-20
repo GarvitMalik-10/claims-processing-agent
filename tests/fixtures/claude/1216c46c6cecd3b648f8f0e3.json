@@ -1,0 +1,99 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-18T11:45:00+02:00:\nGisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort, de brandweer was er. Ik weet het rapportnummer nog niet. Kunnen jullie snel betalen want we kunnen er niet wonen.\n\nRepair estimate lines:\n- FIRE-INTERIOR-REBUILD: Woonkamer strippen en herbouwen (age on estimate: not stated)\n- DEMOLITION-DEBRIS: Sloop en afvoer (age on estimate: not stated)\n- SOOT-CLEAN-ROOM: Roetreiniging overige ruimtes (3) (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-17",
+        "quote": "Gisteravond is er brand geweest",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Fire in the living room",
+        "quote": "Gisteravond is er brand geweest in de woonkamer, de kachel.",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "stove",
+        "quote": "de kachel",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "living room",
+        "quote": "in de woonkamer",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": null,
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "living room interior",
+          "quote": "Alles is zwart en ingestort",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.85,
+      "reasoning": "Fire brigade attended, but the customer does not yet know the report number, so no reference was extracted. The customer did not say the fire was out, so source_stopped is null. The loss date is resolved from 'gisteravond' against the 2026-10-18 timestamp. No item ages were given.",
+      "summary": "Customer reports a fire from the stove in the living room last evening, with the fire brigade attending, the home uninhabitable, and asks for quick payment."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3229,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3229,
+          "model": null,
+          "output_tokens": 498,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 498,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

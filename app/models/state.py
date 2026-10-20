@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
-Stage = Literal["fnol", "assessment", "join", "payout", "routing", "review", "closed", "incident_only"]
+Stage = Literal["fnol", "awaiting_customer", "assessment", "join", "payout", "routing", "review", "closed",
+                "incident_only"]
 InterruptReason = Literal["awaiting_customer_info", "awaiting_human_review"]
 
 
@@ -14,5 +15,5 @@ class ClaimGraphState(BaseModel):
     claim_id: str
     stage: Stage = "fnol"
     info_request_rounds: int = 0
-    last_event_seq: int = 0
     pending_interrupt: InterruptReason | None = None
+    route_reasons: list[str] = Field(default_factory=list)

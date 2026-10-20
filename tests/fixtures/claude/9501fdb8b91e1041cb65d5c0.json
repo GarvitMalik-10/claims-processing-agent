@@ -1,0 +1,108 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-12T09:00:00+02:00:\nWe had a fire on Saturday night that started in the attic. The fire brigade came (report BRW-2026-44871). The roof is gone and the top floor is badly damaged. We're staying with family. What happens now?\n\nRepair estimate lines:\n- FIRE-ROOF-REBUILD: Rebuild roof incl. covering (age on estimate: not stated)\n- FIRE-INTERIOR-REBUILD: Strip and rebuild top floor (age on estimate: not stated)\n- DEMOLITION-DEBRIS: Demolition and debris removal (age on estimate: not stated)\n- SCAFFOLD: Scaffolding 6 weeks (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "en",
+      "loss_date": {
+        "value": "2026-10-10",
+        "quote": "We had a fire on Saturday night",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Fire that started in the attic",
+        "quote": "We had a fire on Saturday night that started in the attic.",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "Attic",
+        "quote": "started in the attic",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "Attic, roof and top floor",
+        "quote": "The roof is gone and the top floor is badly damaged.",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": null,
+      "emergency_measures": null,
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": {
+        "value": "BRW-2026-44871",
+        "quote": "report BRW-2026-44871",
+        "evidence_id": "EV-0001"
+      },
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Roof",
+          "quote": "The roof is gone",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Top floor",
+          "quote": "the top floor is badly damaged",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.9,
+      "reasoning": "Message sent Monday 2026-10-12; 'Saturday night' resolved to Saturday 2026-10-10. Exact time not given. The fire brigade came, but it is not explicitly stated that the fire is out, so source_stopped is null. No item ages given.",
+      "summary": "Customer reports a fire that started in the attic on Saturday night, destroying the roof and badly damaging the top floor; fire brigade report BRW-2026-44871 exists and the family is staying with relatives."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3231,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3231,
+          "model": null,
+          "output_tokens": 598,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 598,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

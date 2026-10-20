@@ -1,6 +1,6 @@
 # Property Claims STP — Explainable Multi-Agent Claims Engine (Demo)
 
-> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). 43 tests green. Next: live smoke test (`python -m scripts.smoke_live`), then M2 FNOL subgraph.
+> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). 85 tests green. **Next: M3** parallel Damage / Policy / Risk agents. Voice + video intake (M2b) waits for ffmpeg.
 > This README is the full spec/hand-off. A new session should be able to start building from this file alone.
 > **Guiding rule for v1:** this is a **sales demo**. *Simple, explainable and working* beats spec exactness. Domain refinements come later.
 
@@ -702,6 +702,8 @@ The 12 golden scenarios (§11) are the regression suite that makes sure these fr
 | 2026-10-20 | Unit tests never call live models (recorded fixtures); eval harness runs live |
 | 2026-10-20 | Demo is free play: prospect plays the customer and chooses channels freely; persona picker + sample media gallery; presenter steers with a cheat sheet |
 | 2026-10-20 | Build go: React + Vite frontend; local `faster-whisper`; **no offline fallback** (venue Wi-Fi is reliable); thresholds start from placeholders and are tuned on S01–S20; brand name **Tecto** |
+| 2026-10-20 | Claim vs incident is **claim by default**: incident only when Jev's `only_informing` noul ≥ 0.75 **and** no repair estimate was sent. This check runs **before** completeness, so people who are only reporting aren't chased for details. (The first version asked "is the customer requesting compensation?", which misread a plain leak report as an incident.) |
+| 2026-10-20 | FNOL extraction: every field must quote the customer verbatim; code checks the quote against the message and drops the field if the quote isn't there |
 | 2026-10-20 | Demo runs locally on the presenter's laptop as a split screen: front stage (customer chat) + backstage (process map, event stream, report, review inbox, audit) |
 
 ## 18. Open decisions
