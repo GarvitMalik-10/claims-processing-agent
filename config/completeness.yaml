@@ -1,0 +1,15 @@
+# Required FNOL fields per peril (README section 7.2 step 3).
+version: 1
+common: [loss_date, peril, location]
+perils:
+  water_burst_or_leak: [source, source_stopped, damage_photo]
+  flood_surface_water: [damage_photo]
+  storm_wind_hail: [damage_photo]
+  fire_smoke: [damage_photo, fire_brigade_report]
+  theft_burglary: [damage_photo, police_report_ref_if_theft]
+  accidental_damage: [damage_photo]
+  other_unclear: [damage_photo]
+# Fire brigade report only required above this estimated amount (small socket fires have none).
+fire_brigade_report_required_above: 2500
+# Item age is required for every estimate line whose category is depreciable.
+require_item_age_for_depreciable: true

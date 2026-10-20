@@ -1,0 +1,665 @@
+{
+  "_meta": {
+    "description": "Golden image observations for the 20 demo images. They serve as reference labels for evaluating the vision extraction step (Sonnet vision) and Jev's image questions. At runtime these fields are produced by the models; this file is what a careful human adjuster would record.",
+    "schema_version": "image_observation_v1",
+    "annotated_by": "claude-opus-5-5 (visual review of each image, 2026-10-20)",
+    "human_review_status": "pending",
+    "confidence_note": "Confidences are the annotator's per-element certainty (0-1). They are reference labels, not measured model probabilities.",
+    "enums": {
+      "setting": ["interior", "exterior", "close_up_detail"],
+      "room_type": ["kitchen", "bathroom", "living_room", "bedroom", "hallway", "stairwell_or_basement", "attic", "exterior_roof", "exterior_facade", "garden", "non_residential", "unknown"],
+      "image_quality": ["good", "blurry", "too_dark", "partial_view", "not_a_damage_photo"],
+      "severity": ["none_no_visible_damage", "minor_surface_staining", "moderate_localized_damage", "severe_extensive_damage", "other_cannot_assess"],
+      "sudden_vs_gradual": ["sudden_recent_event", "gradual_long_term", "unclear_cannot_tell"],
+      "peril_indicated": ["water_burst_or_leak", "storm_wind_hail", "fire_smoke", "theft_burglary", "accidental_damage", "flood_surface_water", "other_unclear", "none"]
+    }
+  },
+  "observations": [
+    {
+      "image_id": "IMG-01",
+      "file": "media/images/IMG-01_pipe_leak_under_sink.jpg",
+      "scene": {"setting": "close_up_detail", "room_type": "kitchen", "room_type_confidence": 0.55, "room_type_cues": ["sink waste trap typical of a kitchen or bathroom vanity; background is an out-of-focus cabinet or wall"]},
+      "image_quality": {"rating": "good", "issues": ["shallow depth of field; background not assessable"], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.7, "note": "Shows an active leak (the source), not damage to surrounding materials"},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.9},
+      "damage_types": [
+        {"type": "active_drip", "location": "underside of the U-bend", "confidence": 0.95},
+        {"type": "surface_discoloration", "location": "brown spots and grime on the pipe", "confidence": 0.7}
+      ],
+      "damaged_parts": [
+        {"part": "sink waste trap (white PVC P-trap)", "condition": "leaking at the bottom of the bend", "confidence": 0.9}
+      ],
+      "materials": ["pvc_pipe"],
+      "severity": {"value": "minor_surface_staining", "confidence": 0.6, "note": "Leak is visible but no consequential damage is in frame"},
+      "sudden_vs_gradual": {"value": "unclear_cannot_tell", "confidence": 0.6, "cues": ["active drip suggests a current leak", "grime and brown spots on the pipe could mean it has been leaking for some time"]},
+      "long_term_signs": {"value": false, "confidence": 0.55, "cues": ["no mould or rot visible; discoloration on the pipe only"]},
+      "visible_text": [],
+      "regional_indicators": ["US-style PVC trap with slip nuts (also common in NL)"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["PLB-TRAP-REPL"],
+      "items_not_visible_but_likely_claimed": ["kitchen base cabinet", "floor below the sink"],
+      "summary": {
+        "en": "Close-up of a white plastic sink trap with water dripping from the bend. It shows where the leak comes from, but not the damage it caused.",
+        "nl": "Close-up van een witte kunststof sifon die lekt aan de onderkant van de bocht. Toont de bron van het lek, niet de gevolgschade."
+      },
+      "warnings": [
+        {"code": "SOURCE_ONLY_NO_CONSEQUENTIAL_DAMAGE", "severity": "warning", "message": "Image shows the leak source only; cabinet or floor damage is not visible."},
+        {"code": "SOURCE_REPAIR_LIKELY_EXCLUDED", "severity": "info", "message": "Repairing the trap itself is usually excluded; only the resulting damage is covered."}
+      ]
+    },
+    {
+      "image_id": "IMG-02",
+      "file": "media/images/IMG-02_ceiling_paint_peeling.jpg",
+      "scene": {"setting": "interior", "room_type": "unknown", "room_type_confidence": 0.2, "room_type_cues": ["only a white ceiling surface is in frame"]},
+      "image_quality": {"rating": "good", "issues": ["slightly soft focus", "no reference for size"], "confidence": 0.8},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.85},
+      "damage_types": [
+        {"type": "paint_peeling", "location": "large patch across the ceiling", "confidence": 0.95},
+        {"type": "water_staining", "location": "yellow-brown stains on the exposed surface", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "ceiling paint layer", "condition": "lifted and peeling in large flakes", "confidence": 0.95},
+        {"part": "ceiling board/plaster", "condition": "stained; no visible sagging or hole", "confidence": 0.7}
+      ],
+      "materials": ["painted_plasterboard_ceiling"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.75, "estimated_area_m2": {"value": 1.5, "confidence": 0.35}},
+      "sudden_vs_gradual": {"value": "unclear_cannot_tell", "confidence": 0.5, "cues": ["fresh-looking flakes", "brown staining can also come from repeated wetting"]},
+      "long_term_signs": {"value": false, "confidence": 0.6, "cues": ["no mould spots or rot visible"]},
+      "visible_text": [],
+      "regional_indicators": [],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CEIL-PLAST-REPAIR", "CEIL-PAINT"],
+      "summary": {
+        "en": "Ceiling with a large area of peeling paint and yellow-brown water stains. This fits water coming through from above. The ceiling has not collapsed.",
+        "nl": "Plafond met een groot gebied afbladderende verf en geelbruine watervlekken; past bij water van bovenaf. Geen doorzakking zichtbaar."
+      },
+      "warnings": [
+        {"code": "ROOM_NOT_IDENTIFIABLE", "severity": "info", "message": "Only ceiling visible; room cannot be confirmed from the image."}
+      ]
+    },
+    {
+      "image_id": "IMG-03",
+      "file": "media/images/IMG-03_ceiling_stain_crack.jpg",
+      "scene": {"setting": "interior", "room_type": "unknown", "room_type_confidence": 0.2, "room_type_cues": ["ceiling-to-wall junction only"]},
+      "image_quality": {"rating": "good", "issues": ["flash glare and yellow cast"], "confidence": 0.8},
+      "damage_present": {"value": true, "confidence": 0.9},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.8},
+      "damage_types": [
+        {"type": "water_staining", "location": "streaky brown stain on textured ceiling near the wall", "confidence": 0.85},
+        {"type": "crack", "location": "along the ceiling-wall joint", "confidence": 0.8},
+        {"type": "paint_flaking", "location": "small flake at the joint", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "textured ceiling finish", "condition": "stained", "confidence": 0.85},
+        {"part": "ceiling-wall joint", "condition": "cracked with small flake missing", "confidence": 0.8}
+      ],
+      "materials": ["textured_plaster_ceiling", "painted_wall"],
+      "severity": {"value": "minor_surface_staining", "confidence": 0.7, "estimated_area_m2": {"value": 0.8, "confidence": 0.3}},
+      "sudden_vs_gradual": {"value": "unclear_cannot_tell", "confidence": 0.55, "cues": ["streaky stains could be one leak or several"]},
+      "long_term_signs": {"value": false, "confidence": 0.6, "cues": []},
+      "visible_text": [],
+      "regional_indicators": ["knockdown-textured ceiling is uncommon in NL homes"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CEIL-PLAST-REPAIR", "CEIL-PAINT"],
+      "summary": {
+        "en": "Textured ceiling with a brown water stain and a small crack at the joint with the wall. Minor damage, limited to the surface.",
+        "nl": "Gestructureerd plafond met een bruine watervlek en een kleine scheur bij de aansluiting op de wand. Lichte, oppervlakkige schade."
+      },
+      "warnings": []
+    },
+    {
+      "image_id": "IMG-04",
+      "file": "media/images/IMG-04_buckled_wood_floor.jpg",
+      "scene": {"setting": "interior", "room_type": "non_residential", "room_type_confidence": 0.85, "room_type_cues": ["glass museum display cases with artefacts and labels", "plinths", "commercial dehumidifiers"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.75},
+      "damage_types": [
+        {"type": "buckling_swelling", "location": "wooden strip floor lifted in a ridge across the room", "confidence": 0.95},
+        {"type": "gaps_between_boards", "location": "around the buckled area", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "solid wood strip / parquet floor", "condition": "boards lifted and buckled", "confidence": 0.95}
+      ],
+      "materials": ["solid_wood_strip_floor"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.7, "estimated_area_m2": {"value": 20, "confidence": 0.3}},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.55, "cues": ["drying equipment is running, so this looks like a recent incident being dried out"]},
+      "long_term_signs": {"value": false, "confidence": 0.65, "cues": []},
+      "mitigation_visible": {"value": true, "confidence": 0.85, "detail": "two dehumidifiers/air movers at the back of the room"},
+      "visible_text": ["exhibit label text (German, illegible at this size)"],
+      "regional_indicators": ["museum exhibition setting"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["FLOOR-WOOD-REPL", "DRYING-EQUIP"],
+      "summary": {
+        "en": "A wooden strip floor has buckled and lifted in a ridge, which is typical water swelling, and drying equipment is running. The room is a museum exhibition space, not a home.",
+        "nl": "Houten vloer opgebold door vocht, met droogapparatuur in bedrijf. De ruimte is een museumzaal met vitrines, geen woning."
+      },
+      "warnings": [
+        {"code": "NON_RESIDENTIAL_SETTING", "severity": "critical", "message": "Display cases and exhibits indicate a museum, not a private home."},
+        {"code": "POSSIBLE_WEB_SOURCED_IMAGE", "severity": "warning", "message": "Professional composition of a public building; check reverse image search / hash history."}
+      ]
+    },
+    {
+      "image_id": "IMG-05",
+      "file": "media/images/IMG-05_flood_gutted_kitchen.jpg",
+      "scene": {"setting": "interior", "room_type": "kitchen", "room_type_confidence": 0.9, "room_type_cues": ["upper kitchen cabinets", "range hood", "plumbing for sink"]},
+      "image_quality": {"rating": "good", "issues": ["dim lighting"], "confidence": 0.85},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "flood_surface_water", "confidence": 0.7, "alternatives": {"water_burst_or_leak": 0.2, "other_unclear": 0.1}},
+      "damage_types": [
+        {"type": "wall_finish_removed_to_fixed_height", "location": "drywall stripped from floor to about 1.2 m around the whole room", "confidence": 0.9},
+        {"type": "base_units_removed", "location": "all lower cabinets gone; upper cabinets intact", "confidence": 0.9},
+        {"type": "dirt_residue_on_floor", "location": "dark residue on the tiles", "confidence": 0.75}
+      ],
+      "damaged_parts": [
+        {"part": "lower wall finishes (drywall)", "condition": "removed - studs exposed", "confidence": 0.95},
+        {"part": "base cabinets and worktop", "condition": "removed", "confidence": 0.9},
+        {"part": "floor tiles", "condition": "soiled", "confidence": 0.7}
+      ],
+      "materials": ["timber_stud_wall", "drywall", "ceramic_floor_tile", "kitchen_cabinets"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.85},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.5, "cues": ["uniform horizontal cut line is typical of flood remediation, not a single pipe leak"]},
+      "long_term_signs": {"value": false, "confidence": 0.5, "cues": ["remediation already done, so earlier mould cannot be assessed"]},
+      "post_mitigation_photo": {"value": true, "confidence": 0.9, "detail": "photo was taken after the demolition/strip-out, not at the time of the loss"},
+      "visible_text": [],
+      "regional_indicators": ["timber stud walls and US electrical boxes, uncommon in NL"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["KITCH-BASE-CAB", "WALL-DRYWALL-REPL", "DRYING-EQUIP"],
+      "summary": {
+        "en": "Kitchen stripped to the studs up to about 1.2 m all round, with all base units removed. The even line suggests rising floodwater rather than a pipe leak. The photo was taken after cleanup, not at the time of the loss.",
+        "nl": "Keuken tot circa 1,2 m gestript tot op het regelwerk, onderkasten verwijderd. De gelijkmatige lijn wijst op overstroming, niet op een leidinglek. Foto na sanering genomen."
+      },
+      "warnings": [
+        {"code": "FLOOD_PATTERN", "severity": "warning", "message": "Even damage height around the room suggests outside floodwater, which may be excluded."},
+        {"code": "POST_MITIGATION_PHOTO", "severity": "warning", "message": "Original damage state not visible; extent must be verified from other evidence."}
+      ]
+    },
+    {
+      "image_id": "IMG-06",
+      "file": "media/images/IMG-06_bathroom_ceiling_tile_stain.jpg",
+      "scene": {"setting": "interior", "room_type": "bathroom", "room_type_confidence": 0.75, "room_type_cues": ["glazed ceramic wall tiles up to the ceiling", "suspended acoustic ceiling tiles (more typical of commercial washrooms)"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.85},
+      "damage_types": [
+        {"type": "water_staining_with_tide_marks", "location": "one suspended ceiling tile", "confidence": 0.9},
+        {"type": "possible_mould_spots", "location": "small dark cluster in the stain centre", "confidence": 0.5}
+      ],
+      "damaged_parts": [
+        {"part": "suspended acoustic ceiling tile (1 pc)", "condition": "stained, surface cracked", "confidence": 0.9}
+      ],
+      "materials": ["mineral_fibre_ceiling_tile", "ceramic_wall_tile"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.7, "estimated_area_m2": {"value": 0.4, "confidence": 0.5}},
+      "sudden_vs_gradual": {"value": "gradual_long_term", "confidence": 0.5, "cues": ["several concentric tide rings suggest repeated wetting"]},
+      "long_term_signs": {"value": true, "confidence": 0.55, "cues": ["tide marks", "possible mould spots"]},
+      "visible_text": [],
+      "regional_indicators": ["drop ceiling in a tiled room is atypical for NL homes"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CEIL-TILE-REPL"],
+      "summary": {
+        "en": "One suspended ceiling tile in a fully tiled room, probably a bathroom, with a brown water stain showing several tide rings. The repeated rings point to recurring rather than one-off leaking.",
+        "nl": "Eén systeemplafondplaat in een betegelde ruimte (waarschijnlijk badkamer) met een bruine watervlek en meerdere randen. Wijst op herhaalde lekkage."
+      },
+      "warnings": [
+        {"code": "TIDE_MARKS_REPEATED_WETTING", "severity": "warning", "message": "Multiple tide rings indicate recurring leakage."}
+      ]
+    },
+    {
+      "image_id": "IMG-07",
+      "file": "media/images/IMG-07_shower_black_mould.jpg",
+      "scene": {"setting": "close_up_detail", "room_type": "bathroom", "room_type_confidence": 0.7, "room_type_cues": ["sealant line along a shower tray or tile edge"]},
+      "image_quality": {"rating": "good", "issues": ["very shallow depth of field"], "confidence": 0.85},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "other_unclear", "confidence": 0.6, "note": "Mould growth, not a peril by itself"},
+      "damage_types": [
+        {"type": "black_mould_growth", "location": "band along the bottom of the textured wall above the sealant", "confidence": 0.95}
+      ],
+      "damaged_parts": [
+        {"part": "wall finish above the shower edge", "condition": "colonised by black mould", "confidence": 0.9},
+        {"part": "silicone sealant line", "condition": "discoloured / degraded", "confidence": 0.7}
+      ],
+      "materials": ["textured_wall_finish", "silicone_sealant"],
+      "severity": {"value": "minor_surface_staining", "confidence": 0.6},
+      "sudden_vs_gradual": {"value": "gradual_long_term", "confidence": 0.9, "cues": ["mature mould colonies take weeks to months to form"]},
+      "long_term_signs": {"value": true, "confidence": 0.95, "cues": ["black mould colonies", "degraded sealant"]},
+      "visible_text": [],
+      "regional_indicators": [],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["MOULD-REMEDIATION", "TILE-WALL-REPL"],
+      "summary": {
+        "en": "Close-up of black mould along the bottom of a shower wall above the sealant. This is a classic sign of long-term moisture and poor ventilation, not a sudden event.",
+        "nl": "Close-up van zwarte schimmel onderaan een douchewand boven de kitlijn. Klassiek teken van langdurig vocht, geen plotselinge gebeurtenis."
+      },
+      "warnings": [
+        {"code": "LONG_TERM_MOISTURE", "severity": "critical", "message": "Mould growth indicates gradual damage, typically excluded."}
+      ]
+    },
+    {
+      "image_id": "IMG-08",
+      "file": "media/images/IMG-08_ceiling_mould_beam.jpg",
+      "scene": {"setting": "interior", "room_type": "kitchen", "room_type_confidence": 0.6, "room_type_cues": ["wall-hung oak-effect cabinet", "possibly a fridge top at the lower left"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.98},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.6, "alternatives": {"storm_wind_hail": 0.15, "other_unclear": 0.25}},
+      "damage_types": [
+        {"type": "extensive_black_mould", "location": "large areas of the ceiling", "confidence": 0.95},
+        {"type": "water_staining_with_tide_marks", "location": "brown rings around the mould patches", "confidence": 0.9},
+        {"type": "ceiling_collapse_partial", "location": "ceiling board fallen away along a joist", "confidence": 0.9},
+        {"type": "wood_rot", "location": "exposed joist/beam is dark and decayed", "confidence": 0.8},
+        {"type": "paint_peeling", "location": "wall-ceiling corner", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "ceiling board/plaster", "condition": "saturated, partly collapsed, mould-covered", "confidence": 0.95},
+        {"part": "ceiling joist/beam", "condition": "exposed and rotted", "confidence": 0.8},
+        {"part": "wall paint near corner", "condition": "peeling", "confidence": 0.8},
+        {"part": "wall cabinet", "condition": "no visible damage", "confidence": 0.7}
+      ],
+      "materials": ["popcorn_textured_ceiling", "timber_joist", "textured_wall"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.85},
+      "sudden_vs_gradual": {"value": "gradual_long_term", "confidence": 0.9, "cues": ["mature mould colonies", "multiple tide rings", "rotten timber"]},
+      "long_term_signs": {"value": true, "confidence": 0.95, "cues": ["mould", "tide marks", "rot"]},
+      "visible_text": [],
+      "regional_indicators": ["popcorn ceiling is typical of US homes"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CEIL-PLAST-REPAIR", "ROOF-STRUCT-REPAIR", "MOULD-REMEDIATION"],
+      "summary": {
+        "en": "Ceiling in what looks like a kitchen, heavily covered in black mould, with tide rings and a partial collapse exposing a rotted beam. This is long-term water ingress, which contradicts a story of one sudden event.",
+        "nl": "Plafond (waarschijnlijk keuken) zwaar aangetast door zwarte schimmel, met vochtranden en gedeeltelijke instorting waarbij een verrotte balk zichtbaar is. Langdurige waterinslag; past niet bij één plotselinge gebeurtenis."
+      },
+      "warnings": [
+        {"code": "LONG_TERM_MOISTURE", "severity": "critical", "message": "Mould, tide marks and rot indicate long-term leakage or lack of maintenance."}
+      ]
+    },
+    {
+      "image_id": "IMG-09",
+      "file": "media/images/IMG-09_rotted_wall_rusty_pipe.jpg",
+      "scene": {"setting": "interior", "room_type": "stairwell_or_basement", "room_type_confidence": 0.6, "room_type_cues": ["stone steps bottom-left", "two-tone utility paint", "surface-run pipes and cables"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.98},
+      "peril_indicated": {"value": "water_burst_or_leak", "confidence": 0.7},
+      "damage_types": [
+        {"type": "rust_staining_streak", "location": "from a wall penetration down to the floor", "confidence": 0.95},
+        {"type": "corroded_penetration", "location": "around a copper pipe and cables entering the wall", "confidence": 0.85},
+        {"type": "efflorescence_salt_deposits", "location": "lower wall", "confidence": 0.8},
+        {"type": "paint_peeling", "location": "lower wall", "confidence": 0.9}
+      ],
+      "damaged_parts": [
+        {"part": "wall plaster around penetration", "condition": "eroded and stained", "confidence": 0.9},
+        {"part": "pipe/cable penetration", "condition": "corroded", "confidence": 0.8},
+        {"part": "wall paint", "condition": "peeling with salt deposits", "confidence": 0.85}
+      ],
+      "materials": ["painted_plaster_wall", "brick", "copper_pipe", "steel_pipe"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.7},
+      "sudden_vs_gradual": {"value": "gradual_long_term", "confidence": 0.9, "cues": ["deep rust trail", "salt efflorescence", "layered staining"]},
+      "long_term_signs": {"value": true, "confidence": 0.9, "cues": ["corrosion", "efflorescence", "peeling paint"]},
+      "visible_text": [],
+      "regional_indicators": [],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["PLB-PIPE-REPAIR", "WALL-PLASTER-REPAIR", "WALL-PAINT"],
+      "summary": {
+        "en": "Utility or stairwell wall with a long rust-coloured streak running down from a corroded pipe and cable entry, plus salt deposits and peeling paint. This is long-term seepage, not a fresh burst.",
+        "nl": "Wand in trapgat/kelder met een lange roestkleurige streep vanaf een gecorrodeerde leidingdoorvoer, zoutuitbloei en afbladderende verf. Langdurige lekkage, geen recente breuk."
+      },
+      "warnings": [
+        {"code": "LONG_TERM_MOISTURE", "severity": "critical", "message": "Corrosion and efflorescence indicate gradual leakage."}
+      ]
+    },
+    {
+      "image_id": "IMG-10",
+      "file": "media/images/IMG-10_scorched_socket.jpg",
+      "scene": {"setting": "close_up_detail", "room_type": "unknown", "room_type_confidence": 0.2, "room_type_cues": ["wall socket next to a door frame"]},
+      "image_quality": {"rating": "blurry", "issues": ["slight motion blur"], "confidence": 0.75},
+      "damage_present": {"value": true, "confidence": 0.95},
+      "peril_indicated": {"value": "fire_smoke", "confidence": 0.8},
+      "damage_types": [
+        {"type": "charring_melting", "location": "lower receptacle of a duplex socket", "confidence": 0.95},
+        {"type": "light_soot", "location": "bottom edge of the cover plate", "confidence": 0.6}
+      ],
+      "damaged_parts": [
+        {"part": "wall socket (lower outlet)", "condition": "burned through / melted", "confidence": 0.95},
+        {"part": "socket cover plate", "condition": "light soot", "confidence": 0.6}
+      ],
+      "materials": ["plastic_socket", "painted_wall"],
+      "severity": {"value": "minor_surface_staining", "confidence": 0.6, "note": "Fire damage is confined to the socket"},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.8, "cues": ["fresh charring, clean wall around it"]},
+      "long_term_signs": {"value": false, "confidence": 0.8, "cues": []},
+      "open_fire_evident": {"value": "unclear", "confidence": 0.5, "note": "The charring is consistent with a small electrical fire, but it could also be scorching without open flame"},
+      "visible_text": [],
+      "regional_indicators": ["North American NEMA 5-15 socket; not used in NL"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["ELEC-SOCKET-REPL", "SOOT-CLEAN-ROOM", "WALL-PAINT"],
+      "summary": {
+        "en": "Wall socket whose lower outlet is burned and melted, with a little soot on the cover plate. Consistent with a small electrical fire. The wall around it looks undamaged.",
+        "nl": "Wandcontactdoos waarvan de onderste aansluiting is verbrand en gesmolten, lichte roet op de afdekplaat. Past bij een kleine elektrische brand; omliggende wand oogt onbeschadigd."
+      },
+      "warnings": [
+        {"code": "SOCKET_TYPE_NOT_NL", "severity": "info", "message": "North American socket type. Demo images are internationally sourced, so this should not count as a risk signal in the demo config."},
+        {"code": "SCORCHING_VS_FIRE", "severity": "warning", "message": "Policy distinguishes fire (covered) from scorching/melting without flame (excluded)."}
+      ]
+    },
+    {
+      "image_id": "IMG-11",
+      "file": "media/images/IMG-11_house_roof_fire.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_roof", "room_type_confidence": 0.95, "room_type_cues": ["street view of a red-brick semi-detached house"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.95},
+      "damage_present": {"value": true, "confidence": 0.99},
+      "peril_indicated": {"value": "fire_smoke", "confidence": 0.95},
+      "damage_types": [
+        {"type": "roof_burned_through", "location": "most of the main roof; charred rafters exposed", "confidence": 0.95},
+        {"type": "window_fire_damage", "location": "upper side window blackened/broken", "confidence": 0.85},
+        {"type": "soot_on_facade", "location": "around the side window", "confidence": 0.6}
+      ],
+      "damaged_parts": [
+        {"part": "roof covering and timber structure", "condition": "destroyed", "confidence": 0.95},
+        {"part": "first-floor side window", "condition": "burned out", "confidence": 0.85},
+        {"part": "chimney stacks", "condition": "standing, no visible damage", "confidence": 0.8},
+        {"part": "brick facade and front bay windows", "condition": "largely intact", "confidence": 0.85}
+      ],
+      "materials": ["roof_slates", "timber_rafters", "brick_facade", "upvc_windows"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.95},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.95, "cues": ["fresh charring", "safety cordon tape and traffic cones"]},
+      "long_term_signs": {"value": false, "confidence": 0.9, "cues": []},
+      "visible_text": ["street sign 'WESTBOURNE RD'", "partial UK number plate on a parked car"],
+      "regional_indicators": ["UK street sign and number plate", "UK Edwardian house style"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["FIRE-ROOF-REBUILD", "FIRE-INTERIOR-REBUILD", "DEMOLITION-DEBRIS", "SCAFFOLD"],
+      "summary": {
+        "en": "Red-brick semi-detached house whose roof has largely burned away, leaving charred rafters, with one burned-out upper window. The walls are standing and a safety cordon is in place. Severe, recent fire damage.",
+        "nl": "Rode bakstenen twee-onder-een-kapwoning waarvan het dak grotendeels is uitgebrand (verkoolde spanten) en één bovenraam is uitgebrand. Gevels staan nog, afzetlint aanwezig. Zware, recente brandschade."
+      },
+      "warnings": [
+        {"code": "VISIBLE_TEXT_LOCATION_MISMATCH_POSSIBLE", "severity": "warning", "message": "Readable street name and UK plate; compare with insured address."}
+      ]
+    },
+    {
+      "image_id": "IMG-12",
+      "file": "media/images/IMG-12_burned_room_interior.jpg",
+      "scene": {"setting": "interior", "room_type": "living_room", "room_type_confidence": 0.4, "room_type_cues": ["tiled masonry heater/stove typical of a living area", "photo taken through a doorway opening"]},
+      "image_quality": {"rating": "good", "issues": ["dark interior"], "confidence": 0.8},
+      "damage_present": {"value": true, "confidence": 0.99},
+      "peril_indicated": {"value": "fire_smoke", "confidence": 0.98},
+      "damage_types": [
+        {"type": "structural_burn_out", "location": "whole room; charred log walls and collapsed beams", "confidence": 0.95},
+        {"type": "heavy_soot", "location": "walls and the tiled stove", "confidence": 0.9},
+        {"type": "debris_and_ash", "location": "floor", "confidence": 0.95}
+      ],
+      "damaged_parts": [
+        {"part": "timber walls and ceiling beams", "condition": "charred / collapsed", "confidence": 0.95},
+        {"part": "floor", "condition": "covered in debris, not assessable", "confidence": 0.8},
+        {"part": "tiled masonry stove", "condition": "standing, soot-stained, some tiles missing", "confidence": 0.85},
+        {"part": "contents", "condition": "destroyed (bucket, bags, debris)", "confidence": 0.8}
+      ],
+      "materials": ["timber_log_wall", "ceramic_tiled_stove", "brick"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.97},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.85, "cues": ["fire event"]},
+      "long_term_signs": {"value": false, "confidence": 0.7, "cues": ["debris could have lain for some time, which cannot be dated"]},
+      "visible_text": [],
+      "regional_indicators": ["Nordic/Baltic log construction with tiled stove; atypical for NL"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["FIRE-INTERIOR-REBUILD", "DEMOLITION-DEBRIS", "SOOT-CLEAN-ROOM"],
+      "summary": {
+        "en": "Room completely burned out: charred timber walls, collapsed beams and ash and debris on the floor, with a tiled stove still standing and blackened by soot. Severe, effectively a total loss of the room.",
+        "nl": "Volledig uitgebrande ruimte: verkoolde houten wanden, ingestorte balken, as en puin op de vloer; tegelkachel staat nog, zwart van roet. Zware schade, feitelijk totaal verlies van de ruimte."
+      },
+      "warnings": [
+        {"code": "CONSTRUCTION_TYPE_ATYPICAL", "severity": "info", "message": "Log-wall construction is unusual for the insured region."}
+      ]
+    },
+    {
+      "image_id": "IMG-13",
+      "file": "media/images/IMG-13_flats_roof_tiles_torn.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_roof", "room_type_confidence": 0.95, "room_type_cues": ["two-storey brick block of flats seen from the street"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.95},
+      "damage_present": {"value": true, "confidence": 0.99},
+      "peril_indicated": {"value": "storm_wind_hail", "confidence": 0.9},
+      "damage_types": [
+        {"type": "chimney_collapse", "location": "left side of the roof", "confidence": 0.95},
+        {"type": "roof_tiles_displaced_broken", "location": "around the collapsed chimney and scattered", "confidence": 0.9},
+        {"type": "cladding_panel_missing", "location": "stairwell opening, upper right", "confidence": 0.6}
+      ],
+      "damaged_parts": [
+        {"part": "chimney stack", "condition": "collapsed onto the roof", "confidence": 0.95},
+        {"part": "concrete roof tiles", "condition": "broken and displaced", "confidence": 0.9},
+        {"part": "stairwell panel", "condition": "possibly missing", "confidence": 0.5}
+      ],
+      "materials": ["concrete_roof_tile", "brick", "upvc_windows"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.7},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.9, "cues": ["fresh debris", "temporary barriers and sheeting on the wall"]},
+      "long_term_signs": {"value": false, "confidence": 0.85, "cues": []},
+      "visible_text": ["street sign 'FERNIEHILL DRIVE'", "house number on red door"],
+      "regional_indicators": ["UK street sign", "UK satellite dishes"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CHIMNEY-REBUILD", "ROOF-TILE-REPL", "SCAFFOLD", "TEMP-COVER"],
+      "summary": {
+        "en": "Two-storey block of flats where the chimney has collapsed onto the roof, scattering bricks and breaking tiles. Temporary barriers are in place. Fresh storm damage.",
+        "nl": "Portiekflat van twee verdiepingen waar de schoorsteen op het dak is ingestort; stenen en gebroken pannen liggen verspreid, hekwerk geplaatst. Verse stormschade."
+      },
+      "warnings": [
+        {"code": "VISIBLE_TEXT_LOCATION_MISMATCH_POSSIBLE", "severity": "warning", "message": "Readable street name; compare with insured address."},
+        {"code": "IN_PAST_CLAIM_HISTORY", "severity": "critical", "message": "Perceptual hash of this image is registered on a past claim (see history.json) - duplicate photo."}
+      ]
+    },
+    {
+      "image_id": "IMG-14",
+      "file": "media/images/IMG-14_chimney_storm_closeup.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_roof", "room_type_confidence": 0.95, "room_type_cues": ["gable end and roof of a brick house"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.95},
+      "damage_present": {"value": true, "confidence": 0.99},
+      "peril_indicated": {"value": "storm_wind_hail", "confidence": 0.9},
+      "damage_types": [
+        {"type": "chimney_collapse", "location": "chimney stack toppled across the roof", "confidence": 0.95},
+        {"type": "roof_tiles_broken", "location": "under the fallen brickwork", "confidence": 0.9},
+        {"type": "flue_liner_exposed", "location": "flexible steel flue lying on the roof", "confidence": 0.9},
+        {"type": "tv_aerial_bent", "location": "aerial hanging over the gutter", "confidence": 0.8}
+      ],
+      "damaged_parts": [
+        {"part": "chimney stack and pot/cap", "condition": "collapsed", "confidence": 0.95},
+        {"part": "concrete roof tiles", "condition": "broken under the debris, roughly 4-8 m2", "confidence": 0.75},
+        {"part": "flue liner", "condition": "pulled out", "confidence": 0.85},
+        {"part": "TV aerial", "condition": "bent", "confidence": 0.8},
+        {"part": "gutter and fascia", "condition": "appear intact", "confidence": 0.7}
+      ],
+      "materials": ["concrete_roof_tile", "brick", "steel_flue_liner"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.75, "estimated_area_m2": {"value": 6, "confidence": 0.4}},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.9, "cues": ["fresh, clean break faces on the bricks", "debris still lying on the roof"]},
+      "long_term_signs": {"value": false, "confidence": 0.85, "cues": []},
+      "visible_text": [],
+      "regional_indicators": ["UK-style satellite dishes (weak signal)"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["CHIMNEY-REBUILD", "ROOF-TILE-REPL", "SCAFFOLD", "TEMP-COVER"],
+      "same_scene_as": ["IMG-13"],
+      "summary": {
+        "en": "Close-up of a chimney that has toppled across a tiled roof, with broken tiles, an exposed flue liner and a bent TV aerial. Fresh storm damage on one section of the roof.",
+        "nl": "Close-up van een omgewaaide schoorsteen op een pannendak, met gebroken pannen, losgetrokken rookgaskanaal en verbogen antenne. Verse, lokale stormschade."
+      },
+      "warnings": [
+        {"code": "SAME_SCENE_AS_OTHER_IMAGE", "severity": "info", "message": "Same building as IMG-13; if both are submitted on different claims, that is a duplicate signal."}
+      ]
+    },
+    {
+      "image_id": "IMG-15",
+      "file": "media/images/IMG-15_roof_missing_pantiles.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_roof", "room_type_confidence": 0.9, "room_type_cues": ["roof section seen from outside; sky visible through the battens"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.95},
+      "damage_present": {"value": true, "confidence": 0.98},
+      "peril_indicated": {"value": "storm_wind_hail", "confidence": 0.55, "alternatives": {"other_unclear": 0.45}},
+      "damage_types": [
+        {"type": "roof_tiles_missing", "location": "large hole in the middle of the roof slope", "confidence": 0.95},
+        {"type": "tiles_broken_slipped", "location": "lower right edge", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "clay pantiles", "condition": "missing over about 6-10 m2, others broken or slipped", "confidence": 0.85},
+        {"part": "roof battens", "condition": "exposed, grey weathered wood, one sagging", "confidence": 0.85},
+        {"part": "rafters", "condition": "visible, appear intact", "confidence": 0.7}
+      ],
+      "materials": ["clay_pantile", "timber_battens", "brick"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.6, "estimated_area_m2": {"value": 8, "confidence": 0.4}},
+      "sudden_vs_gradual": {"value": "unclear_cannot_tell", "confidence": 0.6, "cues": ["the gap could be from wind", "battens are grey and weathered with no fresh break faces, and tiles carry lichen, which suggests an old opening or lack of maintenance"]},
+      "long_term_signs": {"value": true, "confidence": 0.55, "cues": ["weathered battens", "lichen on tiles", "no fresh debris visible"]},
+      "visible_text": [],
+      "regional_indicators": ["Dutch/Flemish-style clay pantiles (fits NL)"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["ROOF-TILE-REPL", "ROOF-STRUCT-REPAIR", "SCAFFOLD"],
+      "summary": {
+        "en": "Old clay-pantile roof with a large section of tiles missing and the battens open to the sky. Wind could have done this, but the grey, weathered battens and lichen also fit an opening that has existed for a long time or poor maintenance.",
+        "nl": "Oud pannendak waarvan een groot deel van de pannen ontbreekt; de panlatten liggen open. Kan stormschade zijn, maar de grijze verweerde latten en het korstmos passen ook bij een al langer bestaande opening of achterstallig onderhoud."
+      },
+      "warnings": [
+        {"code": "MAINTENANCE_CONDITION_UNCLEAR", "severity": "warning", "message": "Weathering suggests the opening may predate the reported storm."}
+      ]
+    },
+    {
+      "image_id": "IMG-16",
+      "file": "media/images/IMG-16_tree_on_house.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_facade", "room_type_confidence": 0.95, "room_type_cues": ["single-storey house with siding, viewed from the garden"]},
+      "image_quality": {"rating": "good", "issues": ["foreground branches partly obscure the view"], "confidence": 0.85},
+      "damage_present": {"value": true, "confidence": 0.99},
+      "peril_indicated": {"value": "storm_wind_hail", "confidence": 0.9},
+      "damage_types": [
+        {"type": "tree_impact", "location": "uprooted tree resting on roof and front wall", "confidence": 0.98},
+        {"type": "roof_crushed", "location": "roof section under the trunk", "confidence": 0.9},
+        {"type": "fascia_gutter_broken", "location": "eaves at impact point", "confidence": 0.9},
+        {"type": "window_damaged", "location": "window next to the trunk", "confidence": 0.85}
+      ],
+      "damaged_parts": [
+        {"part": "roof structure and shingles", "condition": "crushed / holed", "confidence": 0.9},
+        {"part": "fascia and gutter", "condition": "broken", "confidence": 0.9},
+        {"part": "window and frame", "condition": "smashed", "confidence": 0.85},
+        {"part": "wall siding", "condition": "dented at root plate", "confidence": 0.6},
+        {"part": "fence", "condition": "flattened", "confidence": 0.6}
+      ],
+      "materials": ["asphalt_shingles", "timber_siding", "timber_frame_window"],
+      "severity": {"value": "severe_extensive_damage", "confidence": 0.9},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.95, "cues": ["uprooted tree", "fresh break in the roof"]},
+      "long_term_signs": {"value": false, "confidence": 0.85, "cues": []},
+      "visible_text": [],
+      "regional_indicators": ["US construction (siding, asphalt shingles)"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["TREE-REMOVAL", "ROOF-STRUCT-REPAIR", "ROOF-TILE-REPL", "SIDING-REPL", "WINDOW-FRAME-REPL", "SCAFFOLD", "TEMP-COVER"],
+      "summary": {
+        "en": "A large uprooted tree has fallen onto a single-storey house, crushing part of the roof, breaking the eaves and gutter, and smashing a window. Severe, sudden storm damage.",
+        "nl": "Een grote ontwortelde boom is op een woning van één bouwlaag gevallen: dak deels ingedrukt, dakgoot en boeiboord gebroken, raam vernield. Zware, plotselinge stormschade."
+      },
+      "warnings": []
+    },
+    {
+      "image_id": "IMG-17",
+      "file": "media/images/IMG-17_tree_beside_house.jpg",
+      "scene": {"setting": "exterior", "room_type": "garden", "room_type_confidence": 0.9, "room_type_cues": ["front garden between two houses, driveway and garage"]},
+      "image_quality": {"rating": "good", "issues": ["backlit"], "confidence": 0.85},
+      "damage_present": {"value": false, "confidence": 0.75, "note": "Tree is down but no damage to a building is visible"},
+      "peril_indicated": {"value": "storm_wind_hail", "confidence": 0.8},
+      "damage_types": [
+        {"type": "tree_uprooted", "location": "front garden", "confidence": 0.98},
+        {"type": "lawn_soil_disturbed", "location": "root plate area", "confidence": 0.9}
+      ],
+      "damaged_parts": [
+        {"part": "tree", "condition": "uprooted, lying across garden", "confidence": 0.98},
+        {"part": "garage and house", "condition": "no visible damage", "confidence": 0.8},
+        {"part": "parked car", "condition": "no visible damage", "confidence": 0.7}
+      ],
+      "materials": [],
+      "severity": {"value": "none_no_visible_damage", "confidence": 0.7, "note": "Severity refers to insured buildings; the garden itself is disturbed"},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.9, "cues": ["green foliage still fresh", "fresh soil at the root plate"]},
+      "long_term_signs": {"value": false, "confidence": 0.85, "cues": ["rot visible inside the broken trunk base could mean the tree was already weakened"]},
+      "visible_text": [],
+      "regional_indicators": ["US suburban house style"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["TREE-REMOVAL"],
+      "summary": {
+        "en": "A large tree has been uprooted and lies across the front garden. It missed the house, garage and car, and no damage to the buildings is visible.",
+        "nl": "Een grote boom is ontworteld en ligt in de voortuin; woning, garage en auto zijn gemist. Geen schade aan opstallen zichtbaar."
+      },
+      "warnings": [
+        {"code": "NO_BUILDING_DAMAGE_VISIBLE", "severity": "info", "message": "Tree removal is only covered when the tree damaged an insured building."}
+      ]
+    },
+    {
+      "image_id": "IMG-18",
+      "file": "media/images/IMG-18_cracked_double_glazing.jpg",
+      "scene": {"setting": "exterior", "room_type": "exterior_facade", "room_type_confidence": 0.85, "room_type_cues": ["rendered wall with a window, viewed from outside"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.95},
+      "damage_present": {"value": true, "confidence": 0.98},
+      "peril_indicated": {"value": "accidental_damage", "confidence": 0.75, "alternatives": {"theft_burglary": 0.15, "storm_wind_hail": 0.1}},
+      "damage_types": [
+        {"type": "glass_impact_crack", "location": "upper-left pane: small hole with radial and concentric cracks", "confidence": 0.95}
+      ],
+      "damaged_parts": [
+        {"part": "window glass (one pane, likely double glazing)", "condition": "cracked from a single impact, still in the frame", "confidence": 0.9},
+        {"part": "window frame", "condition": "no visible damage", "confidence": 0.85}
+      ],
+      "materials": ["insulated_glass_unit", "upvc_or_aluminium_frame", "render"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.7, "estimated_area_m2": {"value": 1.4, "confidence": 0.4}},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.9, "cues": ["clean impact crack pattern"]},
+      "long_term_signs": {"value": false, "confidence": 0.9, "cues": []},
+      "visible_text": [],
+      "regional_indicators": [],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["GLASS-DG-REPL"],
+      "summary": {
+        "en": "A window pane in a rendered wall with a single impact point and spider-web cracks, typical of a thrown or kicked object such as a ball or stone. The frame is undamaged.",
+        "nl": "Ruit in een gestuukte gevel met één inslagpunt en spinnenwebscheuren, typisch voor een bal of steen. Kozijn onbeschadigd."
+      },
+      "warnings": []
+    },
+    {
+      "image_id": "IMG-19",
+      "file": "media/images/IMG-19_forced_door_bolt.jpg",
+      "scene": {"setting": "close_up_detail", "room_type": "hallway", "room_type_confidence": 0.4, "room_type_cues": ["interior painted door and frame"]},
+      "image_quality": {"rating": "good", "issues": [], "confidence": 0.9},
+      "damage_present": {"value": true, "confidence": 0.98},
+      "peril_indicated": {"value": "theft_burglary", "confidence": 0.75, "alternatives": {"accidental_damage": 0.25}},
+      "damage_types": [
+        {"type": "forced_entry_split_frame", "location": "door jamb at the bolt keeper", "confidence": 0.95}
+      ],
+      "damaged_parts": [
+        {"part": "door frame/jamb", "condition": "split lengthwise, wood splintered, keeper torn out", "confidence": 0.95},
+        {"part": "barrel bolt", "condition": "intact, still in the locked position", "confidence": 0.85},
+        {"part": "door leaf", "condition": "no visible damage", "confidence": 0.75}
+      ],
+      "materials": ["painted_timber_door", "timber_frame", "steel_barrel_bolt"],
+      "severity": {"value": "moderate_localized_damage", "confidence": 0.7},
+      "sudden_vs_gradual": {"value": "sudden_recent_event", "confidence": 0.9, "cues": ["fresh, bright wood at the split"]},
+      "long_term_signs": {"value": false, "confidence": 0.9, "cues": []},
+      "visible_text": [],
+      "regional_indicators": [],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": ["DOOR-FRAME-REPAIR", "LOCK-REPL"],
+      "summary": {
+        "en": "Door secured with a barrel bolt has been forced: the frame is split lengthwise and freshly splintered where the keeper was torn out. Clear signs of forced entry.",
+        "nl": "Een met schuifgrendel afgesloten deur is opengebroken: het kozijn is in de lengte gespleten en vers versplinterd waar de sluitplaat is uitgerukt. Duidelijke braaksporen."
+      },
+      "warnings": []
+    },
+    {
+      "image_id": "IMG-20",
+      "file": "media/images/IMG-20_intact_living_room.jpg",
+      "scene": {"setting": "interior", "room_type": "living_room", "room_type_confidence": 0.95, "room_type_cues": ["sofa, table lamp, side table, coffee table, curtains"]},
+      "image_quality": {"rating": "not_a_damage_photo", "issues": [], "confidence": 0.85},
+      "damage_present": {"value": false, "confidence": 0.85},
+      "peril_indicated": {"value": "none", "confidence": 0.85},
+      "damage_types": [],
+      "damaged_parts": [
+        {"part": "walls", "condition": "a few small marks on the right wall, not indicative of damage", "confidence": 0.5},
+        {"part": "wooden floor", "condition": "no visible damage", "confidence": 0.8},
+        {"part": "sofa and furniture", "condition": "worn but undamaged", "confidence": 0.8}
+      ],
+      "materials": ["wood_floor", "painted_wall", "upholstered_sofa"],
+      "severity": {"value": "none_no_visible_damage", "confidence": 0.85},
+      "sudden_vs_gradual": {"value": "unclear_cannot_tell", "confidence": 0.9, "cues": ["no damage to assess"]},
+      "long_term_signs": {"value": false, "confidence": 0.8, "cues": []},
+      "visible_text": [],
+      "regional_indicators": ["New Orleans decorations (Mardi Gras beads)"],
+      "people_or_pii_visible": false,
+      "repair_scope_hints": [],
+      "summary": {
+        "en": "A lived-in living room with a green sofa, lamp, curtains and wooden floor. No visible damage.",
+        "nl": "Een bewoonde woonkamer met groene bank, lamp, gordijnen en houten vloer. Geen zichtbare schade."
+      },
+      "warnings": [
+        {"code": "NOT_A_DAMAGE_PHOTO", "severity": "critical", "message": "Image shows no damage; ask the customer for a photo of the damage."}
+      ]
+    }
+  ]
+}

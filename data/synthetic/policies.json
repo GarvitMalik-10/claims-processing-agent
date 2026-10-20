@@ -1,0 +1,170 @@
+{
+  "_meta": {
+    "description": "Synthetic policy data: products, per-customer policies, policy tables (sublimits, deductibles, depreciation) and clause wording in NL and EN. This file is the ONLY source the Policy agent and the payout rules may use (README principle 10). Every rule cites a clause_id or table row from here.",
+    "schema_version": "policy_v1",
+    "currency": "EUR",
+    "wording_id": "WONEN-2026",
+    "condition_language": "Conditions are written over fact keys produced by the Damage agent and FNOL extraction. Jev noul values are probabilities (0-1). 'unclear_*' answers or nouls in the uncertain band 0.25-0.75 make a condition 'unresolved'."
+  },
+
+  "products": {
+    "WONEN-BASIS": {
+      "name": {"nl": "Woonverzekering Basis", "en": "Home Insurance Basic"},
+      "covers": ["building", "contents"],
+      "perils": ["water_burst_or_leak", "storm_wind_hail", "fire_smoke", "theft_burglary"],
+      "extensions": [],
+      "clauses": ["C-1.1", "C-1.2", "C-2.1", "C-2.2", "C-2.3", "C-2.4", "C-2.5", "C-3.1", "C-3.2", "C-3.3", "C-4.1", "C-4.2", "C-5.1", "C-5.3", "C-8.1", "C-8.2", "C-9.1", "C-9.2"]
+    },
+    "WONEN-PLUS": {
+      "name": {"nl": "Woonverzekering Plus", "en": "Home Insurance Plus"},
+      "covers": ["building", "contents"],
+      "perils": ["water_burst_or_leak", "storm_wind_hail", "fire_smoke", "theft_burglary", "glass_breakage"],
+      "extensions": ["glass"],
+      "clauses": ["C-1.1", "C-1.2", "C-2.1", "C-2.2", "C-2.3", "C-2.4", "C-2.5", "C-3.1", "C-3.2", "C-3.3", "C-4.1", "C-4.2", "C-5.1", "C-5.3", "C-6.1", "C-8.1", "C-8.2", "C-9.1", "C-9.2"]
+    },
+    "WONEN-TOP": {
+      "name": {"nl": "Woonverzekering Top", "en": "Home Insurance Premium"},
+      "covers": ["building", "contents"],
+      "perils": ["water_burst_or_leak", "storm_wind_hail", "fire_smoke", "theft_burglary", "glass_breakage", "flood_surface_water"],
+      "extensions": ["glass", "flood"],
+      "clauses": ["C-1.1", "C-1.2", "C-2.1", "C-2.2", "C-2.3", "C-2.4", "C-2.6", "C-3.1", "C-3.2", "C-3.3", "C-4.1", "C-4.2", "C-5.1", "C-5.3", "C-6.1", "C-8.1", "C-8.2", "C-9.1", "C-9.2"]
+    },
+    "INBOEDEL-HUUR": {
+      "name": {"nl": "Inboedelverzekering Huurder", "en": "Tenant Contents Insurance"},
+      "covers": ["contents"],
+      "perils": ["water_burst_or_leak", "storm_wind_hail", "fire_smoke", "theft_burglary"],
+      "extensions": ["tenant_burglary_damage"],
+      "clauses": ["C-1.1", "C-1.3", "C-2.1", "C-2.3", "C-2.4", "C-2.5", "C-3.1", "C-4.1", "C-4.2", "C-5.1", "C-5.2", "C-5.3", "C-8.1", "C-9.1", "C-9.2"]
+    }
+  },
+
+  "policies": [
+    {"policy_id": "POL-1001", "customer_id": "CUST-01", "product": "WONEN-PLUS", "start_date": "2019-04-01", "status": "active", "insured_address": "Lindelaan 14, 3581 AB Utrecht",
+     "sum_insured": {"building": 425000, "contents": 75000}, "deductible": {"default": 100, "glass": 0},
+     "building_facts": {"year_built": 1998, "roof_year": 2008, "kitchen_year": 2019, "flooring_year": 2022}},
+    {"policy_id": "POL-1002", "customer_id": "CUST-02", "product": "INBOEDEL-HUUR", "start_date": "2024-02-15", "status": "active", "insured_address": "Kinkerstraat 210-3, 1053 EM Amsterdam",
+     "sum_insured": {"building": 0, "contents": 40000}, "deductible": {"default": 100},
+     "building_facts": {"tenant": true}},
+    {"policy_id": "POL-1003", "customer_id": "CUST-03", "product": "WONEN-BASIS", "start_date": "2026-09-28", "status": "active", "insured_address": "Bergselaan 77, 3037 BH Rotterdam",
+     "sum_insured": {"building": 310000, "contents": 50000}, "deductible": {"default": 250},
+     "building_facts": {"year_built": 1932, "roof_year": 2001}},
+    {"policy_id": "POL-1004", "customer_id": "CUST-04", "product": "WONEN-BASIS", "start_date": "2017-06-01", "status": "active", "insured_address": "Assendorperstraat 52, 8012 DJ Zwolle",
+     "sum_insured": {"building": 380000, "contents": 60000}, "deductible": {"default": 500},
+     "building_facts": {"year_built": 1928, "roof_year": 2005}},
+    {"policy_id": "POL-1005", "customer_id": "CUST-05", "product": "WONEN-TOP", "start_date": "2021-01-01", "status": "active", "insured_address": "Oude Delft 120, 2611 CG Delft",
+     "sum_insured": {"building": 650000, "contents": 120000}, "deductible": {"default": 250, "glass": 0},
+     "building_facts": {"year_built": 1890, "roof_year": 2015, "flooring_year": 2016}},
+    {"policy_id": "POL-1006", "customer_id": "CUST-06", "product": "WONEN-BASIS", "start_date": "2015-03-01", "status": "active", "insured_address": "Helperzoom 9, 9722 BA Groningen",
+     "sum_insured": {"building": 290000, "contents": 45000}, "deductible": {"default": 250},
+     "building_facts": {"year_built": 1965, "roof_year": 1995, "kitchen_year": 2012}},
+    {"policy_id": "POL-1007", "customer_id": "CUST-07", "product": "WONEN-PLUS", "start_date": "2020-08-01", "status": "active", "insured_address": "Molenweg 3, 5626 AD Eindhoven",
+     "sum_insured": {"building": 520000, "contents": 80000}, "deductible": {"default": 100, "glass": 0},
+     "building_facts": {"year_built": 1880, "roof_year": 1978, "note": "farmhouse with clay pantile roof"}},
+    {"policy_id": "POL-1008", "customer_id": "CUST-08", "product": "WONEN-PLUS", "start_date": "2022-05-01", "status": "active", "insured_address": "Rijnsburgerweg 48, 2333 AC Leiden",
+     "sum_insured": {"building": 560000, "contents": 90000}, "deductible": {"default": 100, "glass": 0},
+     "building_facts": {"year_built": 1935, "roof_year": 2001, "windows_year": 2001}}
+  ],
+
+  "tables": {
+    "sublimits": [
+      {"row_id": "SL-LEAKDETECT", "applies_to": "LEAK-DETECT", "max_per_event": 1500, "clause_id": "C-2.2"},
+      {"row_id": "SL-EMERGENCY", "applies_to": "TEMP-COVER", "max_per_event": 2500, "clause_id": "C-8.2"},
+      {"row_id": "SL-TREE", "applies_to": "TREE-REMOVAL", "max_per_event": 1000, "clause_id": "C-3.3"},
+      {"row_id": "SL-GLASS", "applies_to": "GLASS-DG-REPL", "max_per_event": 2500, "clause_id": "C-6.1"},
+      {"row_id": "SL-TENANT-BREAK", "applies_to": ["DOOR-FRAME-REPAIR", "LOCK-REPL", "WINDOW-FRAME-REPL"], "products": ["INBOEDEL-HUUR"], "max_per_event": 2500, "clause_id": "C-5.2"},
+      {"row_id": "SL-ELECTRONICS-THEFT", "applies_to": "CONT-LAPTOP", "max_per_event": 5000, "clause_id": "C-5.3"},
+      {"row_id": "SL-MOULD", "applies_to": "MOULD-REMEDIATION", "max_per_event": 1500, "clause_id": "C-2.4", "note": "only payable as consequence of a covered sudden event"}
+    ],
+    "depreciation": {
+      "clause_id": "C-9.1",
+      "rule": "depreciation = validated_amount x min(max_depreciation, annual_rate x max(0, age_years - new_value_years)); age from policy building_facts or the customer's statement",
+      "categories": [
+        {"row_id": "DEP-FLOORING", "category": "flooring", "depreciable": true, "annual_rate": 0.05, "max_depreciation": 0.50, "new_value_years": 2},
+        {"row_id": "DEP-KITCHEN", "category": "kitchen", "depreciable": true, "annual_rate": 0.05, "max_depreciation": 0.50, "new_value_years": 3},
+        {"row_id": "DEP-ELECTRONICS", "category": "electronics", "depreciable": true, "annual_rate": 0.15, "max_depreciation": 0.70, "new_value_years": 1},
+        {"row_id": "DEP-ROOFING", "category": "roofing", "depreciable": true, "annual_rate": 0.02, "max_depreciation": 0.40, "new_value_years": 5},
+        {"row_id": "DEP-DOORS-WINDOWS", "category": "doors_windows", "depreciable": true, "annual_rate": 0.03, "max_depreciation": 0.40, "new_value_years": 5},
+        {"row_id": "DEP-ELECTRICAL", "category": "electrical", "depreciable": true, "annual_rate": 0.05, "max_depreciation": 0.50, "new_value_years": 2},
+        {"row_id": "DEP-NONE", "category": ["decorating", "finishes", "service", "plumbing", "glass", "structure", "masonry", "facade", "repair"], "depreciable": false}
+      ]
+    },
+    "authority": {
+      "clause_id": null,
+      "source": "config:authority.yaml (business rule, not policy wording)",
+      "bands": [
+        {"max_payout": 5000, "approver": "auto_stp"},
+        {"max_payout": 25000, "approver": "claims_handler"},
+        {"max_payout": null, "approver": "senior_handler"}
+      ]
+    }
+  },
+
+  "clauses": [
+    {"clause_id": "C-1.1", "type": "cover", "title": {"en": "Insured parties and address", "nl": "Verzekerden en risicoadres"},
+     "text": {"en": "Cover applies only to damage at the insured address stated on the policy schedule, during the policy period.", "nl": "De dekking geldt alleen voor schade op het op het polisblad vermelde risicoadres, tijdens de looptijd van de verzekering."},
+     "rule": {"rule_id": "POL-ACTIVE-01", "condition": "policy.start_date <= loss_date and policy.status == 'active' and loss_address == policy.insured_address"}},
+    {"clause_id": "C-1.2", "type": "cover", "title": {"en": "Building and contents", "nl": "Opstal en inboedel"},
+     "text": {"en": "The building (walls, roof, fixed fittings, kitchen, flooring) is insured up to the building sum insured. Movable property is insured up to the contents sum insured.", "nl": "Het woonhuis (muren, dak, vaste aanhorigheden, keuken, vloeren) is verzekerd tot de opstalwaarde; roerende zaken tot de inboedelwaarde."},
+     "rule": {"rule_id": "POL-OBJECT-01", "condition": "line.object in policy.covers"}},
+    {"clause_id": "C-1.3", "type": "exclusion", "title": {"en": "Tenant policies: building not insured", "nl": "Huurderspolis: woonhuis niet verzekerd"},
+     "text": {"en": "This policy does not cover damage to the rented building itself (ceilings, walls, roof, fixed installations), except for burglary damage as described in article 5.2. Report building damage to your landlord.", "nl": "Deze polis dekt geen schade aan het gehuurde woonhuis zelf (plafonds, muren, dak, vaste installaties), behalve braakschade volgens artikel 5.2. Meld opstalschade bij uw verhuurder."},
+     "rule": {"rule_id": "POL-TENANT-01", "condition": "line.object == 'building' and line.code not in tenant_burglary_codes -> excluded"}},
+    {"clause_id": "C-2.1", "type": "cover", "title": {"en": "Sudden escape of water", "nl": "Plotseling uitstromend water"},
+     "text": {"en": "We cover damage caused by water that escapes suddenly and unexpectedly from pipes, appliances or installations connected to the water supply or central heating, as a result of a defect or burst.", "nl": "Gedekt is schade door water dat plotseling en onvoorzien is gestroomd uit leidingen, toestellen of installaties aangesloten op de waterleiding of centrale verwarming, als gevolg van een defect of breuk."},
+     "rule": {"rule_id": "COV-WATER-01", "condition": "peril == 'water_burst_or_leak' and sudden_vs_gradual == 'sudden_recent_event'", "fact_keys": ["peril", "sudden_vs_gradual"]}},
+    {"clause_id": "C-2.2", "type": "cover", "title": {"en": "Leak detection and access costs", "nl": "Opsporen van lekkage en breek- en herstelwerk"},
+     "text": {"en": "If the damage under 2.1 is covered, we also pay the cost of finding the leak and of opening and repairing walls and floors, up to the amount in the policy table.", "nl": "Is de schade onder 2.1 gedekt, dan vergoeden wij ook de kosten van het opsporen van het lek en het openbreken en herstellen van muren en vloeren, tot het bedrag in de polistabel."},
+     "rule": {"rule_id": "COV-LEAKDETECT-01", "condition": "covered(C-2.1)", "table_row": "SL-LEAKDETECT"}},
+    {"clause_id": "C-2.3", "type": "exclusion", "title": {"en": "Repair of the source", "nl": "Herstel van de oorzaak"},
+     "text": {"en": "We do not pay for repairing or replacing the pipe, hose, trap or appliance that caused the leak. We only pay for the resulting damage.", "nl": "Wij vergoeden niet het herstel of de vervanging van de leiding, slang, sifon of het toestel waaruit het water is gestroomd; alleen de gevolgschade."},
+     "rule": {"rule_id": "COV-SOURCE-EXCL-01", "condition": "price_benchmark[line.code].source_repair == true -> line excluded"}},
+    {"clause_id": "C-2.4", "type": "exclusion", "title": {"en": "Gradual damage, moisture and mould", "nl": "Geleidelijke schade, vocht en schimmel"},
+     "text": {"en": "We do not cover damage that develops gradually, such as from long-term leakage, condensation, rising or penetrating damp, mould or rot, or from lack of maintenance.", "nl": "Niet gedekt is schade die geleidelijk ontstaat, zoals door langdurige lekkage, condens, optrekkend of doorslaand vocht, schimmel, zwam of rot, of door achterstallig onderhoud."},
+     "rule": {"rule_id": "COV-GRADUAL-EXCL-01", "condition": "sudden_vs_gradual == 'gradual_long_term' or long_term_moisture_signs >= 0.75 -> excluded; long_term_moisture_signs in (0.25, 0.75) or sudden_vs_gradual == 'unclear_cannot_tell' -> unresolved", "fact_keys": ["sudden_vs_gradual", "long_term_moisture_signs"]}},
+    {"clause_id": "C-2.5", "type": "exclusion", "title": {"en": "Flooding from outside", "nl": "Overstroming"},
+     "text": {"en": "We do not cover damage from water entering the home from outside at ground level because of flooding of streets, rivers or waterways, or water rising from the ground, unless the policy includes the Flood extension.", "nl": "Niet gedekt is schade door water dat van buitenaf op maaiveldniveau de woning binnenkomt door overstroming van straten, rivieren of waterwegen, of door grondwater, tenzij de polis de uitbreiding Overstroming bevat."},
+     "rule": {"rule_id": "COV-FLOOD-EXCL-01", "condition": "peril == 'flood_surface_water' and 'flood' not in product.extensions -> excluded", "fact_keys": ["peril"]}},
+    {"clause_id": "C-2.6", "type": "cover", "title": {"en": "Flood extension", "nl": "Uitbreiding overstroming"},
+     "text": {"en": "Notwithstanding 2.5, damage from flooding from outside is covered.", "nl": "In afwijking van 2.5 is schade door overstroming van buitenaf gedekt."},
+     "rule": {"rule_id": "COV-FLOOD-01", "condition": "peril == 'flood_surface_water' -> covered"}},
+    {"clause_id": "C-3.1", "type": "cover", "title": {"en": "Storm", "nl": "Storm"},
+     "text": {"en": "We cover damage from storm, meaning wind of at least 14 m/s (force 7), and rain, hail or snow entering through openings caused by the storm.", "nl": "Gedekt is schade door storm (windsnelheid van ten minste 14 m/s, windkracht 7) en door neerslag die binnenkomt via openingen die door de storm zijn ontstaan."},
+     "rule": {"rule_id": "COV-STORM-01", "condition": "peril == 'storm_wind_hail' and sudden_vs_gradual != 'gradual_long_term'", "fact_keys": ["peril", "sudden_vs_gradual"], "external_check": "demo: storm_days table in config (2026-10-14 = storm day)"}},
+    {"clause_id": "C-3.2", "type": "exclusion", "title": {"en": "Poor maintenance of roof", "nl": "Slecht onderhoud dak"},
+     "text": {"en": "We do not cover storm damage that is mainly caused by poor maintenance of the roof or its covering.", "nl": "Niet gedekt is stormschade die in hoofdzaak is ontstaan door slecht onderhoud van het dak of de dakbedekking."},
+     "rule": {"rule_id": "COV-ROOF-MAINT-01", "condition": "long_term_moisture_signs >= 0.75 or roof_maintenance_poor >= 0.75 -> excluded; in uncertain band -> unresolved", "fact_keys": ["long_term_moisture_signs", "roof_maintenance_poor"]}},
+    {"clause_id": "C-3.3", "type": "cover", "title": {"en": "Fallen trees", "nl": "Omgewaaide bomen"},
+     "text": {"en": "If a tree falls on the insured building during a storm and damages it, we also pay the cost of removing the tree, up to the amount in the policy table. We do not pay to remove trees that did not damage the building.", "nl": "Valt bij storm een boom op het verzekerde woonhuis en beschadigt deze het woonhuis, dan vergoeden wij ook de opruimkosten van de boom tot het bedrag in de polistabel. Opruimen van bomen zonder schade aan het woonhuis is niet gedekt."},
+     "rule": {"rule_id": "COV-TREE-01", "condition": "line.code == 'TREE-REMOVAL' and building_damage_present == false -> excluded", "fact_keys": ["building_damage_present"], "table_row": "SL-TREE"}},
+    {"clause_id": "C-4.1", "type": "cover", "title": {"en": "Fire, smoke and soot", "nl": "Brand, rook en roet"},
+     "text": {"en": "We cover damage from fire, and from smoke and soot that are suddenly released. Fire means a burning with flames that spread by themselves.", "nl": "Gedekt is schade door brand en door plotseling uitgestoten rook en roet. Onder brand verstaan wij een vuur met vlammen dat zich op eigen kracht kan uitbreiden."},
+     "rule": {"rule_id": "COV-FIRE-01", "condition": "peril == 'fire_smoke' and open_fire_evident >= 0.5", "fact_keys": ["peril", "open_fire_evident"]}},
+    {"clause_id": "C-4.2", "type": "exclusion", "title": {"en": "Scorching and melting", "nl": "Zengen, schroeien en smelten"},
+     "text": {"en": "Scorching, singeing, melting or short-circuit damage without fire is not covered.", "nl": "Zengen, schroeien, smelten of kortsluiting zonder dat er brand is ontstaan, is niet gedekt."},
+     "rule": {"rule_id": "COV-SCORCH-EXCL-01", "condition": "peril == 'fire_smoke' and open_fire_evident < 0.25 -> excluded; 0.25..0.5 -> unresolved", "fact_keys": ["open_fire_evident"]}},
+    {"clause_id": "C-5.1", "type": "cover", "title": {"en": "Burglary and theft", "nl": "Inbraak en diefstal"},
+     "text": {"en": "We cover theft of contents after a break-in, and damage caused by a break-in or attempted break-in. There must be visible signs of forced entry, and theft must be reported to the police.", "nl": "Gedekt is diefstal van inboedel na inbraak en schade door (poging tot) inbraak. Er moeten zichtbare braaksporen zijn en diefstal moet bij de politie zijn aangegeven."},
+     "rule": {"rule_id": "COV-BURGLARY-01", "condition": "peril == 'theft_burglary' and forced_entry_visible >= 0.75 and (no_theft_lines or police_report_ref present)", "fact_keys": ["forced_entry_visible", "police_report_ref"]}},
+    {"clause_id": "C-5.2", "type": "cover", "title": {"en": "Tenants: burglary damage to the rented home", "nl": "Huurders: braakschade aan het gehuurde huis"},
+     "text": {"en": "Tenants are also covered for damage to doors, frames, windows and locks of the rented home caused by a break-in or attempt, up to the amount in the policy table.", "nl": "Huurders zijn ook verzekerd voor schade aan deuren, kozijnen, ramen en sloten van het gehuurde huis door (poging tot) inbraak, tot het bedrag in de polistabel."},
+     "rule": {"rule_id": "COV-TENANT-BREAK-01", "condition": "product == 'INBOEDEL-HUUR' and covered(C-5.1)", "table_row": "SL-TENANT-BREAK"}},
+    {"clause_id": "C-5.3", "type": "condition", "title": {"en": "Valuables and electronics", "nl": "Kostbaarheden en elektronica"},
+     "text": {"en": "Theft of electronics is covered up to the amount in the policy table per event.", "nl": "Diefstal van elektronica is gedekt tot het bedrag in de polistabel per gebeurtenis."},
+     "rule": {"rule_id": "COV-ELECTRONICS-01", "table_row": "SL-ELECTRONICS-THEFT"}},
+    {"clause_id": "C-6.1", "type": "cover", "title": {"en": "Glass", "nl": "Glas"},
+     "text": {"en": "With the Glass extension, we cover breakage of window and door glass in the home, whatever the cause, up to the amount in the policy table. No deductible applies.", "nl": "Met de uitbreiding Glas is breuk van ruiten in ramen en deuren van de woning gedekt, ongeacht de oorzaak, tot het bedrag in de polistabel. Er geldt geen eigen risico."},
+     "rule": {"rule_id": "COV-GLASS-01", "condition": "'glass' in product.extensions and line.category == 'glass'", "table_row": "SL-GLASS"}},
+    {"clause_id": "C-8.1", "type": "condition", "title": {"en": "Unoccupied home", "nl": "Leegstand"},
+     "text": {"en": "If the home has been unoccupied for more than 60 days in a row, water and burglary damage are not covered.", "nl": "Staat de woning langer dan 60 aaneengesloten dagen leeg, dan is schade door water en inbraak niet gedekt."},
+     "rule": {"rule_id": "COV-VACANT-01", "condition": "home_unoccupied_over_60_days >= 0.75 and peril in ('water_burst_or_leak','theft_burglary') -> excluded", "fact_keys": ["home_unoccupied_over_60_days"]}},
+    {"clause_id": "C-8.2", "type": "cover", "title": {"en": "Emergency measures", "nl": "Bereddingskosten"},
+     "text": {"en": "We pay reasonable costs of emergency measures to prevent or limit covered damage, such as a temporary roof cover, up to the amount in the policy table.", "nl": "Wij vergoeden redelijke kosten van noodmaatregelen om gedekte schade te voorkomen of te beperken, zoals een noodafdekking van het dak, tot het bedrag in de polistabel."},
+     "rule": {"rule_id": "COV-EMERGENCY-01", "condition": "covered(main_peril_clause)", "table_row": "SL-EMERGENCY"}},
+    {"clause_id": "C-9.1", "type": "condition", "title": {"en": "Depreciation (current value)", "nl": "Afschrijving (dagwaarde)"},
+     "text": {"en": "For items in the depreciation table, we pay the new-value amount for the first years shown in the table. After that, we deduct depreciation per year of age up to the stated maximum.", "nl": "Voor zaken in de afschrijvingstabel vergoeden wij de nieuwwaarde gedurende de in de tabel genoemde eerste jaren. Daarna trekken wij per jaar ouderdom afschrijving af, tot het genoemde maximum."},
+     "rule": {"rule_id": "PAY-DEPR-01", "table": "depreciation"}},
+    {"clause_id": "C-9.2", "type": "condition", "title": {"en": "Deductible and limits", "nl": "Eigen risico en maxima"},
+     "text": {"en": "The total payment per event is limited to the sublimits and the sum insured. After that, the deductible on the policy schedule is subtracted.", "nl": "De totale uitkering per gebeurtenis is beperkt tot de sublimieten en de verzekerde som. Daarna wordt het eigen risico van het polisblad in mindering gebracht."},
+     "rule": {"rule_id": "PAY-CAP-DEDUCT-01", "condition": "payout = max(0, min(sum(covered_lines), sublimits, sum_insured) - deductible)"}}
+  ]
+}

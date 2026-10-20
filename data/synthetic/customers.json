@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "description": "Synthetic demo personas, picked in the chat UI's persona picker. Names, phone numbers and addresses are fictional. Phone numbers use the reserved range +31 6 0000 00xx.",
+    "schema_version": "customer_v1"
+  },
+  "customers": [
+    {"customer_id": "CUST-01", "name": "Sanne de Vries", "phone": "+31600000001", "email": "sanne.devries@example.nl", "language": "nl", "address": {"street": "Lindelaan 14", "postcode": "3581 AB", "city": "Utrecht", "geo": {"lat": 52.0890, "lon": 5.1310}}, "policy_id": "POL-1001", "persona_note": "Homeowner, long-standing customer, no prior claims. Used for the clean straight-through cases."},
+    {"customer_id": "CUST-02", "name": "James O'Connor", "phone": "+31600000002", "email": "james.oconnor@example.com", "language": "en", "address": {"street": "Kinkerstraat 210-3", "postcode": "1053 EM", "city": "Amsterdam", "geo": {"lat": 52.3667, "lon": 4.8665}}, "policy_id": "POL-1002", "persona_note": "Expat tenant with a contents-only policy. Shows the difference between building and contents cover."},
+    {"customer_id": "CUST-03", "name": "Fatima El Amrani", "phone": "+31600000003", "email": "f.elamrani@example.nl", "language": "nl", "address": {"street": "Bergselaan 77", "postcode": "3037 BH", "city": "Rotterdam", "geo": {"lat": 51.9370, "lon": 4.4820}}, "policy_id": "POL-1003", "persona_note": "New customer: policy started 28 Sep 2026, triggering the recent-policy risk signal."},
+    {"customer_id": "CUST-04", "name": "Pieter Bakker", "phone": "+31600000004", "email": "p.bakker@example.nl", "language": "nl", "address": {"street": "Assendorperstraat 52", "postcode": "8012 DJ", "city": "Zwolle", "geo": {"lat": 52.5070, "lon": 6.0960}}, "policy_id": "POL-1004", "persona_note": "Homeowner with a high deductible (EUR 500) and no glass cover."},
+    {"customer_id": "CUST-05", "name": "Lotte Visser", "phone": "+31600000005", "email": "lotte.visser@example.nl", "language": "en", "address": {"street": "Oude Delft 120", "postcode": "2611 CG", "city": "Delft", "geo": {"lat": 52.0110, "lon": 4.3570}}, "policy_id": "POL-1005", "persona_note": "Premium policy with flood extension and glass; high sum insured."},
+    {"customer_id": "CUST-06", "name": "Henk Mulder", "phone": "+31600000006", "email": "henk.mulder@example.nl", "language": "nl", "address": {"street": "Helperzoom 9", "postcode": "9722 BA", "city": "Groningen", "geo": {"lat": 53.2040, "lon": 6.5780}}, "policy_id": "POL-1006", "persona_note": "Basic policy without flood extension; 3 claims in the last 3 years (frequency signal)."},
+    {"customer_id": "CUST-07", "name": "Ahmed Yilmaz", "phone": "+31600000007", "email": "a.yilmaz@example.nl", "language": "nl", "address": {"street": "Molenweg 3", "postcode": "5626 AD", "city": "Eindhoven", "geo": {"lat": 51.4720, "lon": 5.4630}}, "policy_id": "POL-1007", "persona_note": "Lives in an old farmhouse with a pantile roof (maintenance ambiguity)."},
+    {"customer_id": "CUST-08", "name": "Emma Smit", "phone": "+31600000008", "email": "emma.smit@example.nl", "language": "en", "address": {"street": "Rijnsburgerweg 48", "postcode": "2333 AC", "city": "Leiden", "geo": {"lat": 52.1700, "lon": 4.4740}}, "policy_id": "POL-1008", "persona_note": "Family with kids; Plus policy with glass cover."}
+  ]
+}

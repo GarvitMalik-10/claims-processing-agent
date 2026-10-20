@@ -1,0 +1,9 @@
+# Authority matrix (business rule). Bands are inclusive upper bounds in EUR; null = unlimited.
+version: 1
+bands:
+  - max_payout: 5000
+    approver: auto_stp
+  - max_payout: 25000
+    approver: claims_handler
+  - max_payout: null
+    approver: senior_handler

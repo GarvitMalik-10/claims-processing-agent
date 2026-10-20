@@ -1,0 +1,15 @@
+# Routing thresholds (README section 9.4). Placeholders - tuned against scenarios S01-S20.
+# Business-rule config, not policy wording; every routing event records this file's hash.
+version: 1
+stp_payout_limit: 5000
+noul_uncertain_band: [0.25, 0.75]
+min_choice_confidence: 0.6
+risk:
+  human_from: 0.3
+  siu_from: 0.7
+price_tolerance: 0.10
+missing_info:
+  max_rounds: 2
+claim_vs_incident:
+  # Jev noul "is the customer asking for compensation?" below this -> incident only
+  incident_below: 0.3

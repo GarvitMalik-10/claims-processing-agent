@@ -1,0 +1,20 @@
+# Risk agent composite score (README section 8.3): score = min(1, sum(weight * signal_strength)).
+# Hard flags force SIU regardless of score. Placeholders - tuned against S01-S20.
+version: 1
+weights:
+  exif_before_loss_date: 0.45
+  exif_missing: 0.05
+  gps_far_from_address: 0.25
+  policy_started_lt_60_days: 0.20
+  claim_frequency_3y: 0.10          # per prior claim, capped by max_frequency_contribution
+  estimate_above_benchmark: 0.10
+  story_inconsistent: 0.20          # 1 - Jev noul story_consistent
+  timeline_implausible: 0.15        # 1 - Jev noul timeline_plausible
+  photo_not_supporting_story: 0.20  # 1 - Jev noul photo_supports_story
+  visible_text_location_mismatch: 0.05   # demo images are internationally sourced -> low weight
+  late_reporting_days_gt_7: 0.05
+max_frequency_contribution: 0.30
+policy_recent_days: 60
+gps_far_km: 5
+hard_flags:
+  - duplicate_image

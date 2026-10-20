@@ -1,0 +1,25 @@
+[project]
+name = "tecto-claims"
+version = "0.1.0"
+description = "Tecto - explainable multi-agent property claims STP engine (demo)"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=1.15",
+    "typesafe-sdk>=0.7.5",
+    "pydantic>=2.14",
+    "pyyaml>=6",
+    "langgraph>=1.2",
+    "langgraph-checkpoint-sqlite>=3.1",
+    "fastapi>=0.151",
+    "uvicorn[standard]",
+    "pillow>=13",
+    "imagehash>=4.3",
+    "python-dotenv>=1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,585 @@
+{
+  "_meta": {
+    "description": "20 synthetic claim storylines, one per demo image (IMG-13 and IMG-14 show the same scene). Each has the customer's own messages (WhatsApp style, in the persona's language with a translation), a contractor estimate, and golden expected outcomes for the eval harness. Scenarios are independent: personas appear in several scenarios as alternatives, not as their claim history (history lives in history.json).",
+    "schema_version": "claim_scenario_v1",
+    "currency": "EUR",
+    "today": "2026-10-20",
+    "storm_days": ["2026-10-14"],
+    "payout_rules_used": "validated = min(claimed_unit, p75 x 1.10) x qty; source_repair lines = 0; depreciation per policies.json C-9.1; cap at sublimits/sum insured; then deductible (C-9.2). Amounts rounded to cents.",
+    "route_values": ["stp", "human_review", "siu", "info_request", "incident_only"],
+    "estimate_line_fields": "code, description, qty, unit_price, total, age_years (only where depreciation applies)"
+  },
+  "claims": [
+    {
+      "scenario_id": "S01",
+      "title": "Kitchen sink trap leak - photo shows only the source",
+      "customer_id": "CUST-01",
+      "images": ["IMG-01"],
+      "loss_date": "2026-10-18", "reported_at": "2026-10-18T08:12:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Goedemorgen, vanochtend stond er water in het keukenkastje onder de gootsteen. De sifon lekt, ik heb de kraan dichtgedraaid. De bodem van het kastje is opgezwollen en het laminaat ervoor ook. Foto van de sifon bijgevoegd. Offerte van de klusjesman volgt.", "en": "Good morning, this morning there was water in the kitchen cabinet under the sink. The trap is leaking; I've turned off the tap. The bottom of the cabinet has swollen and so has the laminate in front of it. Photo of the trap attached. The handyman's quote will follow."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "kitchen", "source": "sink trap", "source_stopped": true, "emergency_measures": "tap closed", "affected_items": ["kitchen base cabinet", "laminate floor"]},
+      "estimate": {"contractor": "Klusbedrijf Van Dam", "date": "2026-10-18", "lines": [
+        {"code": "PLB-TRAP-REPL", "description": "Nieuwe sifon plaatsen", "qty": 1, "unit_price": 95.00, "total": 95.00},
+        {"code": "KITCH-BASE-CAB", "description": "Onderkast spoelkeuken vervangen", "qty": 1, "unit_price": 640.00, "total": 640.00, "age_years": 7},
+        {"code": "FLOOR-LAMINATE-REPL", "description": "Laminaat vervangen voor de keuken", "qty": 3, "unit_price": 52.00, "total": 156.00, "age_years": 4}
+      ], "total": 891.00},
+      "golden": {
+        "peril": "water_burst_or_leak",
+        "completeness": "complete",
+        "image_claim_consistency": "partially_consistent",
+        "consistency_reasons": ["photo shows the leak source only", "items_not_visible: KITCH-BASE-CAB, FLOOR-LAMINATE-REPL"],
+        "coverage": "covered", "clauses": ["C-2.1", "C-2.3", "C-9.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "info_request",
+        "info_requested": ["photo of the swollen cabinet base", "photo of the laminate in front of the sink"],
+        "payout_if_confirmed": {"lines": [
+          {"code": "PLB-TRAP-REPL", "validated": 95.00, "depreciation": 0, "covered": 0.00, "reason": "C-2.3 source repair excluded"},
+          {"code": "KITCH-BASE-CAB", "validated": 640.00, "depreciation": 128.00, "covered": 512.00, "reason": "DEP-KITCHEN: (7-3) x 5% = 20%"},
+          {"code": "FLOOR-LAMINATE-REPL", "validated": 156.00, "depreciation": 15.60, "covered": 140.40, "reason": "DEP-FLOORING: (4-2) x 5% = 10%"}
+        ], "eligible": 652.40, "deductible": 100.00, "payout": 552.40, "route_after_confirmation": "stp"},
+        "demo_point": "The missing-info loop: the claim is covered in principle, but the evidence doesn't show the damaged items yet. After the customer sends the photos, the claim goes straight through with depreciation applied."
+      }
+    },
+    {
+      "scenario_id": "S02",
+      "title": "Washing machine hose burst upstairs - ceiling below",
+      "customer_id": "CUST-04",
+      "images": ["IMG-02"],
+      "loss_date": "2026-10-16", "reported_at": "2026-10-17T19:40:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Eergisteren is de toevoerslang van de wasmachine op zolder geknapt. Voordat ik het doorhad was het water door het plafond van de slaapkamer eronder gelopen. De verf komt er in grote stukken af. Slang is al vervangen. Hierbij foto en offerte van de stukadoor.", "en": "The day before yesterday the inlet hose of the washing machine in the attic burst. Before I noticed, the water had come through the ceiling of the bedroom below. The paint is coming off in big pieces. Hose already replaced. Photo and the plasterer's quote attached."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "bedroom (ceiling)", "source": "washing machine inlet hose", "source_stopped": true, "affected_items": ["bedroom ceiling"]},
+      "estimate": {"contractor": "Stukadoorsbedrijf Hendriks", "date": "2026-10-17", "lines": [
+        {"code": "PLB-HOSE-REPL", "description": "Nieuwe toevoerslang wasmachine", "qty": 1, "unit_price": 85.00, "total": 85.00},
+        {"code": "CEIL-PLAST-REPAIR", "description": "Plafond plaatselijk herstellen", "qty": 8, "unit_price": 52.00, "total": 416.00},
+        {"code": "CEIL-PAINT", "description": "Plafond slaapkamer sausen", "qty": 20, "unit_price": 19.00, "total": 380.00}
+      ], "total": 881.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "coverage": "covered", "clauses": ["C-2.1", "C-2.3", "C-9.2"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "stp",
+        "payout": {"lines": [
+          {"code": "PLB-HOSE-REPL", "validated": 85.00, "depreciation": 0, "covered": 0.00, "reason": "C-2.3 source repair excluded"},
+          {"code": "CEIL-PLAST-REPAIR", "validated": 416.00, "depreciation": 0, "covered": 416.00},
+          {"code": "CEIL-PAINT", "validated": 380.00, "depreciation": 0, "covered": 380.00}
+        ], "eligible": 796.00, "deductible": 500.00, "payout": 296.00},
+        "notes": "sudden_vs_gradual from the photo alone is 'unclear'. The story (burst hose, two days ago) plus no long-term signs keeps it STP only if Jev's long_term_moisture_signs < 0.25. If Jev lands in the uncertain band, the route is human_review, which is an acceptable alternative.",
+        "demo_point": "A clean straight-through payment where the high deductible (EUR 500) eats most of the claim. The letter explains this using the reason codes."
+      }
+    },
+    {
+      "scenario_id": "S03",
+      "title": "Tenant: ceiling stain from upstairs neighbour",
+      "customer_id": "CUST-02",
+      "images": ["IMG-03"],
+      "loss_date": "2026-10-15", "reported_at": "2026-10-16T21:05:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "Hi, water came through my bedroom ceiling from the flat upstairs - their shower leaked I think. There's a brown stain and a crack where the ceiling meets the wall. Can you cover the repair? Quote attached.", "nl": "Hoi, er kwam water door het plafond van mijn slaapkamer vanuit de bovenburen - hun douche lekte denk ik. Er is een bruine vlek en een scheur waar plafond en muur samenkomen. Kunnen jullie het herstel vergoeden? Offerte bijgevoegd."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "bedroom (ceiling)", "source": "neighbour's shower (upstairs flat)", "source_stopped": "unknown", "affected_items": ["bedroom ceiling"]},
+      "estimate": {"contractor": "Amsterdam Afbouw", "date": "2026-10-16", "lines": [
+        {"code": "CEIL-PLAST-REPAIR", "description": "Repair ceiling and joint crack", "qty": 6, "unit_price": 55.00, "total": 330.00},
+        {"code": "CEIL-PAINT", "description": "Repaint bedroom ceiling", "qty": 14, "unit_price": 18.00, "total": 252.00}
+      ], "total": 582.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "coverage": "not_covered", "clauses": ["C-1.3"],
+        "coverage_reason": "Tenant contents policy; the ceiling is part of the rented building.",
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "human_review",
+        "route_reasons": ["ADVERSE_DECISION_NOT_COVERED"],
+        "proposed_payout": 0.00,
+        "letter_hint": "Explain C-1.3; advise contacting the landlord and the upstairs neighbour's insurer; contents damage (if any) would be covered.",
+        "demo_point": "A refusal that is clear and explained, but still goes to a human (asymmetric automation). The system drafts a helpful letter rather than a bare 'no'."
+      }
+    },
+    {
+      "scenario_id": "S04",
+      "title": "Living-room floor buckled - but the photo shows a museum",
+      "customer_id": "CUST-05",
+      "images": ["IMG-04"],
+      "loss_date": "2026-10-12", "reported_at": "2026-10-13T10:30:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly. We already have dryers running. The floor was laid in 2016. Estimate attached.", "nl": "De slang van onze vaatwasser is in het weekend losgeschoten en de eiken vloer in de woonkamer is flink opgebold. De droogapparaten draaien al. De vloer is in 2016 gelegd. Offerte bijgevoegd."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "living room", "source": "dishwasher hose", "source_stopped": true, "emergency_measures": "dryers running", "affected_items": ["oak floor"]},
+      "estimate": {"contractor": "Vloerenhuis Delft", "date": "2026-10-13", "lines": [
+        {"code": "PLB-HOSE-REPL", "description": "Replace dishwasher hose", "qty": 1, "unit_price": 75.00, "total": 75.00},
+        {"code": "FLOOR-WOOD-REPL", "description": "Replace oak strip floor living room", "qty": 24, "unit_price": 110.00, "total": 2640.00, "age_years": 10},
+        {"code": "DRYING-EQUIP", "description": "Drying equipment 5 days", "qty": 5, "unit_price": 55.00, "total": 275.00}
+      ], "total": 2990.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "complete",
+        "image_claim_consistency": "inconsistent",
+        "consistency_reasons": ["room mismatch: claimed living_room, image non_residential (museum display cases)", "possible web-sourced image"],
+        "coverage": "covered", "clauses": ["C-2.1", "C-2.3", "C-9.1"],
+        "risk_band": "medium", "risk_signals": ["IMAGE_SETTING_NON_RESIDENTIAL", "POSSIBLE_WEB_SOURCED_IMAGE"],
+        "expected_route": "human_review",
+        "route_reasons": ["IMAGE_CLAIM_INCONSISTENT"],
+        "demo_point": "Image-claim mismatch. The damage itself (a buckled floor from water) fits the story perfectly, but the vision model notices the display cases. Two independent signals: a room-type rule and Jev's 'photo supports story'."
+      }
+    },
+    {
+      "scenario_id": "S05",
+      "title": "Street flooding into kitchen - flood exclusion",
+      "customer_id": "CUST-06",
+      "images": ["IMG-05"],
+      "loss_date": "2026-10-09", "reported_at": "2026-10-19T14:00:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Na de hoosbui van vorige week stond de hele straat blank en kwam het water ook bij ons de keuken in, wel 40 cm. We hebben de keuken al gestript want het begon te stinken. Wie betaalt de nieuwe keuken?", "en": "After last week's downpour the whole street was flooded and the water also came into our kitchen, about 40 cm. We've already stripped the kitchen because it started to smell. Who pays for the new kitchen?"}
+      ],
+      "claimed_facts": {"peril": "flood_surface_water", "room": "kitchen", "source": "street flooding after heavy rain", "source_stopped": true, "emergency_measures": "kitchen stripped", "affected_items": ["kitchen base units", "lower walls"]},
+      "estimate": {"contractor": "Keukenbouw Noord", "date": "2026-10-18", "lines": [
+        {"code": "KITCH-BASE-CAB", "description": "Onderkasten keuken (6 st)", "qty": 6, "unit_price": 700.00, "total": 4200.00, "age_years": 14},
+        {"code": "WALL-DRYWALL-REPL", "description": "Gipsplaat onderwanden", "qty": 18, "unit_price": 60.00, "total": 1080.00},
+        {"code": "DRYING-EQUIP", "description": "Drogen 10 dagen", "qty": 10, "unit_price": 60.00, "total": 600.00}
+      ], "total": 5880.00},
+      "golden": {
+        "peril": "flood_surface_water", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "consistency_reasons": ["flood pattern matches story", "post-mitigation photo: original state not verifiable"],
+        "coverage": "not_covered", "clauses": ["C-2.5"],
+        "coverage_reason": "WONEN-BASIS has no Flood extension.",
+        "risk_band": "medium", "risk_signals": ["CLAIM_FREQUENCY_3_IN_3Y", "LATE_REPORTING_10_DAYS", "POST_MITIGATION_PHOTO"],
+        "expected_route": "human_review",
+        "route_reasons": ["ADVERSE_DECISION_NOT_COVERED", "RISK_MEDIUM"],
+        "proposed_payout": 0.00,
+        "demo_point": "The story and photo agree, but the policy excludes floods. Compare with Lotte's WONEN-TOP policy, which includes C-2.6. Run the same claim under her persona to show that the policy, not the AI, decides."
+      }
+    },
+    {
+      "scenario_id": "S06",
+      "title": "Says kitchen ceiling, photo shows a tiled bathroom with drop ceiling",
+      "customer_id": "CUST-01",
+      "images": ["IMG-06"],
+      "loss_date": "2026-10-17", "reported_at": "2026-10-17T22:15:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie.", "en": "Water is leaking from the bathroom above through the kitchen ceiling. Yesterday a big brown stain suddenly appeared in the plaster ceiling. Plumber is coming tomorrow for leak detection."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "kitchen (ceiling)", "source": "bathroom above, unknown", "source_stopped": false, "affected_items": ["kitchen plaster ceiling"]},
+      "estimate": {"contractor": "Loodgieter & Afbouw Utrecht", "date": "2026-10-17", "lines": [
+        {"code": "LEAK-DETECT", "description": "Lekdetectie badkamer", "qty": 1, "unit_price": 450.00, "total": 450.00},
+        {"code": "CEIL-PLAST-REPAIR", "description": "Stucplafond keuken herstellen", "qty": 5, "unit_price": 50.00, "total": 250.00},
+        {"code": "CEIL-PAINT", "description": "Keukenplafond sausen", "qty": 15, "unit_price": 18.00, "total": 270.00}
+      ], "total": 970.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "incomplete",
+        "missing_fields": ["source_stopped"],
+        "image_claim_consistency": "inconsistent",
+        "consistency_reasons": ["room mismatch: claimed kitchen, image bathroom (tiled walls)", "material mismatch: claimed plaster ceiling, image suspended ceiling tile", "tide marks contradict 'suddenly yesterday'"],
+        "coverage": "unresolved", "clauses": ["C-2.1", "C-2.4"],
+        "risk_band": "medium", "risk_signals": ["IMAGE_ROOM_MISMATCH", "IMAGE_MATERIAL_MISMATCH"],
+        "expected_route": "human_review",
+        "route_reasons": ["IMAGE_CLAIM_INCONSISTENT", "COVERAGE_UNRESOLVED"],
+        "demo_point": "The wrong-room trick from the cheat sheet. The vision model picks out three separate mismatches, each with its own evidence."
+      }
+    },
+    {
+      "scenario_id": "S07",
+      "title": "Shower mould 'appeared suddenly' - new customer",
+      "customer_id": "CUST-03",
+      "images": ["IMG-07"],
+      "loss_date": "2026-10-13", "reported_at": "2026-10-14T09:20:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen. Volgens mij lekt de douche achter de tegels. Ik wil de schimmel laten verwijderen en de tegels laten vervangen.", "en": "Last week black spots suddenly appeared at the bottom of the shower wall. I think the shower is leaking behind the tiles. I want the mould removed and the tiles replaced."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "bathroom", "source": "shower, suspected leak behind tiles", "source_stopped": false, "affected_items": ["shower wall", "tiles"]},
+      "estimate": {"contractor": "Badkamerservice Rijnmond", "date": "2026-10-14", "lines": [
+        {"code": "PLB-PIPE-REPAIR", "description": "Lek achter tegels herstellen", "qty": 1, "unit_price": 240.00, "total": 240.00},
+        {"code": "MOULD-REMEDIATION", "description": "Schimmel verwijderen", "qty": 4, "unit_price": 75.00, "total": 300.00},
+        {"code": "TILE-WALL-REPL", "description": "Wandtegels douche vervangen", "qty": 6, "unit_price": 95.00, "total": 570.00}
+      ], "total": 1110.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "incomplete",
+        "missing_fields": ["source_stopped"],
+        "image_claim_consistency": "inconsistent",
+        "consistency_reasons": ["story says sudden; image shows mature mould (gradual)"],
+        "coverage": "not_covered", "clauses": ["C-2.4", "C-2.3"],
+        "risk_band": "medium", "risk_signals": ["POLICY_STARTED_LT_60_DAYS (15 days)", "STORY_VS_EVIDENCE_TIMING"],
+        "expected_route": "human_review",
+        "route_reasons": ["ADVERSE_DECISION_NOT_COVERED", "RISK_MEDIUM"],
+        "proposed_payout": 0.00,
+        "demo_point": "The gradual-damage exclusion, decided by fact keys: Jev's sudden_vs_gradual = gradual_long_term feeds the C-2.4 condition. Policy started 15 days before the loss."
+      }
+    },
+    {
+      "scenario_id": "S08",
+      "title": "'Roof leaked in last night's storm' - rotten, mouldy ceiling and old photo",
+      "customer_id": "CUST-06",
+      "images": ["IMG-08"],
+      "exif_override": {"IMG-08": {"DateTimeOriginal": "2024-02-11T15:42:10", "Make": "Samsung", "Model": "SM-A525F", "GPS": null}},
+      "loss_date": "2026-10-14", "reported_at": "2026-10-15T07:55:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Door de storm van gisteravond is het dak gaan lekken en is het plafond in de keuken naar beneden gekomen. Alles is nat en er zit nu ook schimmel. Graag snel een expert.", "en": "Because of last night's storm the roof started leaking and the kitchen ceiling came down. Everything is wet and there's mould now too. Please send an expert quickly."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "kitchen", "source": "roof leak during storm", "source_stopped": "unknown", "affected_items": ["kitchen ceiling", "ceiling beam"]},
+      "estimate": {"contractor": "Bouwbedrijf De Groot", "date": "2026-10-15", "lines": [
+        {"code": "CEIL-PLAST-REPAIR", "description": "Plafond keuken vernieuwen", "qty": 10, "unit_price": 65.00, "total": 650.00},
+        {"code": "ROOF-STRUCT-REPAIR", "description": "Balk vervangen", "qty": 3, "unit_price": 200.00, "total": 600.00},
+        {"code": "MOULD-REMEDIATION", "description": "Schimmelsanering", "qty": 10, "unit_price": 80.00, "total": 800.00}
+      ], "total": 2050.00},
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "image_claim_consistency": "inconsistent",
+        "consistency_reasons": ["story says sudden storm last night; image shows long-term mould, tide marks and rot", "EXIF date 2024-02-11 is before the loss date"],
+        "coverage": "not_covered", "clauses": ["C-2.4", "C-3.2"],
+        "risk_band": "high", "risk_signals": ["EXIF_BEFORE_LOSS_DATE", "STORY_VS_EVIDENCE_TIMING", "CLAIM_FREQUENCY_3_IN_3Y"],
+        "expected_route": "siu",
+        "route_reasons": ["RISK_GE_0_7"],
+        "proposed_payout": 0.00,
+        "demo_point": "The old-photo trick. The EXIF date and the mould both contradict 'last night', so the risk score crosses 0.7 and the claim goes to fraud investigation."
+      }
+    },
+    {
+      "scenario_id": "S09",
+      "title": "'Burst pipe yesterday' - wall shows years of seepage",
+      "customer_id": "CUST-04",
+      "images": ["IMG-09"],
+      "loss_date": "2026-10-18", "reported_at": "2026-10-19T12:10:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Gisteren is de leiding in de kelderopgang gesprongen. De muur is helemaal kapot, verf eraf, roestvlekken. Loodgieter heeft de leiding gerepareerd, nu moet de muur nog.", "en": "Yesterday the pipe in the basement stairwell burst. The wall is completely damaged - paint off, rust stains. The plumber repaired the pipe; now the wall needs doing."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "basement stairwell", "source": "burst pipe", "source_stopped": true, "affected_items": ["stairwell wall"]},
+      "estimate": {"contractor": "Installatiebedrijf Zwolle", "date": "2026-10-19", "lines": [
+        {"code": "PLB-PIPE-REPAIR", "description": "Leiding herstellen", "qty": 1, "unit_price": 280.00, "total": 280.00},
+        {"code": "WALL-PLASTER-REPAIR", "description": "Wand stucen", "qty": 4, "unit_price": 55.00, "total": 220.00},
+        {"code": "WALL-PAINT", "description": "Wand schilderen", "qty": 10, "unit_price": 18.00, "total": 180.00}
+      ], "total": 680.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "complete",
+        "image_claim_consistency": "inconsistent",
+        "consistency_reasons": ["story says burst yesterday; image shows corrosion and efflorescence (long-term)"],
+        "coverage": "not_covered", "clauses": ["C-2.4", "C-2.3"],
+        "risk_band": "low", "risk_signals": ["STORY_VS_EVIDENCE_TIMING"],
+        "expected_route": "human_review",
+        "route_reasons": ["ADVERSE_DECISION_NOT_COVERED"],
+        "proposed_payout": 0.00,
+        "demo_point": "An honest customer, but the damage is clearly gradual. Low risk, yet still adverse, so a human signs off on it."
+      }
+    },
+    {
+      "scenario_id": "S10",
+      "title": "Socket fire while charging - small fire, depreciation",
+      "customer_id": "CUST-01",
+      "images": ["IMG-10"],
+      "loss_date": "2026-10-19", "reported_at": "2026-10-19T20:30:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Vanavond vloog het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag. Er kwamen vlammen uit, ik heb het met een natte theedoek uitgemaakt en de groep uitgezet. De hele kamer stinkt naar rook en de muur erboven is grauw.", "en": "Tonight the socket in the living room caught fire while the phone was charging. Flames came out; I put it out with a wet tea towel and switched off the circuit. The whole room smells of smoke and the wall above it is grey."}
+      ],
+      "claimed_facts": {"peril": "fire_smoke", "room": "living room", "source": "wall socket", "open_fire_reported": true, "emergency_measures": "extinguished, circuit off", "affected_items": ["socket", "living room walls (soot)"]},
+      "estimate": {"contractor": "Elektro & Schilder De Vries", "date": "2026-10-19", "lines": [
+        {"code": "ELEC-SOCKET-REPL", "description": "Wandcontactdoos vervangen + controle groep", "qty": 1, "unit_price": 135.00, "total": 135.00, "age_years": 28},
+        {"code": "SOOT-CLEAN-ROOM", "description": "Roetreiniging woonkamer", "qty": 1, "unit_price": 480.00, "total": 480.00},
+        {"code": "WALL-PAINT", "description": "Wand woonkamer schilderen", "qty": 18, "unit_price": 16.00, "total": 288.00}
+      ], "total": 903.00},
+      "golden": {
+        "peril": "fire_smoke", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "consistency_reasons": ["charring consistent with a small fire", "soot on the wall not visible in frame (single close-up)"],
+        "coverage": "covered", "clauses": ["C-4.1", "C-4.2", "C-9.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "stp",
+        "payout": {"lines": [
+          {"code": "ELEC-SOCKET-REPL", "validated": 135.00, "depreciation": 67.50, "covered": 67.50, "reason": "DEP-ELECTRICAL: (28-2) x 5% = 130%, capped at 50%"},
+          {"code": "SOOT-CLEAN-ROOM", "validated": 480.00, "depreciation": 0, "covered": 480.00},
+          {"code": "WALL-PAINT", "validated": 288.00, "depreciation": 0, "covered": 288.00}
+        ], "eligible": 835.50, "deductible": 100.00, "payout": 735.50},
+        "notes": "Depends on Jev open_fire_evident >= 0.5 (story mentions flames). If it lands in 0.25-0.5, C-4.2 is unresolved and the route becomes human_review.",
+        "demo_point": "The fire-versus-scorching nuance from the policy wording, plus depreciation capped at the 50% maximum. Click 'Why?' on EUR 67.50."
+      }
+    },
+    {
+      "scenario_id": "S11",
+      "title": "House fire, roof destroyed - authority limit",
+      "customer_id": "CUST-05",
+      "images": ["IMG-11"],
+      "loss_date": "2026-10-11", "reported_at": "2026-10-12T09:00:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "We had a fire on Saturday night that started in the attic. The fire brigade came (report BRW-2026-44871). The roof is gone and the top floor is badly damaged. We're staying with family. What happens now?", "nl": "Zaterdagnacht hadden we brand die op zolder begon. De brandweer is gekomen (rapport BRW-2026-44871). Het dak is weg en de bovenverdieping is zwaar beschadigd. We logeren bij familie. Wat gebeurt er nu?"}
+      ],
+      "claimed_facts": {"peril": "fire_smoke", "room": "attic / roof / top floor", "fire_brigade_report": "BRW-2026-44871", "affected_items": ["roof", "top floor"]},
+      "estimate": {"contractor": "Herstelbouw Zuid-Holland", "date": "2026-10-14", "lines": [
+        {"code": "FIRE-ROOF-REBUILD", "description": "Rebuild roof incl. covering", "qty": 95, "unit_price": 260.00, "total": 24700.00},
+        {"code": "FIRE-INTERIOR-REBUILD", "description": "Strip and rebuild top floor", "qty": 40, "unit_price": 900.00, "total": 36000.00},
+        {"code": "DEMOLITION-DEBRIS", "description": "Demolition and debris removal", "qty": 1, "unit_price": 3200.00, "total": 3200.00},
+        {"code": "SCAFFOLD", "description": "Scaffolding 6 weeks", "qty": 6, "unit_price": 650.00, "total": 3900.00}
+      ], "total": 67800.00},
+      "golden": {
+        "peril": "fire_smoke", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "consistency_reasons": ["severe roof fire matches story"],
+        "coverage": "covered", "clauses": ["C-4.1"],
+        "risk_band": "low", "risk_signals": ["VISIBLE_TEXT_LOCATION_MISMATCH (UK street sign) - demo config: warning only"],
+        "expected_route": "human_review",
+        "route_reasons": ["PAYOUT_ABOVE_STP_LIMIT", "AUTHORITY_SENIOR_HANDLER"],
+        "proposed_payout": {"eligible": 67800.00, "deductible": 250.00, "payout": 67550.00},
+        "demo_point": "A legitimate, large claim. The AI prepares everything, but authority rules send it to a senior handler. Shows that STP is a policy choice, not a model limitation."
+      }
+    },
+    {
+      "scenario_id": "S12",
+      "title": "Room burned out 19 days after the policy started",
+      "customer_id": "CUST-03",
+      "images": ["IMG-12"],
+      "loss_date": "2026-10-17", "reported_at": "2026-10-18T11:45:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Gisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort, de brandweer was er. Ik weet het rapportnummer nog niet. Kunnen jullie snel betalen want we kunnen er niet wonen.", "en": "Last night there was a fire in the living room, from the stove. Everything is black and has collapsed; the fire brigade was there. I don't know the report number yet. Can you pay quickly because we can't live there."}
+      ],
+      "claimed_facts": {"peril": "fire_smoke", "room": "living room", "source": "stove", "fire_brigade_report": null, "affected_items": ["living room", "contents"]},
+      "estimate": {"contractor": "Brandherstel Rijnmond", "date": "2026-10-18", "lines": [
+        {"code": "FIRE-INTERIOR-REBUILD", "description": "Woonkamer strippen en herbouwen", "qty": 22, "unit_price": 1050.00, "total": 23100.00},
+        {"code": "DEMOLITION-DEBRIS", "description": "Sloop en afvoer", "qty": 1, "unit_price": 2800.00, "total": 2800.00},
+        {"code": "SOOT-CLEAN-ROOM", "description": "Roetreiniging overige ruimtes (3)", "qty": 3, "unit_price": 600.00, "total": 1800.00}
+      ], "total": 27700.00},
+      "golden": {
+        "peril": "fire_smoke", "completeness": "incomplete",
+        "missing_fields": ["fire_brigade_report"],
+        "image_claim_consistency": "consistent",
+        "coverage": "covered", "clauses": ["C-4.1"],
+        "risk_band": "medium", "risk_signals": ["POLICY_STARTED_LT_60_DAYS (19 days)", "HIGH_AMOUNT", "CONSTRUCTION_TYPE_ATYPICAL", "URGENCY_PRESSURE"],
+        "expected_route": "info_request",
+        "route_after_info": "human_review",
+        "route_reasons": ["MISSING_FIRE_BRIGADE_REPORT", "PAYOUT_ABOVE_STP_LIMIT", "AUTHORITY_SENIOR_HANDLER", "RISK_MEDIUM"],
+        "proposed_payout": {"eligible": 27700.00, "deductible": 250.00, "payout": 27450.00},
+        "demo_point": "The fire matches the story, but there are several soft risk signals (new policy, high amount, atypical construction). The missing brigade report triggers the info loop first."
+      }
+    },
+    {
+      "scenario_id": "S13",
+      "title": "Storm chimney collapse - photo already used on a past claim",
+      "customer_id": "CUST-04",
+      "images": ["IMG-13", "IMG-14"],
+      "loss_date": "2026-10-14", "reported_at": "2026-10-15T08:30:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Door de storm van gisteren is onze schoorsteen op het dak gestort. Overal pannen kapot. Foto's van voor en zijkant bijgevoegd, offerte dakdekker ook.", "en": "Because of yesterday's storm our chimney collapsed onto the roof. Broken tiles everywhere. Photos of the front and side attached, roofer's quote too."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "roof", "affected_items": ["chimney", "roof tiles"]},
+      "estimate": {"contractor": "Dakdekkersbedrijf IJsselland", "date": "2026-10-15", "lines": [
+        {"code": "CHIMNEY-REBUILD", "description": "Schoorsteen herbouwen", "qty": 1, "unit_price": 3400.00, "total": 3400.00},
+        {"code": "ROOF-TILE-REPL", "description": "Dakpannen vervangen", "qty": 15, "unit_price": 95.00, "total": 1425.00, "age_years": 21},
+        {"code": "SCAFFOLD", "description": "Steiger 2 weken", "qty": 2, "unit_price": 750.00, "total": 1500.00},
+        {"code": "TEMP-COVER", "description": "Noodafdekking", "qty": 1, "unit_price": 380.00, "total": 380.00}
+      ], "total": 6705.00},
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "consistency_reasons": ["damage matches the storm story; but see risk"],
+        "coverage": "covered", "clauses": ["C-3.1", "C-8.2"],
+        "risk_band": "high", "risk_signals": ["HARD_FLAG_DUPLICATE_IMAGE (IMG-13 matches CLM-2025-000871)", "VISIBLE_TEXT_LOCATION_MISMATCH ('FERNIEHILL DRIVE' vs Zwolle)"],
+        "expected_route": "siu",
+        "route_reasons": ["HARD_FLAG_DUPLICATE_IMAGE"],
+        "proposed_payout": null,
+        "demo_point": "The duplicate-photo trick. The perceptual hash matches a photo from someone else's claim last year (a hard flag, so it goes to fraud investigation regardless of score). The visible street sign adds a second signal."
+      }
+    },
+    {
+      "scenario_id": "S14",
+      "title": "Storm chimney collapse - clean STP with depreciation",
+      "customer_id": "CUST-01",
+      "images": ["IMG-14"],
+      "exif_override": {"IMG-14": {"DateTimeOriginal": "2026-10-15T09:14:02", "Make": "Apple", "Model": "iPhone 15", "GPS": {"lat": 52.0891, "lon": 5.1312}}},
+      "loss_date": "2026-10-14", "reported_at": "2026-10-15T09:20:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Tijdens de storm van gisteravond is de schoorsteen omgewaaid en op het dak gevallen. Een paar pannen zijn kapot. De dakdekker heeft het vanochtend al noodafgedekt. Foto en offerte bijgevoegd.", "en": "During last night's storm the chimney blew over and fell on the roof. A few tiles are broken. The roofer already put an emergency cover on this morning. Photo and quote attached."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "roof", "emergency_measures": "temporary cover by roofer", "affected_items": ["chimney", "roof tiles"]},
+      "estimate": {"contractor": "Dakwerken Utrecht", "date": "2026-10-15", "lines": [
+        {"code": "CHIMNEY-REBUILD", "description": "Schoorsteen herbouwen incl. rookkanaal", "qty": 1, "unit_price": 2950.00, "total": 2950.00},
+        {"code": "ROOF-TILE-REPL", "description": "Dakpannen vervangen", "qty": 6, "unit_price": 82.00, "total": 492.00, "age_years": 18},
+        {"code": "SCAFFOLD", "description": "Steiger 1 week", "qty": 1, "unit_price": 640.00, "total": 640.00},
+        {"code": "TEMP-COVER", "description": "Noodafdekking", "qty": 1, "unit_price": 275.00, "total": 275.00}
+      ], "total": 4357.00},
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "coverage": "covered", "clauses": ["C-3.1", "C-8.2", "C-9.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "stp",
+        "payout": {"lines": [
+          {"code": "CHIMNEY-REBUILD", "validated": 2950.00, "depreciation": 0, "covered": 2950.00},
+          {"code": "ROOF-TILE-REPL", "validated": 492.00, "depreciation": 127.92, "covered": 364.08, "reason": "DEP-ROOFING: (18-5) x 2% = 26%"},
+          {"code": "SCAFFOLD", "validated": 640.00, "depreciation": 0, "covered": 640.00},
+          {"code": "TEMP-COVER", "validated": 275.00, "depreciation": 0, "covered": 275.00, "reason": "C-8.2 within SL-EMERGENCY"}
+        ], "eligible": 4229.08, "deductible": 100.00, "payout": 4129.08},
+        "notes": "Must NOT match IMG-13's hash in history (different photo of the same scene). This proves the duplicate check is per image, not per scene. Storm day 2026-10-14 is in storm_days.",
+        "demo_point": "The flagship straight-through payout: storm, emergency cover, depreciation on the tiles and a total just under the EUR 5,000 STP limit."
+      }
+    },
+    {
+      "scenario_id": "S15",
+      "title": "Farmhouse pantiles gone after storm - or was it old?",
+      "customer_id": "CUST-07",
+      "images": ["IMG-15"],
+      "loss_date": "2026-10-14", "reported_at": "2026-10-16T16:00:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Bij de storm van dinsdag is een groot stuk van het pannendak van de boerderij weggewaaid. Je kunt zo de lucht in kijken. Het regent binnen op zolder.", "en": "In Tuesday's storm a big part of the farmhouse's pantile roof blew away. You can see straight up into the sky. It's raining into the attic."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "roof / attic", "affected_items": ["pantiles", "battens"]},
+      "estimate": {"contractor": "Rietdek & Pannen Brabant", "date": "2026-10-16", "lines": [
+        {"code": "ROOF-TILE-REPL", "description": "Oud-Hollandse pannen vervangen", "qty": 12, "unit_price": 98.00, "total": 1176.00, "age_years": 48},
+        {"code": "ROOF-STRUCT-REPAIR", "description": "Panlatten vernieuwen", "qty": 6, "unit_price": 180.00, "total": 1080.00},
+        {"code": "SCAFFOLD", "description": "Steiger 1 week", "qty": 1, "unit_price": 600.00, "total": 600.00}
+      ], "total": 2856.00},
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "image_claim_consistency": "partially_consistent",
+        "consistency_reasons": ["missing tiles fit the story", "weathered battens and lichen suggest the opening predates the storm"],
+        "coverage": "unresolved", "clauses": ["C-3.1", "C-3.2"],
+        "coverage_reason": "C-3.2 maintenance condition: roof_maintenance_poor / long_term signs in the uncertain band.",
+        "risk_band": "low", "risk_signals": ["ROOF_AGE_48_YEARS"],
+        "expected_route": "human_review",
+        "route_reasons": ["COVERAGE_UNRESOLVED", "JEV_UNCERTAIN_BAND"],
+        "demo_point": "Honest uncertainty. The system doesn't guess: Jev's probability lands in the 0.25-0.75 band, so a human decides, and the reviewer sees exactly why."
+      }
+    },
+    {
+      "scenario_id": "S16",
+      "title": "Tree fell on the house - handler authority, overpriced line trimmed",
+      "customer_id": "CUST-08",
+      "images": ["IMG-16"],
+      "loss_date": "2026-10-14", "reported_at": "2026-10-15T07:10:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "A huge tree from our garden came down on the house in the storm last night. Part of the roof is crushed and a window is smashed. Kids are fine, we're at my sister's. Contractor sent an estimate already.", "nl": "Een enorme boom uit onze tuin is vannacht door de storm op het huis gevallen. Een deel van het dak is ingedrukt en een raam is kapot. De kinderen zijn ok, we zitten bij mijn zus. De aannemer heeft al een offerte gestuurd."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "roof / facade", "affected_items": ["roof", "window", "facade", "fallen tree"]},
+      "estimate": {"contractor": "Aannemersbedrijf Leiden-Noord", "date": "2026-10-15", "lines": [
+        {"code": "TREE-REMOVAL", "description": "Remove fallen tree", "qty": 1, "unit_price": 950.00, "total": 950.00},
+        {"code": "ROOF-STRUCT-REPAIR", "description": "Repair roof structure", "qty": 14, "unit_price": 340.00, "total": 4760.00},
+        {"code": "SIDING-REPL", "description": "Replace facade cladding", "qty": 9, "unit_price": 110.00, "total": 990.00},
+        {"code": "WINDOW-FRAME-REPL", "description": "Replace window frame incl. glass", "qty": 1, "unit_price": 1150.00, "total": 1150.00, "age_years": 25},
+        {"code": "ROOF-TILE-REPL", "description": "Replace roof covering", "qty": 20, "unit_price": 95.00, "total": 1900.00, "age_years": 25},
+        {"code": "SCAFFOLD", "description": "Scaffolding 2 weeks", "qty": 2, "unit_price": 700.00, "total": 1400.00},
+        {"code": "TEMP-COVER", "description": "Emergency cover", "qty": 1, "unit_price": 350.00, "total": 350.00}
+      ], "total": 11500.00},
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "coverage": "covered", "clauses": ["C-3.1", "C-3.3", "C-8.2", "C-9.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "human_review",
+        "route_reasons": ["PAYOUT_ABOVE_STP_LIMIT", "AUTHORITY_CLAIMS_HANDLER"],
+        "proposed_payout": {"lines": [
+          {"code": "TREE-REMOVAL", "validated": 950.00, "depreciation": 0, "covered": 950.00, "reason": "C-3.3; within SL-TREE 1000"},
+          {"code": "ROOF-STRUCT-REPAIR", "validated": 3542.00, "depreciation": 0, "covered": 3542.00, "reason": "unit 340 > p75 230 x 1.10 = 253; trimmed (valuation, not denial)"},
+          {"code": "SIDING-REPL", "validated": 990.00, "depreciation": 0, "covered": 990.00},
+          {"code": "WINDOW-FRAME-REPL", "validated": 1150.00, "depreciation": 460.00, "covered": 690.00, "reason": "DEP-DOORS-WINDOWS: (25-5) x 3% = 60%, capped at 40%"},
+          {"code": "ROOF-TILE-REPL", "validated": 1900.00, "depreciation": 760.00, "covered": 1140.00, "reason": "DEP-ROOFING: (25-5) x 2% = 40% (max)"},
+          {"code": "SCAFFOLD", "validated": 1400.00, "depreciation": 0, "covered": 1400.00},
+          {"code": "TEMP-COVER", "validated": 350.00, "depreciation": 0, "covered": 350.00}
+        ], "eligible": 9062.00, "deductible": 100.00, "payout": 8962.00},
+        "demo_point": "Benchmark trimming in action: one line is 48% over the market price and is cut back with a reason code. The amount needs a claims handler (EUR 5k-25k)."
+      }
+    },
+    {
+      "scenario_id": "S17",
+      "title": "Tree down in the garden - just reporting",
+      "customer_id": "CUST-07",
+      "images": ["IMG-17"],
+      "loss_date": "2026-10-14", "reported_at": "2026-10-15T10:05:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Even ter info: bij de storm is de grote es in de voortuin omgevallen. Hij heeft het huis en de garage gelukkig gemist, er is geen schade. Ik wil het alleen even gemeld hebben. Ik laat hem zelf weghalen.", "en": "Just for your information: in the storm the big ash tree in the front garden came down. Luckily it missed the house and garage; there's no damage. I just want to have it reported. I'll have it removed myself."}
+      ],
+      "claimed_facts": {"peril": "storm_wind_hail", "room": "garden", "compensation_requested": false, "affected_items": ["tree"]},
+      "estimate": null,
+      "golden": {
+        "peril": "storm_wind_hail", "completeness": "complete",
+        "claim_vs_incident": "incident_only",
+        "image_claim_consistency": "consistent",
+        "coverage": "not_applicable", "clauses": ["C-3.3"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "incident_only",
+        "route_reasons": ["NO_COMPENSATION_REQUESTED"],
+        "letter_hint": "Confirm the incident is registered. Mention that tree removal is only covered if the tree damages the building (C-3.3), and ask the customer to report any damage they find later.",
+        "demo_point": "Claim vs incident: Jev's noul 'is the customer asking for compensation?' is low, so the event is registered as an incident only. A helpful reply, no claim file."
+      }
+    },
+    {
+      "scenario_id": "S18",
+      "title": "Football through the window - glass cover",
+      "customer_id": "CUST-08",
+      "images": ["IMG-18"],
+      "loss_date": "2026-10-18", "reported_at": "2026-10-18T17:25:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "The neighbour's kids kicked a football against our upstairs window this afternoon - the glass is cracked but still in the frame. Glazier quoted for replacing the double glazing. Photo attached.", "nl": "De buurkinderen hebben vanmiddag een voetbal tegen ons bovenraam geschoten - het glas is gebarsten maar zit nog in het kozijn. De glaszetter heeft een offerte gemaakt voor nieuw dubbel glas. Foto bijgevoegd."}
+      ],
+      "claimed_facts": {"peril": "accidental_damage", "room": "facade / upstairs window", "affected_items": ["double glazing"]},
+      "estimate": {"contractor": "Glashandel Leiden", "date": "2026-10-18", "lines": [
+        {"code": "GLASS-DG-REPL", "description": "Replace HR++ double glazing 1.6 m2", "qty": 1.6, "unit_price": 195.00, "total": 312.00}
+      ], "total": 312.00},
+      "golden": {
+        "peril": "accidental_damage", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "coverage": "covered", "clauses": ["C-6.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "stp",
+        "payout": {"lines": [
+          {"code": "GLASS-DG-REPL", "validated": 312.00, "depreciation": 0, "covered": 312.00, "reason": "C-6.1, glass not depreciable"}
+        ], "eligible": 312.00, "deductible": 0.00, "payout": 312.00},
+        "demo_point": "The fastest happy path: glass cover, no deductible, paid in seconds. Try the same claim as Pieter (no glass cover) to show the policy deciding."
+      }
+    },
+    {
+      "scenario_id": "S19",
+      "title": "Tenant burglary: forced door, laptop stolen",
+      "customer_id": "CUST-02",
+      "images": ["IMG-19"],
+      "loss_date": "2026-10-17", "reported_at": "2026-10-17T23:40:00+02:00",
+      "messages": [
+        {"lang": "en", "text": "Someone broke into my flat this evening while I was out. They forced the door to my study - the frame is split - and took my laptop (bought 2 years ago, EUR 1,299). Police report number PV-2026-118734. Locksmith quote attached.", "nl": "Vanavond is er bij mij ingebroken terwijl ik weg was. De deur van mijn werkkamer is opengebroken - het kozijn is gespleten - en mijn laptop is meegenomen (2 jaar geleden gekocht, EUR 1.299). Proces-verbaal PV-2026-118734. Offerte slotenmaker bijgevoegd."}
+      ],
+      "claimed_facts": {"peril": "theft_burglary", "room": "study (interior door)", "police_report_ref": "PV-2026-118734", "affected_items": ["door frame", "bolt", "laptop"]},
+      "estimate": {"contractor": "Slotenservice Amsterdam West", "date": "2026-10-18", "lines": [
+        {"code": "DOOR-FRAME-REPAIR", "description": "Repair split door frame", "qty": 1, "unit_price": 260.00, "total": 260.00},
+        {"code": "LOCK-REPL", "description": "Replace bolt and keeper", "qty": 1, "unit_price": 145.00, "total": 145.00},
+        {"code": "CONT-LAPTOP", "description": "Laptop (stolen), purchase 2024", "qty": 1, "unit_price": 1299.00, "total": 1299.00, "age_years": 2}
+      ], "total": 1704.00},
+      "golden": {
+        "peril": "theft_burglary", "completeness": "complete",
+        "image_claim_consistency": "consistent",
+        "consistency_reasons": ["fresh forced-entry damage visible", "laptop theft not visible (expected)"],
+        "coverage": "covered", "clauses": ["C-5.1", "C-5.2", "C-5.3", "C-9.1"],
+        "risk_band": "low", "risk_signals": [],
+        "expected_route": "stp",
+        "payout": {"lines": [
+          {"code": "DOOR-FRAME-REPAIR", "validated": 260.00, "depreciation": 0, "covered": 260.00, "reason": "C-5.2 tenant burglary damage, within SL-TENANT-BREAK"},
+          {"code": "LOCK-REPL", "validated": 145.00, "depreciation": 0, "covered": 145.00, "reason": "C-5.2"},
+          {"code": "CONT-LAPTOP", "validated": 1299.00, "depreciation": 194.85, "covered": 1104.15, "reason": "DEP-ELECTRONICS: (2-1) x 15% = 15%"}
+        ], "eligible": 1509.15, "deductible": 100.00, "payout": 1409.15},
+        "demo_point": "Contrast with S03: the same tenant policy, but here the building damage IS covered because C-5.2 covers burglary damage for tenants. Also shows contents depreciation and the police report check."
+      }
+    },
+    {
+      "scenario_id": "S20",
+      "title": "Claims water damage, sends a photo of an intact living room",
+      "customer_id": "CUST-03",
+      "images": ["IMG-20"],
+      "loss_date": "2026-10-19", "reported_at": "2026-10-19T18:00:00+02:00",
+      "messages": [
+        {"lang": "nl", "text": "Er is lekkage geweest in de woonkamer, de muren en de vloer zijn beschadigd. Hierbij een foto. Ik wil graag dat de vloer en de muren worden vergoed.", "en": "There's been a leak in the living room; the walls and floor are damaged. Here's a photo. I'd like the floor and walls to be paid for."}
+      ],
+      "claimed_facts": {"peril": "water_burst_or_leak", "room": "living room", "source": null, "source_stopped": null, "affected_items": ["walls", "floor"]},
+      "estimate": {"contractor": null, "date": null, "lines": [
+        {"code": "FLOOR-WOOD-REPL", "description": "Vloer woonkamer", "qty": 20, "unit_price": 100.00, "total": 2000.00, "age_years": null},
+        {"code": "WALL-PAINT", "description": "Muren schilderen", "qty": 30, "unit_price": 18.00, "total": 540.00}
+      ], "total": 2540.00},
+      "golden": {
+        "peril": "water_burst_or_leak", "completeness": "incomplete",
+        "missing_fields": ["source", "source_stopped", "damage_photo", "item_age (flooring)", "contractor_estimate"],
+        "image_claim_consistency": "cannot_assess",
+        "consistency_reasons": ["image shows no damage (not_a_damage_photo)"],
+        "coverage": "unresolved", "clauses": ["C-2.1"],
+        "risk_band": "medium", "risk_signals": ["POLICY_STARTED_LT_60_DAYS (21 days)", "NO_DAMAGE_IN_EVIDENCE"],
+        "expected_route": "info_request",
+        "route_after_info": "human_review (if still no damage evidence after 2 rounds)",
+        "info_requested": ["photo of the damage", "what was the source of the water and has it stopped", "age of the floor", "repair estimate"],
+        "demo_point": "Robustness with unscripted input: the prospect uploads a normal room photo. The system politely asks for a damage photo instead of inventing an assessment."
+      }
+    }
+  ]
+}

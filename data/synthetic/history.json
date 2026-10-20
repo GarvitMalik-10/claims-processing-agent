@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "description": "Past claims, used by the Risk agent for claim frequency and duplicate-image detection. Image hashes are computed at build time from the referenced media file (perceptual hash, imagehash.phash) and written to the event store seed. Never type them in by hand.",
+    "schema_version": "claim_history_v1",
+    "hash_algorithm": "phash_64bit",
+    "duplicate_threshold_hamming": 8
+  },
+  "past_claims": [
+    {"claim_id": "CLM-2025-000871", "customer_ref": "EXT-4471 (other customer, not a demo persona)", "policy_ref": "POL-0871", "loss_date": "2025-12-07", "peril": "storm_wind_hail", "status": "closed_paid", "paid": 5240.00,
+     "images": [{"image_ref": "HIST-871-1", "phash_source": "media/images/IMG-13_flats_roof_tiles_torn.jpg", "phash": "COMPUTE_AT_BUILD"}],
+     "note": "Seeds the duplicate-photo scenario (S13). Only IMG-13 is registered, so IMG-14 (same scene, different photo) must NOT match."},
+    {"claim_id": "CLM-2024-000312", "customer_ref": "CUST-06", "policy_ref": "POL-1006", "loss_date": "2024-01-22", "peril": "storm_wind_hail", "status": "closed_paid", "paid": 1180.00, "images": []},
+    {"claim_id": "CLM-2024-001907", "customer_ref": "CUST-06", "policy_ref": "POL-1006", "loss_date": "2024-11-03", "peril": "water_burst_or_leak", "status": "closed_paid", "paid": 2310.00, "images": []},
+    {"claim_id": "CLM-2025-000455", "customer_ref": "CUST-06", "policy_ref": "POL-1006", "loss_date": "2025-06-15", "peril": "theft_burglary", "status": "closed_partially_paid", "paid": 640.00, "images": []},
+    {"claim_id": "CLM-2023-000098", "customer_ref": "CUST-04", "policy_ref": "POL-1004", "loss_date": "2023-02-18", "peril": "storm_wind_hail", "status": "closed_paid", "paid": 410.00, "images": []}
+  ]
+}
