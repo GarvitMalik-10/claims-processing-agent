@@ -34,11 +34,11 @@
       "setting": "exterior",
       "room_type": "exterior_facade",
       "room_type_cues": [
-        "red brick two-storey block of flats with front door",
-        "white cladding panels and uPVC windows",
-        "satellite dishes on wall",
-        "street sign reading Ferniehill Drive",
-        "pavement, kerb and grass verge"
+        "brick-built two-storey block of flats",
+        "street name sign on wall",
+        "red front door with entrance canopy",
+        "roof with concrete tiles and gutters",
+        "front boundary wall and pavement"
       ],
       "damage_present": true,
       "damage_types": [
@@ -50,55 +50,54 @@
       "damaged_parts": [
         {
           "part": "chimney stack",
-          "condition": "collapsed, with bricks and a breeze block scattered down the roof slope"
+          "condition": "collapsed, with bricks and a concrete block lying on the roof slope"
         },
         {
           "part": "roof covering",
-          "condition": "tiles displaced or broken where debris landed, with dark patches on the slope"
+          "condition": "tiles displaced or broken near the collapsed chimney, with debris spread over the slope"
         },
         {
-          "part": "upper-storey wall section above entrance",
-          "condition": "open void with the wall or window missing at the stairwell level"
+          "part": "upper-storey balcony or walkway area to the right",
+          "condition": "open and exposed, with a yellow-painted interior visible; the cause is unclear"
         },
         {
           "part": "front boundary wall",
-          "condition": "covered with plastic sheeting and bricks, with temporary barriers in front"
+          "condition": "covered with plastic sheeting on top and fitted with temporary barriers"
         }
       ],
       "materials": [
-        "brick",
-        "concrete roof tiles",
+        "red brick",
+        "concrete roof tile",
         "white cladding",
-        "uPVC",
-        "concrete",
-        "metal fencing",
-        "plastic sheeting"
+        "uPVC windows",
+        "painted timber door",
+        "plastic sheeting",
+        "metal barrier"
       ],
       "visible_items": [
-        "collapsed chimney bricks",
-        "breeze block",
         "satellite dishes",
-        "guttering",
-        "red front door",
-        "metal pedestrian barriers",
-        "temporary mesh fencing",
-        "concrete blocks",
+        "bare trees",
+        "temporary pedestrian barriers",
+        "wire mesh fencing",
         "street name sign",
-        "young tree with stake"
+        "red front door",
+        "concrete blocks on grass",
+        "gutters",
+        "neighbouring building"
       ],
       "long_term_signs_visible": false,
       "visible_text": [
         "FERNIEHILL DRIVE",
-        "12 (door number, partly legible)"
+        "1[?] on red door (number partly legible)"
       ],
       "regional_indicators": [
-        "UK-style street name plate",
-        "British council-style brick flats",
-        "UK-style kerb and road markings",
-        "Satellite dishes typical of UK housing"
+        "street sign reading 'Ferniehill Drive'",
+        "UK-style brick council flats",
+        "British-style pavement with yellow kerb markings",
+        "pedestrian barriers typical of the UK"
       ],
       "confidence": 0.85,
-      "summary_en": "A two-storey red brick block of flats has a collapsed chimney, with bricks and a breeze block spilled across the tiled roof and an open void in the upper wall above the entrance. Temporary barriers, mesh fencing and plastic sheeting are in place at the front, and a sign reads Ferniehill Drive."
+      "summary_en": "A two-storey brick block of flats with a collapsed chimney stack, with bricks and a concrete block spilling across the tiled roof and some tiles displaced. Temporary barriers and plastic sheeting are in place at the front wall, and a street sign reads 'Ferniehill Drive'."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -121,11 +120,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 678,
+          "output_tokens": 689,
           "type": "message"
         }
       ],
-      "output_tokens": 678,
+      "output_tokens": 689,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

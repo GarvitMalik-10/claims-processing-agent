@@ -22,7 +22,7 @@
   },
   "response": {
     "parsed_output": {
-      "text": "Hoi Fatima, bedankt voor je bericht! Om je melding verder te kunnen bekijken, heb ik nog even wat info van je nodig:\n• Op welke datum is de schade ontstaan?\n• Waar kwam het water (of vuur) vandaan?\n• Is de oorzaak gestopt (bijvoorbeeld kraan dichtgedraaid of lek gerepareerd)?\n• Hoe oud is de vloer in de woonkamer (of in welk jaar is die gekocht)? 🙂"
+      "text": "Hoi Fatima, bedankt voor je bericht! Om je melding verder te kunnen bekijken heb ik nog wat info nodig:\n• Op welke datum is de schade ontstaan?\n• Waar kwam het water (of vuur) vandaan?\n• Is de oorzaak verholpen (bijvoorbeeld kraan dicht of lek gerepareerd)?\n• Hoe oud is de vloer in de woonkamer (of in welk jaar is hij gekocht)? 🙂"
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -45,11 +45,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 512,
           "model": null,
-          "output_tokens": 191,
+          "output_tokens": 183,
           "type": "message"
         }
       ],
-      "output_tokens": 191,
+      "output_tokens": 183,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

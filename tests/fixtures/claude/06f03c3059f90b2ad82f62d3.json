@@ -30,7 +30,7 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "Water found in the kitchen cabinet under the sink because the trap is leaking",
+        "value": "Water found in the kitchen cabinet under the sink because the trap was leaking",
         "quote": "vanochtend stond er water in het keukenkastje onder de gootsteen. De sifon lekt",
         "evidence_id": "EV-0001"
       },
@@ -61,20 +61,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Cabinet base under sink",
+          "label": "Cabinet base under the sink (swollen)",
           "quote": "De bodem van het kastje is opgezwollen",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Laminate flooring in front of cabinet",
+          "label": "Laminate flooring in front of the cabinet (swollen)",
           "quote": "het laminaat ervoor ook",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Customer gave no ages for any estimate lines. 'Vanochtend' resolved to the message date 2026-10-18. Loss time not stated. Estimate ages are not from the customer so not extracted.",
-      "summary": "Customer reports a leaking sink trap that flooded the kitchen cabinet under the sink, swelling the cabinet base and laminate; the tap was closed."
+      "reasoning": "Loss date resolved from 'vanochtend' against the 2026-10-18 timestamp. The customer gave no item ages; the ages on the estimate were not stated by the customer, so none were extracted. No time of day, third party, police or fire brigade reports, or theft mentioned.",
+      "summary": "Customer reports a leaking sink trap that flooded the kitchen cabinet under the sink on the morning of 2026-10-18, swelling the cabinet base and laminate; the tap was closed."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +97,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3258,
           "model": null,
-          "output_tokens": 690,
+          "output_tokens": 739,
           "type": "message"
         }
       ],
-      "output_tokens": 690,
+      "output_tokens": 739,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

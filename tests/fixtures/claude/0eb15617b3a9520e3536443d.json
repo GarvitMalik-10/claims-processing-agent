@@ -26,7 +26,7 @@
       "loss_date": null,
       "loss_time": null,
       "what_happened": {
-        "value": "Dishwasher hose came loose over the weekend, causing the oak floor in the living room to buckle badly",
+        "value": "Dishwasher hose came loose over the weekend, causing the oak floor in the living room to buckle",
         "quote": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly",
         "evidence_id": "EV-0001"
       },
@@ -43,8 +43,8 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "Drying equipment is running",
-        "quote": "We already have dryers running.",
+        "value": "Drying equipment (dryers) is already running",
+        "quote": "We already have dryers running",
         "evidence_id": "EV-0001"
       },
       "third_party_involved": null,
@@ -62,12 +62,12 @@
         {
           "line_code": "FLOOR-WOOD-REPL",
           "age_years": 10.0,
-          "quote": "The floor was laid in 2016.",
+          "quote": "The floor was laid in 2016",
           "evidence_id": "EV-0001"
         }
       ],
-      "extraction_confidence": 0.8,
-      "reasoning": "Loss date is only 'over the weekend', which is not a specific date, so it is left null. The message was sent on Tuesday 2026-10-13. The floor age is computed as 2026 minus 2016 = 10 years, which matches the estimate. The customer did not say whether the hose leak was stopped.",
+      "extraction_confidence": 0.85,
+      "reasoning": "Loss date is only given as 'over the weekend', which is not a specific date, so it is left null. The floor was laid in 2016, which is 10 years before the 2026 message date. It is not stated whether the hose leak has been stopped.",
       "summary": "Customer reports a loose dishwasher hose over the weekend that buckled the oak living room floor; dryers are already running and the floor was laid in 2016."
     },
     "model": "claude-sonnet-5-5",
@@ -91,11 +91,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3180,
           "model": null,
-          "output_tokens": 617,
+          "output_tokens": 596,
           "type": "message"
         }
       ],
-      "output_tokens": 617,
+      "output_tokens": 596,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

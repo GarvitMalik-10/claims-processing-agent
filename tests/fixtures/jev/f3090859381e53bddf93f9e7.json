@@ -52,7 +52,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5143,
+      "input_tokens": 5148,
       "output_tokens": 234
     },
     "answers": {
@@ -84,15 +84,15 @@
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.41
+        "noul": 0.37
       },
       "item_1": {
         "type": "noul",
-        "noul": 0.94
+        "noul": 0.93
       },
       "item_2": {
         "type": "noul",
-        "noul": 0.46
+        "noul": 0.45
       },
       "forced_entry_visible": {
         "type": "noul",

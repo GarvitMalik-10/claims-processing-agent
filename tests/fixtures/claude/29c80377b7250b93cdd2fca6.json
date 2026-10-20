@@ -31,20 +31,20 @@
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "Shower leak from the flat upstairs (customer's assumption)",
+        "value": "Leaking shower in the flat upstairs (customer's assumption)",
         "quote": "their shower leaked I think",
         "evidence_id": "EV-0001"
       },
       "location": {
         "value": "Bedroom ceiling",
-        "quote": "my bedroom ceiling",
+        "quote": "water came through my bedroom ceiling",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": null,
       "third_party_involved": {
-        "value": "Neighbour in the flat upstairs, whose shower is thought to have leaked",
+        "value": "Neighbour in the flat upstairs, whose shower reportedly leaked",
         "quote": "from the flat upstairs - their shower leaked I think",
         "evidence_id": "EV-0001"
       },
@@ -53,20 +53,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Bedroom ceiling with brown stain",
+          "label": "Bedroom ceiling (brown stain)",
           "quote": "There's a brown stain",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Crack where ceiling meets wall",
+          "label": "Ceiling-wall joint (crack)",
           "quote": "a crack where the ceiling meets the wall",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Loss date not stated; the message timestamp is only when it was sent, so the date was not inferred. Cause (upstairs shower) is the customer's guess. No information on whether the leak has stopped or on emergency measures. No item ages given.",
-      "summary": "Customer reports water from the upstairs flat's apparently leaking shower came through the bedroom ceiling, leaving a brown stain and a crack, and asks whether the repair is covered."
+      "reasoning": "No loss date or time stated; the message timestamp is not a stated loss date, so loss_date is null. The cause is the customer's assumption ('I think'). No information on whether the leak has stopped. No item ages given.",
+      "summary": "Customer reports water damage to the bedroom ceiling (brown stain and crack) from a suspected leaking shower in the flat upstairs and asks whether the attached repair quote is covered."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3158,
           "model": null,
-          "output_tokens": 614,
+          "output_tokens": 613,
           "type": "message"
         }
       ],
-      "output_tokens": 614,
+      "output_tokens": 613,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

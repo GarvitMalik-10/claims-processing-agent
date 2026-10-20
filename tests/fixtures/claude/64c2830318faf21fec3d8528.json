@@ -46,35 +46,28 @@
       "damaged_parts": [
         {
           "part": "door frame / door jamb",
-          "condition": "split and splintered with fresh, bare, unpainted wood exposed and long jagged splinters"
+          "condition": "splintered and split with fresh raw wood exposed and jagged splinters"
         },
         {
-          "part": "door edge",
-          "condition": "paint chipped and torn away near the bolt strike area"
-        },
-        {
-          "part": "surface bolt latch",
-          "condition": "bolt extended into the area of the split frame; the hardware itself appears intact, with aged dark finish"
+          "part": "painted door frame edge",
+          "condition": "paint torn and flaked away along the splintered section"
         }
       ],
       "materials": [
         "painted wood",
-        "dark metal (iron or bronze finish)",
-        "white paint"
+        "dark metal (iron or bronze finish)"
       ],
       "visible_items": [
-        "surface slide bolt",
-        "bolt keeper area",
-        "door",
+        "surface-mounted barrel bolt latch",
+        "white painted door",
         "door frame",
-        "splintered wood",
-        "paint flakes"
+        "splintered timber jamb"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [],
       "confidence": 0.8,
-      "summary_en": "A close-up of a white-painted interior door with a dark slide bolt extended across to a door frame that has split and splintered, exposing fresh light-coloured wood. The break looks recent and forceful, with torn paint and long jagged splinters, while the bolt hardware appears undamaged."
+      "summary_en": "A close-up of a white painted interior door with a dark metal barrel bolt in the extended position, next to a door frame whose timber is split and splintered with fresh, unweathered wood exposed. The torn paint and bright raw wood suggest recent forceful impact to the jamb."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +90,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4184,
           "model": null,
-          "output_tokens": 455,
+          "output_tokens": 391,
           "type": "message"
         }
       ],
-      "output_tokens": 455,
+      "output_tokens": 391,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

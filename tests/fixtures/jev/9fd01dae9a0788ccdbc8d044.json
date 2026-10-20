@@ -48,7 +48,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5448,
+      "input_tokens": 5453,
       "output_tokens": 216
     },
     "answers": {
@@ -67,28 +67,28 @@
       "sudden_vs_gradual": {
         "type": "choice",
         "choice": "sudden_recent_event",
-        "confidence": 0.66,
+        "confidence": 0.59,
         "probabilities": {
-          "sudden_recent_event": 0.77,
-          "gradual_long_term": 0.22,
+          "sudden_recent_event": 0.73,
+          "gradual_long_term": 0.26,
           "unclear_cannot_tell": 0.01
         }
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.87
+        "noul": 0.88
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.87
+        "noul": 0.86
       },
       "item_1": {
         "type": "noul",
-        "noul": 0.82
+        "noul": 0.77
       },
       "item_2": {
         "type": "noul",
-        "noul": 0.85
+        "noul": 0.84
       }
     }
   }

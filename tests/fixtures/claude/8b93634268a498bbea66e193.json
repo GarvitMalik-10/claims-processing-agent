@@ -34,9 +34,8 @@
       "setting": "close_up_detail",
       "room_type": "unknown",
       "room_type_cues": [
-        "white plastic P-trap under a sink",
-        "blurred wall background",
-        "slip-joint nut fittings"
+        "P-trap waste pipe under a sink",
+        "blurred beige wall or cabinet background"
       ],
       "damage_present": true,
       "damage_types": [
@@ -45,29 +44,31 @@
       ],
       "damaged_parts": [
         {
-          "part": "plastic P-trap bottom bend",
+          "part": "P-trap bottom bend",
           "condition": "water visibly dripping from the lowest point of the trap"
         },
         {
-          "part": "slip-joint coupling nuts",
-          "condition": "scuffed and grimy with brownish discolouration, possible seepage residue at the joints"
+          "part": "slip nut and trap fittings",
+          "condition": "scuffed and grubby with brownish discoloration, possible residue around the joints"
         }
       ],
       "materials": [
-        "white plastic (PVC/ABS)",
-        "painted or textured wall"
+        "white plastic (PVC/PP) pipe",
+        "plastic slip nuts",
+        "painted or laminate surface"
       ],
       "visible_items": [
-        "sink P-trap",
-        "slip-joint nut",
+        "P-trap",
+        "slip joint nuts",
         "wall outlet pipe",
-        "supply line at top edge"
+        "water droplet stream",
+        "supply line at top"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [],
       "confidence": 0.8,
-      "summary_en": "A close-up of a white plastic sink P-trap with a stream of water dripping from the bottom of the bend. The pipe and coupling nuts show brownish grime and discolouration, suggesting prolonged dampness or age, against a blurred beige wall."
+      "summary_en": "A close-up of a white plastic sink P-trap with a thin stream of water dripping from the bottom of the bend. The fittings look dirty and discolored with brownish marks, suggesting some age or earlier moisture exposure, while the background is a blurred beige surface."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -90,11 +91,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4072,
           "model": null,
-          "output_tokens": 398,
+          "output_tokens": 407,
           "type": "message"
         }
       ],
-      "output_tokens": 398,
+      "output_tokens": 407,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

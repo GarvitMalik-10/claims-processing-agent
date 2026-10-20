@@ -139,7 +139,7 @@ def add_fnol(g: StateGraph, deps: Deps, *, after_registration: str) -> None:
 
     def request_info(state: ClaimGraphState) -> dict:
         cid = state.claim_id
-        missing = proj.latest(store, cid, EventType.FNOL_COMPLETENESS_EVALUATED).payload["missing"]
+        missing = state.pending_missing or proj.latest(store, cid, EventType.FNOL_COMPLETENESS_EVALUATED).payload["missing"]
         customer = _customer(deps, cid)
         language = _language(deps, cid)
         estimate = proj.latest_estimate(store, cid)
@@ -166,10 +166,12 @@ def add_fnol(g: StateGraph, deps: Deps, *, after_registration: str) -> None:
         new = [e.payload["evidence_id"] for e in store.events(cid, {EventType.EVIDENCE_RECEIVED}) if e.seq > asked_at]
         store.append(cid, NewEvent(type=EventType.FNOL_INFO_RECEIVED, actor=SYSTEM, evidence_refs=new,
                                    payload={"new_evidence": new}))
-        return {"stage": "fnol", "pending_interrupt": None}
+        return {"stage": "fnol", "pending_interrupt": None, "pending_missing": []}
 
     def match_policy(state: ClaimGraphState) -> dict:
         cid = state.claim_id
+        if proj.latest(store, cid, EventType.CLAIM_REGISTERED):  # back from an info loop: already registered
+            return {"stage": "assessment"}
         customer = _customer(deps, cid)
         x = _extraction(deps, cid)
         policy = next((p for p in deps.data.policy_book.policies if p.policy_id == customer.policy_id), None)

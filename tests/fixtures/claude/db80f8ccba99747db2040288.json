@@ -31,11 +31,11 @@
   "response": {
     "parsed_output": {
       "image_quality": "good",
-      "setting": "close_up_detail",
+      "setting": "interior",
       "room_type": "unknown",
       "room_type_cues": [
-        "only a textured ceiling and the top of a wall are visible",
-        "no fixtures or furniture visible"
+        "only ceiling and wall junction visible",
+        "textured ceiling and plain painted wall"
       ],
       "damage_present": true,
       "damage_types": [
@@ -45,30 +45,34 @@
       "damaged_parts": [
         {
           "part": "textured ceiling near wall junction",
-          "condition": "yellow-brown water stains spreading across the texture"
+          "condition": "yellow-brown water staining spreading across the texture"
         },
         {
-          "part": "ceiling/wall edge",
-          "condition": "small triangular patch of paint peeled away exposing grey substrate"
+          "part": "ceiling edge paint/joint",
+          "condition": "small triangular patch of peeled paint exposing the surface beneath"
+        },
+        {
+          "part": "upper wall",
+          "condition": "faint yellowish discolouration and light spotting below the ceiling line"
         }
       ],
       "materials": [
         "textured plaster or drywall ceiling",
-        "painted drywall wall",
+        "painted wall",
         "paint"
       ],
       "visible_items": [
-        "textured (stucco/knockdown style) ceiling",
-        "painted wall",
+        "ceiling",
+        "wall",
         "ceiling-wall joint"
       ],
-      "long_term_signs_visible": false,
+      "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "heavily textured ceiling finish common in North American homes"
+        "stipple/knockdown textured ceiling finish common in North American homes"
       ],
       "confidence": 0.8,
-      "summary_en": "A close-up of a textured ceiling meeting a pale yellow painted wall, with brownish water stains on the ceiling near the corner. A small patch of paint has peeled away at the joint, exposing the surface underneath."
+      "summary_en": "A close view of the junction between a textured cream ceiling and a plain wall shows brownish water stains on the ceiling and a small patch of peeled paint at the edge. The wall below has faint yellowish discolouration, and the staining looks dried rather than actively wet."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -91,11 +95,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 400,
+          "output_tokens": 433,
           "type": "message"
         }
       ],
-      "output_tokens": 400,
+      "output_tokens": 433,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

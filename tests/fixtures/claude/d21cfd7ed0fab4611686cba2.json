@@ -22,7 +22,7 @@
   },
   "response": {
     "parsed_output": {
-      "text": "Hoi Henk! Bedankt voor je bericht. Om je melding verder te kunnen verwerken, hebben we nog één ding nodig: op welke datum is de schade ontstaan? 😊"
+      "text": "Hoi Henk! Bedankt voor je bericht. Om je melding verder te kunnen verwerken, heb ik nog één ding nodig: op welke datum is de schade ontstaan? Dan pak ik het meteen verder op. 😊"
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -45,11 +45,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 449,
           "model": null,
-          "output_tokens": 77,
+          "output_tokens": 92,
           "type": "message"
         }
       ],
-      "output_tokens": 77,
+      "output_tokens": 92,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

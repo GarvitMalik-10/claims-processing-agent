@@ -21,7 +21,7 @@
     "answers": {
       "home_unoccupied_over_60_days": {
         "type": "noul",
-        "noul": 0.03
+        "noul": 0.02
       }
     }
   }

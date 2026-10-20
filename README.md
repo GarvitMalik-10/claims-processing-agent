@@ -1,6 +1,6 @@
 # Property Claims STP — Explainable Multi-Agent Claims Engine (Demo)
 
-> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). **M3 done**: parallel Damage / Policy / Risk agents with fan-out and join. Live S01–S20: image–claim consistency 15/19, risk band 17/19 (2 misses need the M4 cross-agent signal). 144 tests green. **Next: M4** coverage resolution, payout, routing, human review, ClaimDecisionReport. Voice + video intake (M2b) skipped for now (no ffmpeg).
+> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). **M3 done**: parallel Damage / Policy / Risk agents with fan-out and join. Live S01–S20: image–claim consistency 15/19, risk band 17/19 (2 misses need the M4 cross-agent signal). **M4 done**: coverage resolution, payout, final risk, routing gate, human review (approve / override / request info / escalate), settlement with Sonnet letter, ClaimDecisionReport. Live end-to-end on S01–S20: **route 20/20, payout 7/7 to the cent**, coverage 16/19. 190 tests green. **Next:** M6 web UI (the eval harness, M5, already exists as `scripts/run_scenarios.py`). Voice and video intake (M2b) are skipped for now (no ffmpeg).
 > This README is the full spec/hand-off. A new session should be able to start building from this file alone.
 > **Guiding rule for v1:** this is a **sales demo**. *Simple, explainable and working* beats spec exactness. Domain refinements come later.
 
@@ -707,7 +707,11 @@ The 12 golden scenarios (§11) are the regression suite that makes sure these fr
 | 2026-10-20 | Vision extraction never sees the customer's story (no anchoring); Jev judges the photos against the story |
 | 2026-10-20 | Policy clause selection = Sonnet's choice ∪ a mandatory peril→clause matrix, so no exclusion can be skipped; every clause is decided by a rule function that cites it |
 | 2026-10-20 | Demo images had real camera EXIF/GPS (2007–2011, US); stripped so honest scenarios don't trip fraud signals. Scenario metadata is synthetic and labelled as such |
-| 2026-10-20 | Open for M4: should a *minor* unresolved item-visibility check (e.g. the lock in S19) block STP? |
+| 2026-10-20 | **Option 2:** an *uncertain* item-visibility result on a minor line doesn't block STP. A *clear* "not visible" asks the customer for a photo, then goes to a human |
+| 2026-10-20 | C-2.3 (the leaking pipe or hose itself is not paid) is a standard, explained deduction, not a partial denial, so it doesn't force human review |
+| 2026-10-20 | Benefit of the doubt: an exclusion is only "unresolved" when Jev leans toward it (0.5–0.75; applies ≥ 0.75). A cover condition is only unresolved in 0.25–0.5 (fails < 0.25) |
+| 2026-10-20 | The image-mismatch risk signal (+0.30 at the join) only counts when the photos contradict the claim. Photos without damage are missing evidence (ask the customer), not a fraud signal |
+| 2026-10-20 | Customer messages never resume a claim that is waiting for a human reviewer; only `review()` does |
 | 2026-10-20 | Demo runs locally on the presenter's laptop as a split screen: front stage (customer chat) + backstage (process map, event stream, report, review inbox, audit) |
 
 ## 18. Open decisions

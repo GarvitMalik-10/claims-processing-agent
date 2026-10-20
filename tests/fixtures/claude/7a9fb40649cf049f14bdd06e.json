@@ -1,0 +1,61 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You write the outcome message for a Tecto home insurance claim, in the requested language\n(nl = Dutch with informal 'je', en = English). You receive the decision record as structured data.\nRules:\n- State only what is in the record. Never add amounts, reasons, promises or advice that are not in it.\n- Explain each deduction in plain words using the given reason (benchmark price, depreciation, deductible,\n  excluded item with its clause title).\n- For a refusal or partial refusal, be clear and kind, cite the clause title, and mention that the customer\n  can reply in the chat with questions or new information.\n- Amounts in euros with two decimals. No internal codes like PAY-BENCH-01 in the text.\n- Sign the letter as \"Tecto Schadeservice\" (nl) or \"Tecto Claims Team\" (en).",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Language: nl\nDecision record:\n{\n  \"claim_ref\": \"CLM-2026-000001\",\n  \"customer_first_name\": \"Sanne\",\n  \"outcome\": \"paid\",\n  \"coverage\": \"covered\",\n  \"decided_by\": \"automatic (all straight-through conditions met)\",\n  \"lines\": [\n    {\n      \"item\": \"Schoorsteen herbouwen incl. rookkanaal\",\n      \"claimed\": 2950.0,\n      \"after_market_price_check\": 2950.0,\n      \"depreciation\": 0.0,\n      \"covered\": 2950.0,\n      \"reason\": null\n    },\n    {\n      \"item\": \"Dakpannen vervangen\",\n      \"claimed\": 492.0,\n      \"after_market_price_check\": 492.0,\n      \"depreciation\": 127.92,\n      \"covered\": 364.08,\n      \"reason\": \"DEP-ROOFING: 26% depreciation\"\n    },\n    {\n      \"item\": \"Steiger 1 week\",\n      \"claimed\": 640.0,\n      \"after_market_price_check\": 640.0,\n      \"depreciation\": 0.0,\n      \"covered\": 640.0,\n      \"reason\": null\n    },\n    {\n      \"item\": \"Noodafdekking\",\n      \"claimed\": 275.0,\n      \"after_market_price_check\": 275.0,\n      \"depreciation\": 0.0,\n      \"covered\": 275.0,\n      \"reason\": null\n    }\n  ],\n  \"excluded_clauses\": {},\n  \"claim_level_reasons\": [],\n  \"deductible\": 100.0,\n  \"payout\": 4129.08,\n  \"payment_ref\": \"PAY-A2470DABC9\"\n}"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "CustomerLetter",
+    "prompt_version": "letter_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "chat_message": "Hoi Sanne, goed nieuws: je claim CLM-2026-000001 is goedgekeurd. We betalen € 4.129,08 uit, na aftrek van € 100,00 eigen risico en € 127,92 afschrijving op de dakpannen. Alle details staan in de brief. Je kunt altijd in de chat reageren als je vragen hebt.",
+      "letter": "# Beslissing op je claim CLM-2026-000001\n\nHoi Sanne,\n\nBedankt voor het indienen van je claim. We hebben je claim beoordeeld en goedgekeurd. De schade is gedekt onder je verzekering. De beoordeling is automatisch uitgevoerd, omdat aan alle voorwaarden daarvoor is voldaan.\n\n## Overzicht per onderdeel\n\n| Onderdeel | Gevraagd | Na controle marktprijs | Afschrijving | Vergoed |\n|---|---|---|---|---|\n| Schoorsteen herbouwen incl. rookkanaal | € 2.950,00 | € 2.950,00 | € 0,00 | € 2.950,00 |\n| Dakpannen vervangen | € 492,00 | € 492,00 | € 127,92 | € 364,08 |\n| Steiger 1 week | € 640,00 | € 640,00 | € 0,00 | € 640,00 |\n| Noodafdekking | € 275,00 | € 275,00 | € 0,00 | € 275,00 |\n\n## Toelichting\n\n- **Schoorsteen, steiger en noodafdekking:** deze bedragen vergoeden we volledig. De prijzen komen overeen met de marktprijs, dus er is niets gekort.\n- **Dakpannen:** voor dakpannen houden we 26% afschrijving aan. Dat is € 127,92. Daardoor vergoeden we € 364,08 van de € 492,00.\n\n## Berekening van de uitkering\n\n- Totaal vergoed voor alle onderdelen: € 4.229,08\n- Eigen risico: − € 100,00\n- **Uitkering: € 4.129,08**\n\nDe betaling heeft referentie PAY-A2470DABC9.\n\nHeb je vragen of wil je nieuwe informatie doorgeven? Reageer dan gerust in de chat.\n\nMet vriendelijke groet,\n\nTecto Schadeservice"
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 1116,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 1116,
+          "model": null,
+          "output_tokens": 849,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 849,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

@@ -25,7 +25,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 4714,
+      "input_tokens": 4715,
       "output_tokens": 60
     },
     "answers": {

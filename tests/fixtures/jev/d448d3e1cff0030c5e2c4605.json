@@ -48,7 +48,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5447,
+      "input_tokens": 5449,
       "output_tokens": 216
     },
     "answers": {
@@ -67,10 +67,10 @@
       "sudden_vs_gradual": {
         "type": "choice",
         "choice": "sudden_recent_event",
-        "confidence": 0.7,
+        "confidence": 0.73,
         "probabilities": {
-          "sudden_recent_event": 0.8,
-          "gradual_long_term": 0.19,
+          "sudden_recent_event": 0.82,
+          "gradual_long_term": 0.17,
           "unclear_cannot_tell": 0.01
         }
       },
@@ -80,7 +80,7 @@
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.65
+        "noul": 0.64
       },
       "item_1": {
         "type": "noul",

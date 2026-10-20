@@ -21,6 +21,12 @@ def observation(**overrides: Any) -> ImageObservation:
     return ImageObservation.model_validate(base)
 
 
+def _letter():
+    from app.agents.letters import CustomerLetter
+
+    return CustomerLetter(chat_message="Je claim is afgehandeld.", letter="# Besluit\nUitkering volgens polis.")
+
+
 DEFAULTS = {
     InfoRequestMessage: lambda: InfoRequestMessage(text="Kun je nog een paar dingen laten weten?"),
     ImageObservation: observation,
@@ -45,6 +51,8 @@ class StubClaude:
             raise RuntimeError("simulated API outage")
         if self.queue[output_model]:
             out = self.queue[output_model].popleft()
+        elif output_model.__name__ == "CustomerLetter":
+            out = _letter()
         else:
             out = DEFAULTS[output_model]()
         return ModelCall(output=out, model="stub-sonnet", stop_reason="end_turn", usage={},

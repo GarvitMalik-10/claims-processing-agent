@@ -1,0 +1,61 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You write the outcome message for a Tecto home insurance claim, in the requested language\n(nl = Dutch with informal 'je', en = English). You receive the decision record as structured data.\nRules:\n- State only what is in the record. Never add amounts, reasons, promises or advice that are not in it.\n- Explain each deduction in plain words using the given reason (benchmark price, depreciation, deductible,\n  excluded item with its clause title).\n- For a refusal or partial refusal, be clear and kind, cite the clause title, and mention that the customer\n  can reply in the chat with questions or new information.\n- Amounts in euros with two decimals. No internal codes like PAY-BENCH-01 in the text.\n- Sign the letter as \"Tecto Schadeservice\" (nl) or \"Tecto Claims Team\" (en).",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Language: nl\nDecision record:\n{\n  \"claim_ref\": \"CLM-2026-000001\",\n  \"customer_first_name\": \"Pieter\",\n  \"outcome\": \"paid\",\n  \"coverage\": \"covered\",\n  \"decided_by\": \"automatic (all straight-through conditions met)\",\n  \"lines\": [\n    {\n      \"item\": \"Nieuwe toevoerslang wasmachine\",\n      \"claimed\": 85.0,\n      \"after_market_price_check\": 85.0,\n      \"depreciation\": 0.0,\n      \"covered\": 0.0,\n      \"reason\": \"C-2.3 excluded\"\n    },\n    {\n      \"item\": \"Plafond plaatselijk herstellen\",\n      \"claimed\": 416.0,\n      \"after_market_price_check\": 416.0,\n      \"depreciation\": 0.0,\n      \"covered\": 416.0,\n      \"reason\": null\n    },\n    {\n      \"item\": \"Plafond slaapkamer sausen\",\n      \"claimed\": 380.0,\n      \"after_market_price_check\": 380.0,\n      \"depreciation\": 0.0,\n      \"covered\": 380.0,\n      \"reason\": null\n    }\n  ],\n  \"excluded_clauses\": {\n    \"PLB-HOSE-REPL\": \"Herstel van de oorzaak\"\n  },\n  \"claim_level_reasons\": [],\n  \"deductible\": 500.0,\n  \"payout\": 296.0,\n  \"payment_ref\": \"PAY-45942B0D30\"\n}"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "CustomerLetter",
+    "prompt_version": "letter_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "chat_message": "Hoi Pieter, je claim CLM-2026-000001 is beoordeeld en uitbetaald. Het bedrag is €296,00. De nieuwe toevoerslang wordt niet vergoed (uitsluiting 'Herstel van de oorzaak'), en het eigen risico van €500,00 is in mindering gebracht. Je vindt alle details in de brief. Vragen? Reageer gerust hier in de chat.",
+      "letter": "# Besluit op je claim CLM-2026-000001\n\nBeste Pieter,\n\nWe hebben je claim beoordeeld. Je schade is gedekt en we hebben het bedrag automatisch uitbetaald. Hieronder lees je hoe we tot het bedrag zijn gekomen.\n\n## Overzicht per onderdeel\n\n| Onderdeel | Geclaimd | Na controle marktprijs | Afschrijving | Vergoed |\n|---|---|---|---|---|\n| Nieuwe toevoerslang wasmachine | €85,00 | €85,00 | €0,00 | €0,00 |\n| Plafond plaatselijk herstellen | €416,00 | €416,00 | €0,00 | €416,00 |\n| Plafond slaapkamer sausen | €380,00 | €380,00 | €0,00 | €380,00 |\n\n## Toelichting\n\n- **Nieuwe toevoerslang wasmachine (€0,00):** dit onderdeel vergoeden we niet. Het valt onder de uitsluiting *Herstel van de oorzaak* (clausule C-2.3). De kosten om de oorzaak van de schade te herstellen zijn niet gedekt.\n- **Plafond plaatselijk herstellen (€416,00):** volledig vergoed. Het geclaimde bedrag was in lijn met de marktprijs en er is geen afschrijving toegepast.\n- **Plafond slaapkamer sausen (€380,00):** volledig vergoed, zonder aanpassing van de marktprijs en zonder afschrijving.\n\n## Berekening uitbetaling\n\n- Totaal vergoede onderdelen: €796,00 (€416,00 + €380,00)\n- Eigen risico: −€500,00\n- **Uitbetaald bedrag: €296,00**\n\nBetalingsreferentie: PAY-45942B0D30\n\n## Vragen of nieuwe informatie?\n\nBen je het niet eens met een onderdeel van dit besluit, of heb je vragen of nieuwe informatie? Reageer dan gerust in de chat. We kijken er graag opnieuw met je naar.\n\nMet vriendelijke groet,\n\nTecto Schadeservice"
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 1060,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 1060,
+          "model": null,
+          "output_tokens": 951,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 951,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

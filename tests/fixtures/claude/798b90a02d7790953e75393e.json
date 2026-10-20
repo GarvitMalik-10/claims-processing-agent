@@ -40,7 +40,7 @@
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "roof and chimney",
+        "value": "roof",
         "quote": "onze schoorsteen op het dak gestort",
         "evidence_id": "EV-0001"
       },
@@ -53,20 +53,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "chimney",
+          "label": "Chimney",
           "quote": "onze schoorsteen op het dak gestort",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "roof tiles",
+          "label": "Roof tiles",
           "quote": "Overal pannen kapot",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'gisteren' relative to 2026-10-15. Customer gave no ages for estimate lines (the 21.0 on the roof tile line comes from the estimate, not the customer). No info on time, source stopped, or emergency measures.",
-      "summary": "Customer reports that yesterday's storm caused the chimney to collapse onto the roof, breaking many roof tiles; photos and a roofer's quote are attached."
+      "reasoning": "Loss date resolved from 'gisteren' relative to 2026-10-15. Customer did not state any item ages; the 21.0 on the estimate is not from the customer's message. No info on emergency measures or whether damage is stopped.",
+      "summary": "Customer reports that yesterday's storm caused their chimney to collapse onto the roof and break many roof tiles, with photos and a roofer's quote attached."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3214,
           "model": null,
-          "output_tokens": 578,
+          "output_tokens": 565,
           "type": "message"
         }
       ],
-      "output_tokens": 578,
+      "output_tokens": 565,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

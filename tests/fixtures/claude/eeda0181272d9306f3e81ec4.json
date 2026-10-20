@@ -30,7 +30,7 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "Water is leaking from the bathroom upstairs through the kitchen ceiling; a large brown stain suddenly appeared in the plaster ceiling",
+        "value": "Water is leaking from the bathroom above through the kitchen ceiling; a large brown stain suddenly appeared in the plaster ceiling",
         "quote": "Er lekt water uit de badkamer boven door het keukenplafond.",
         "evidence_id": "EV-0001"
       },
@@ -60,8 +60,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Loss date is the day the stain was noticed (yesterday relative to 2026-10-17). The leak is described in the present tense, so it is not stated as stopped. A plumber is coming tomorrow for leak detection, but no emergency measures were mentioned. The upstairs bathroom could belong to a neighbor, but the message does not say.",
-      "summary": "Customer reports water leaking from the upstairs bathroom through the kitchen ceiling, causing a large brown stain first noticed yesterday; a plumber will do leak detection tomorrow."
+      "reasoning": "Loss date is the stain discovery yesterday (message sent 2026-10-17 evening); the leak itself may have started earlier. Leak is described as ongoing, so source_stopped is null. A plumber is coming tomorrow for leak detection, which is not an emergency measure taken.",
+      "summary": "Customer reports water leaking from the upstairs bathroom through the kitchen ceiling, causing a large brown stain in the plaster ceiling discovered yesterday; a plumber will do leak detection tomorrow."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +84,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3188,
           "model": null,
-          "output_tokens": 619,
+          "output_tokens": 607,
           "type": "message"
         }
       ],
-      "output_tokens": 619,
+      "output_tokens": 607,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

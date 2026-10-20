@@ -26,7 +26,7 @@
       "loss_date": null,
       "loss_time": null,
       "what_happened": {
-        "value": "There was a leak in the living room",
+        "value": "There has been a leak in the living room",
         "quote": "Er is lekkage geweest in de woonkamer",
         "evidence_id": "EV-0001"
       },
@@ -46,19 +46,19 @@
       "affected_items": [
         {
           "label": "walls",
-          "quote": "de muren en de vloer zijn beschadigd",
+          "quote": "de muren",
           "evidence_id": "EV-0001"
         },
         {
           "label": "floor",
-          "quote": "de muren en de vloer zijn beschadigd",
+          "quote": "de vloer",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.8,
-      "reasoning": "Customer gave no date, time, source of the leak, or whether it was stopped. No item ages were stated. A photo is mentioned but cannot be read here.",
-      "summary": "Customer reports a leak in the living room that damaged the walls and floor and asks for both to be reimbursed."
+      "extraction_confidence": 0.85,
+      "reasoning": "Customer did not state date, time, source of the leak, or whether it was stopped. No item ages given. Photo mentioned but not visible.",
+      "summary": "Customer reports a leak in the living room that damaged the walls and floor and asks for both to be covered."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -81,11 +81,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3144,
           "model": null,
-          "output_tokens": 410,
+          "output_tokens": 377,
           "type": "message"
         }
       ],
-      "output_tokens": 410,
+      "output_tokens": 377,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

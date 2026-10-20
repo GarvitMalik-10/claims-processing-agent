@@ -36,9 +36,9 @@
       "room_type_cues": [
         "concrete interlocking roof tiles",
         "collapsed chimney stack on roof ridge",
-        "gable end brick wall",
+        "brick gable end wall",
         "guttering and downpipe",
-        "upstairs window with blinds"
+        "satellite dishes on wall"
       ],
       "damage_present": true,
       "damage_types": [
@@ -50,52 +50,52 @@
       "damaged_parts": [
         {
           "part": "chimney stack",
-          "condition": "collapsed, with bricks and flue liner scattered across the roof slope"
+          "condition": "collapsed, with bricks and flue liner pieces fallen onto the roof slope"
         },
         {
-          "part": "roof tiles",
-          "condition": "broken and displaced near the gable edge and ridge, with the roof covering disturbed"
+          "part": "roof tiles near gable ridge",
+          "condition": "broken or displaced, with an area appearing disturbed under the debris"
         },
         {
-          "part": "roof verge/barge board",
-          "condition": "tiles missing at the verge near the collapsed chimney"
+          "part": "verge/barge board at gable edge",
+          "condition": "roof edge near the apex looks disturbed with tiles missing"
         },
         {
           "part": "TV aerial",
-          "condition": "bent and hanging down the roof slope"
+          "condition": "bent and hanging, with a loose pole lying across the roof"
         }
       ],
       "materials": [
-        "red facing brick",
+        "brick",
         "concrete roof tiles",
-        "white uPVC fascia and cladding",
+        "uPVC fascia and guttering",
         "metal flue pipe",
-        "white uPVC window frames",
-        "metal satellite dishes"
+        "white cladding panels",
+        "aluminium or steel satellite dishes"
       ],
       "visible_items": [
         "collapsed chimney bricks",
         "flexible metal flue pipe",
-        "chimney pots",
-        "broken roof tiles",
-        "gable end wall",
-        "white fascia and bargeboard",
-        "white downpipe",
+        "broken chimney pot or cowl",
+        "brick gable end wall",
+        "white uPVC fascia",
+        "downpipe",
         "two satellite dishes",
         "TV aerial",
-        "upper floor window with blinds",
+        "first-floor window with blinds",
         "white cladding panel",
         "overhead cables"
       ],
-      "long_term_signs_visible": false,
+      "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "UK-style red brick terraced or semi-detached house",
-        "two satellite dishes and a TV aerial typical of UK housing",
-        "concrete interlocking roof tiles with uPVC fascia"
+        "UK-style brick terraced or semi-detached house",
+        "concrete interlocking roof tiles",
+        "multiple satellite dishes and a TV aerial",
+        "white uPVC fascia and cladding"
       ],
       "confidence": 0.9,
-      "summary_en": "A brick house with a collapsed chimney stack, with bricks, a flue pipe and chimney pots lying on the tiled roof slope. Roof tiles near the gable edge are broken or displaced, and a bent TV aerial hangs on the roof, under a clear blue sky."
+      "summary_en": "The photo shows the chimney stack on the roof of a brick house collapsed, with bricks, flue pipe and aerial parts scattered across the tiled roof slope near the gable end. Some roof tiles look broken or displaced, and the dishes show weathering and rust staining, while the sky is clear and sunny."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -118,11 +118,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 671,
+          "output_tokens": 692,
           "type": "message"
         }
       ],
-      "output_tokens": 671,
+      "output_tokens": 692,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

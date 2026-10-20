@@ -30,7 +30,7 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "During the storm the chimney blew over and fell onto the roof; a few roof tiles are broken",
+        "value": "During the storm last night the chimney blew over and fell onto the roof; a few roof tiles are broken",
         "quote": "is de schoorsteen omgewaaid en op het dak gevallen. Een paar pannen zijn kapot.",
         "evidence_id": "EV-0001"
       },
@@ -47,7 +47,7 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "The roofer provided emergency covering this morning",
+        "value": "The roofer already put an emergency covering on this morning",
         "quote": "De dakdekker heeft het vanochtend al noodafgedekt.",
         "evidence_id": "EV-0001"
       },
@@ -58,7 +58,7 @@
       "affected_items": [
         {
           "label": "Chimney",
-          "quote": "de schoorsteen omgewaaid",
+          "quote": "de schoorsteen omgewaaid en op het dak gevallen",
           "evidence_id": "EV-0001"
         },
         {
@@ -69,8 +69,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Storm 'gisteravond' relative to 2026-10-15 gives 2026-10-14. No time of day given. Customer did not state item ages; the 18.0 age on the estimate was not stated by the customer so it is not extracted. 'Noodafgedekt' is an emergency measure but not clearly a stopped source.",
-      "summary": "Customer reports that during last night's storm the chimney blew over onto the roof, breaking some roof tiles, and a roofer has already emergency-covered the roof."
+      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-15. The customer did not state any item ages; the 18.0 on the estimate is not from the customer, so item_ages is empty. The storm cannot be treated as a stopped source, so source_stopped is null.",
+      "summary": "Customer reports that a storm last night blew the chimney onto the roof and broke some tiles, and a roofer has already applied an emergency cover."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -93,11 +93,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3245,
           "model": null,
-          "output_tokens": 688,
+          "output_tokens": 680,
           "type": "message"
         }
       ],
-      "output_tokens": 688,
+      "output_tokens": 680,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

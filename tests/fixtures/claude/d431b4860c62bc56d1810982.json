@@ -30,13 +30,13 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "A huge tree from the garden fell onto the house during the storm",
+        "value": "A huge tree from the garden fell on the house in a storm",
         "quote": "A huge tree from our garden came down on the house in the storm last night",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "storm",
-        "quote": "in the storm last night",
+        "value": "storm; fallen garden tree",
+        "quote": "A huge tree from our garden came down on the house in the storm last night",
         "evidence_id": "EV-0001"
       },
       "location": {
@@ -53,20 +53,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Roof (part crushed)",
+          "label": "roof",
           "quote": "Part of the roof is crushed",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Window (smashed)",
+          "label": "window",
           "quote": "a window is smashed",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'last night' relative to the 2026-10-15 message timestamp. Customer gave no item ages; the 25-year ages come only from the estimate, so none were extracted. Loss time, emergency measures and other fields not stated.",
-      "summary": "A tree from the customer's garden fell on the house during last night's storm, crushing part of the roof and smashing a window; the family is safe at a relative's home."
+      "extraction_confidence": 0.85,
+      "reasoning": "Loss date resolved from 'last night' relative to 2026-10-15 message timestamp. No time, emergency measures, or item ages stated by the customer. Moving to sister's place is not an emergency measure for the damage.",
+      "summary": "Customer reports a storm-felled garden tree crushed part of the roof and smashed a window; the family is safe at the sister's home and a contractor estimate exists."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3311,
           "model": null,
-          "output_tokens": 545,
+          "output_tokens": 546,
           "type": "message"
         }
       ],
-      "output_tokens": 545,
+      "output_tokens": 546,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

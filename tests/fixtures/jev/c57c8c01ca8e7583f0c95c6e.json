@@ -48,18 +48,18 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 4901,
+      "input_tokens": 4902,
       "output_tokens": 214
     },
     "answers": {
       "severity": {
         "type": "choice",
         "choice": "minor_surface_staining",
-        "confidence": 0.35,
+        "confidence": 0.42,
         "probabilities": {
-          "none_no_visible_damage": 0.05,
-          "minor_surface_staining": 0.48,
-          "moderate_localized_damage": 0.44,
+          "none_no_visible_damage": 0.06,
+          "minor_surface_staining": 0.54,
+          "moderate_localized_damage": 0.37,
           "severe_extensive_damage": 0.0,
           "other_cannot_assess": 0.03
         }
@@ -67,11 +67,11 @@
       "sudden_vs_gradual": {
         "type": "choice",
         "choice": "gradual_long_term",
-        "confidence": 0.3,
+        "confidence": 0.33,
         "probabilities": {
-          "sudden_recent_event": 0.18,
-          "gradual_long_term": 0.53,
-          "unclear_cannot_tell": 0.29
+          "sudden_recent_event": 0.17,
+          "gradual_long_term": 0.55,
+          "unclear_cannot_tell": 0.28
         }
       },
       "photo_supports_story": {
@@ -80,11 +80,11 @@
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.54
+        "noul": 0.53
       },
       "item_1": {
         "type": "noul",
-        "noul": 0.18
+        "noul": 0.14
       },
       "item_2": {
         "type": "noul",

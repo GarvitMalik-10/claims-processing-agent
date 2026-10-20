@@ -35,9 +35,8 @@
       "room_type": "stairwell_or_basement",
       "room_type_cues": [
         "stone steps at lower left",
-        "exposed brick base of wall",
-        "two-tone painted plaster wall with utility pipes",
-        "bare, unfinished utility-style surfaces"
+        "two-tone painted plaster wall with exposed brick at base",
+        "vertical drain pipe and exposed cables in a utility-like passage"
       ],
       "damage_present": true,
       "damage_types": [
@@ -50,45 +49,42 @@
       "damaged_parts": [
         {
           "part": "painted plaster wall",
-          "condition": "Long vertical dark brown and black stain running down from a broken hole where cables exit, with flaking and peeling green paint and exposed plaster across the lower wall"
+          "condition": "large dark brown and black vertical stain running down from an exposed cable and pipe stub, with peeling and flaking paint at the lower right"
         },
         {
-          "part": "exposed cables and copper conduit",
-          "condition": "Cables hang loose from a hole in the wall, with corroded or rusty copper tube and blackened, degraded insulation"
+          "part": "exposed copper pipe and cables",
+          "condition": "corroded and discoloured, ending at a broken-out hole in the plaster"
         },
         {
-          "part": "lower wall plaster",
-          "condition": "Paint is flaking in patches with white salt deposits and bare plaster showing"
+          "part": "lower wall plaster and brick",
+          "condition": "crumbling plaster with exposed brick and salt-like white deposits"
         },
         {
           "part": "vertical drain pipe",
-          "condition": "Paint on the pipe is chipped and worn"
+          "condition": "paint worn and chipped, with minor flaking"
         }
       ],
       "materials": [
         "painted plaster",
         "brick",
-        "stone steps",
-        "PVC or plastic pipe",
         "copper",
-        "cable insulation"
+        "plastic pipe",
+        "stone steps",
+        "cable"
       ],
       "visible_items": [
-        "vertical drainpipe with pipe clips",
-        "horizontal pipe at the base of the wall",
-        "loose cables and copper tube",
-        "cable tie and white conduit at top",
+        "vertical drain pipe",
+        "cream-coloured pipe elbow",
+        "exposed cables with cable tie",
+        "copper pipe stub",
         "stone steps",
-        "exposed brick course",
-        "hole in plaster"
+        "exposed brick course"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
-      "regional_indicators": [
-        "Two-tone painted wall with a green lower band and cream upper band, and stone steps with brick, suggesting an older building, possibly European"
-      ],
-      "confidence": 0.8,
-      "summary_en": "A weathered two-tone painted wall near stone steps shows a long dark brown and black stain running down from a hole where corroded cables and copper tube emerge. The lower wall has peeling paint, salt deposits and exposed plaster, with signs of long-term moisture and corrosion."
+      "regional_indicators": [],
+      "confidence": 0.85,
+      "summary_en": "A two-tone painted plaster wall near stone steps shows a long dark brown and black stain running down from exposed cables and a corroded copper pipe stub. Paint is peeling and plaster is flaking near the base, with salt-like deposits and exposed brick, which suggests long-term moisture."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -111,11 +107,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4128,
           "model": null,
-          "output_tokens": 664,
+          "output_tokens": 575,
           "type": "message"
         }
       ],
-      "output_tokens": 664,
+      "output_tokens": 575,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

@@ -1,0 +1,112 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-14T09:20:00+02:00:\nVorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen. Volgens mij lekt de douche achter de tegels. Ik wil de schimmel laten verwijderen en de tegels laten vervangen.\n\n[EV-0004] sent 2026-10-20T13:02:19.380351+00:00:\nDe loodgieter heeft de kitrand en de afvoer vervangen, het lekt niet meer.\n\nRepair estimate lines:\n- PLB-PIPE-REPAIR: Lek achter tegels herstellen (age on estimate: not stated)\n- MOULD-REMEDIATION: Schimmel verwijderen (age on estimate: not stated)\n- TILE-WALL-REPL: Wandtegels douche vervangen (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-07",
+        "quote": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen",
+        "evidence_id": "EV-0001"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Black spots suddenly appeared at the bottom of the shower wall; customer thinks the shower leaks behind the tiles",
+        "quote": "Volgens mij lekt de douche achter de tegels",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "shower leaking behind the tiles (sealant edge and drain, per plumber)",
+        "quote": "De loodgieter heeft de kitrand en de afvoer vervangen",
+        "evidence_id": "EV-0004"
+      },
+      "location": {
+        "value": "shower wall, bathroom",
+        "quote": "onderaan de douchewand",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "het lekt niet meer",
+        "evidence_id": "EV-0004"
+      },
+      "emergency_measures": {
+        "value": "Plumber replaced the sealant edge and the drain",
+        "quote": "De loodgieter heeft de kitrand en de afvoer vervangen",
+        "evidence_id": "EV-0004"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "shower wall tiles",
+          "quote": "de tegels laten vervangen",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "mould on shower wall",
+          "quote": "zwarte plekken onderaan de douchewand",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [],
+      "extraction_confidence": 0.8,
+      "reasoning": "Loss date is approximate: 'last week' relative to 2026-10-14 gives roughly 2026-10-07, with no exact day stated. No item ages given. The customer reported the leak is fixed in EV-0004.",
+      "summary": "Customer reports black mould spots on the shower wall caused by a leak behind the tiles, which the plumber has since repaired, and wants the mould removed and the tiles replaced."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3270,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3270,
+          "model": null,
+          "output_tokens": 729,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 729,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

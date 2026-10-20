@@ -40,8 +40,8 @@
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "bedroom ceiling (below the attic)",
-        "quote": "het water door het plafond van de slaapkamer eronder gelopen",
+        "value": "Bedroom ceiling (below the attic)",
+        "quote": "door het plafond van de slaapkamer eronder gelopen",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
@@ -68,7 +68,7 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "'Eergisteren' (day before yesterday) resolved against 2026-10-17 gives 2026-10-15. No time, ages, or third parties mentioned. Photo and plasterer's quote were referenced as attached.",
+      "reasoning": "Message sent on 2026-10-17, so 'eergisteren' (the day before yesterday) resolves to 2026-10-15. No time of loss or item ages stated. The hose replacement indicates the source is stopped.",
       "summary": "Customer reports that the washing machine supply hose in the attic burst two days ago, causing water damage to the bedroom ceiling below; the hose has been replaced and a plasterer's quote and photo were sent."
     },
     "model": "claude-sonnet-5-5",
@@ -92,11 +92,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3240,
           "model": null,
-          "output_tokens": 715,
+          "output_tokens": 713,
           "type": "message"
         }
       ],
-      "output_tokens": 715,
+      "output_tokens": 713,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

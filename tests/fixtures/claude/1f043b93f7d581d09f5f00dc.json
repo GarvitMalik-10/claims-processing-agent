@@ -34,8 +34,8 @@
       "setting": "close_up_detail",
       "room_type": "unknown",
       "room_type_cues": [
-        "only a wall and electrical outlet are visible",
-        "no furniture or fixtures that identify the room"
+        "only a wall and electrical outlet plate are visible",
+        "no furniture or fixtures identifying the room"
       ],
       "damage_present": true,
       "damage_types": [
@@ -45,34 +45,34 @@
       ],
       "damaged_parts": [
         {
-          "part": "lower receptacle of duplex outlet",
-          "condition": "face burned through with a large charred black hole and melted, blackened plastic edges"
+          "part": "lower receptacle of duplex electrical outlet",
+          "condition": "burned through with a charred black hole, melted and scorched plastic around the opening"
         },
         {
           "part": "outlet cover plate",
-          "condition": "slight soot smudging along the bottom edge"
+          "condition": "slight grey soot smudging along the bottom edge"
         }
       ],
       "materials": [
         "plastic",
         "painted drywall",
-        "metal screw"
+        "metal"
       ],
       "visible_items": [
         "duplex electrical outlet",
         "white wall plate",
         "mounting screw",
         "textured painted wall",
-        "door or window frame at left edge"
+        "door frame edge"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [
-        "NEMA 5-15 three-prong grounded outlet (North American type B)",
-        "standard US/Canada style duplex receptacle and wall plate"
+        "North American NEMA 5-15 type grounded outlet",
+        "US-style duplex receptacle and wall plate"
       ],
-      "confidence": 0.93,
-      "summary_en": "A close-up of a white duplex wall outlet whose lower receptacle has been burned through, leaving a black charred hole and melted plastic. The upper receptacle looks intact, and there is light soot staining below on the cover plate."
+      "confidence": 0.92,
+      "summary_en": "A close-up of a white duplex wall outlet where the lower receptacle has been burned through, leaving a charred black hole with melted, scorched plastic. The upper receptacle looks intact, and faint soot marks appear on the bottom of the cover plate."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -95,11 +95,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4744,
           "model": null,
-          "output_tokens": 427,
+          "output_tokens": 425,
           "type": "message"
         }
       ],
-      "output_tokens": 427,
+      "output_tokens": 425,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

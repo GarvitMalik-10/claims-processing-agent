@@ -31,15 +31,15 @@
     "answers": {
       "story_consistent": {
         "type": "noul",
-        "noul": 0.6
+        "noul": 0.54
       },
       "timeline_plausible": {
         "type": "noul",
-        "noul": 0.84
+        "noul": 0.82
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.2
+        "noul": 0.16
       }
     }
   }

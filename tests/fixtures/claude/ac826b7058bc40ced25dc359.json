@@ -1,0 +1,61 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You write the outcome message for a Tecto home insurance claim, in the requested language\n(nl = Dutch with informal 'je', en = English). You receive the decision record as structured data.\nRules:\n- State only what is in the record. Never add amounts, reasons, promises or advice that are not in it.\n- Explain each deduction in plain words using the given reason (benchmark price, depreciation, deductible,\n  excluded item with its clause title).\n- For a refusal or partial refusal, be clear and kind, cite the clause title, and mention that the customer\n  can reply in the chat with questions or new information.\n- Amounts in euros with two decimals. No internal codes like PAY-BENCH-01 in the text.\n- Sign the letter as \"Tecto Schadeservice\" (nl) or \"Tecto Claims Team\" (en).",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Language: en\nDecision record:\n{\n  \"claim_ref\": \"CLM-2026-000001\",\n  \"customer_first_name\": \"James\",\n  \"outcome\": \"paid\",\n  \"coverage\": \"covered\",\n  \"decided_by\": \"automatic (all straight-through conditions met)\",\n  \"lines\": [\n    {\n      \"item\": \"Repair split door frame\",\n      \"claimed\": 260.0,\n      \"after_market_price_check\": 260.0,\n      \"depreciation\": 0.0,\n      \"covered\": 260.0,\n      \"reason\": null\n    },\n    {\n      \"item\": \"Replace bolt and keeper\",\n      \"claimed\": 145.0,\n      \"after_market_price_check\": 145.0,\n      \"depreciation\": 0.0,\n      \"covered\": 145.0,\n      \"reason\": null\n    },\n    {\n      \"item\": \"Laptop (stolen), purchase 2024\",\n      \"claimed\": 1299.0,\n      \"after_market_price_check\": 1299.0,\n      \"depreciation\": 194.85,\n      \"covered\": 1104.15,\n      \"reason\": \"DEP-ELECTRONICS: 15% depreciation\"\n    }\n  ],\n  \"excluded_clauses\": {},\n  \"claim_level_reasons\": [],\n  \"deductible\": 100.0,\n  \"payout\": 1409.15,\n  \"payment_ref\": \"PAY-F81F191131\"\n}"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "CustomerLetter",
+    "prompt_version": "letter_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "chat_message": "Hi James, good news: your claim CLM-2026-000001 has been approved and paid. Your payout is €1,409.15, after a 15% depreciation on the laptop and your €100.00 deductible. The full details are in the letter. Reply here if you have any questions.",
+      "letter": "# Decision on your claim CLM-2026-000001\n\nDear James,\n\nThank you for submitting your claim. We are pleased to confirm that your claim is covered and has been approved. It was assessed automatically because all conditions for straight-through handling were met.\n\n## How we calculated your payout\n\n| Item | Claimed | After market price check | Depreciation | Covered amount |\n|---|---|---|---|---|\n| Repair split door frame | €260.00 | €260.00 | €0.00 | €260.00 |\n| Replace bolt and keeper | €145.00 | €145.00 | €0.00 | €145.00 |\n| Laptop (stolen), purchase 2024 | €1,299.00 | €1,299.00 | €194.85 | €1,104.15 |\n\n**Door frame and bolt and keeper:** These were paid in full, as the amounts you claimed matched the market price check and no depreciation applied.\n\n**Laptop:** The price you claimed matched the market price check. However, a depreciation of 15% (€194.85) applies to electronics, so the covered amount is €1,104.15.\n\n## Totals\n\n- Total covered amount: €1,509.15\n- Deductible: −€100.00\n- **Payout: €1,409.15**\n\nThe deductible is the part of the claim that you contribute yourself.\n\nYour payment reference is PAY-F81F191131.\n\nIf you have any questions, you can reply in the chat at any time.\n\nKind regards,\n\nTecto Claims Team"
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 1027,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 1027,
+          "model": null,
+          "output_tokens": 624,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 624,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

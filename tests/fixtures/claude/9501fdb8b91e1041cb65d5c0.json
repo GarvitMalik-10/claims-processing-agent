@@ -25,7 +25,7 @@
       "language": "en",
       "loss_date": {
         "value": "2026-10-10",
-        "quote": "on Saturday night",
+        "quote": "We had a fire on Saturday night",
         "evidence_id": "EV-0001"
       },
       "loss_time": null,
@@ -46,11 +46,7 @@
       },
       "loss_address_differs": null,
       "source_stopped": null,
-      "emergency_measures": {
-        "value": "Customer is staying with family",
-        "quote": "We're staying with family.",
-        "evidence_id": "EV-0001"
-      },
+      "emergency_measures": null,
       "third_party_involved": null,
       "police_report_ref": null,
       "fire_brigade_report_ref": {
@@ -72,9 +68,9 @@
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.85,
-      "reasoning": "Message sent Monday 2026-10-12; 'Saturday night' resolved to Saturday 2026-10-10. The fire brigade attended but the customer does not say the fire is out, so source_stopped is null. No times or item ages stated.",
-      "summary": "Customer reports an attic fire on Saturday night that destroyed the roof and badly damaged the top floor; the fire brigade attended (report BRW-2026-44871) and the family is staying elsewhere."
+      "extraction_confidence": 0.9,
+      "reasoning": "Message sent Monday 2026-10-12; 'Saturday night' resolved to the previous Saturday, 2026-10-10. Exact time not given. Fire brigade attended but it is not stated that the fire is out, so source_stopped is null. No item ages stated.",
+      "summary": "Customer reports a fire that started in the attic on Saturday night, destroying the roof and badly damaging the top floor; fire brigade report BRW-2026-44871 exists and the family is staying elsewhere."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +93,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3231,
           "model": null,
-          "output_tokens": 623,
+          "output_tokens": 600,
           "type": "message"
         }
       ],
-      "output_tokens": 623,
+      "output_tokens": 600,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

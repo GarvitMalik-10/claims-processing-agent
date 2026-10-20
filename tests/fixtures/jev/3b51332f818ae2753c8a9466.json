@@ -25,7 +25,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5176,
+      "input_tokens": 5180,
       "output_tokens": 60
     },
     "answers": {
@@ -35,11 +35,11 @@
       },
       "timeline_plausible": {
         "type": "noul",
-        "noul": 0.91
+        "noul": 0.92
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.9
+        "noul": 0.91
       }
     }
   }

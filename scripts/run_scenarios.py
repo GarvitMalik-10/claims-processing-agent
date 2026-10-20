@@ -45,16 +45,31 @@ def run_one(svc: ClaimService, s) -> dict:
     if s.estimate:
         svc.add_estimate(cid, s.estimate, sent_at=s.reported_at)
     status = svc.process(cid)
-    fnol = ("incident_only" if status["stage"] == "incident_only" else "info_request" if status["waiting"]
-            else "registered" if status["stage"] in ("assessment", "join") else f"review{status['route_reasons']}")
+    registered = proj.latest(deps.store, cid, EventType.CLAIM_REGISTERED) is not None
+    fnol = ("incident_only" if status["stage"] == "incident_only"
+            else "registered" if registered
+            else "info_request" if status["waiting_for"] == "awaiting_customer_info"
+            else f"review{status['route_reasons']}")
     if status["waiting"] and s.followup:
         svc.add_text(cid, s.followup["text"])
         status = svc.process(cid)
 
+    used_followup = bool(s.followup and fnol == "info_request")
     dmg, pol, rsk = (finding(deps.store, cid, a) for a in ("damage_agent", "policy_agent", "risk_agent"))
+    routing = proj.latest(deps.store, cid, EventType.ROUTING_DECIDED)
+    route = ("incident_only" if status["stage"] == "incident_only"
+             else "info_request" if status["waiting_for"] == "awaiting_customer_info"
+             else routing.payload["route"] if routing else f"none({status['stage']})")
+    pay = proj.latest(deps.store, cid, EventType.PAYOUT_CALCULATED)
+    paid = proj.latest(deps.store, cid, EventType.PAYMENT_INSTRUCTED)
     peril = proj.jev_answers(deps.store, cid, FNOL_V1).get("peril", {}).get("answer", {}).get("choice")
     return {"s": s, "cid": cid, "secs": time.time() - t0, "fnol": fnol, "status": status, "peril": peril,
-            "damage": dmg, "policy": pol, "risk": rsk,
+            "damage": dmg, "policy": pol, "risk": rsk, "route": route, "used_followup": used_followup,
+            "routing": routing.payload if routing else None,
+            "proposed_payout": (pay.payload.get("recommendation") or {}).get("payout") if pay else None,
+            "paid": paid.payload["amount"] if paid else None,
+            "coverage": (proj.latest(deps.store, cid, EventType.COVERAGE_RESOLVED) or type("x", (), {"payload": {}})).payload.get("status"),
+            "messages": svc.outbound_messages(cid),
             "errors": [e.payload for e in deps.store.events(cid, {EventType.SYSTEM_ERROR})]}
 
 
@@ -77,7 +92,8 @@ def main(argv: list[str]) -> int:
     with ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(lambda s: run_one(isolated_service(run_dir, s.scenario_id, record), s), scenarios))
 
-    score = {"fnol": 0, "peril": 0, "consistency": [0, 0], "risk": [0, 0]}
+    score = {"fnol": 0, "peril": 0, "consistency": [0, 0], "risk": [0, 0], "route": 0, "payout": [0, 0],
+             "coverage": [0, 0]}
     for r in results:
         s, g = r["s"], r["s"].golden
         exp_fnol = expected_fnol(g)
@@ -109,12 +125,33 @@ def main(argv: list[str]) -> int:
             f = r["policy"]["finding"]
             interesting = [f"{c['clause_id']}={c['status']}" for c in f["clauses"] if c["status"] != "not_applicable"]
             print(f"  policy    peril_covered={f['peril_covered']} {interesting}")
+        exp_route = (g.get("route_after_info") if r["used_followup"] and g.get("route_after_info") else g["expected_route"])
+        exp_route = exp_route.split()[0]
+        score["route"] += r["route"] == exp_route
+        print(f"  ROUTE     expected {exp_route:<13} actual {r['route']:<13} "
+              f"{'OK' if r['route'] == exp_route else 'MISMATCH'}  reasons {r['routing']['reasons'] if r['routing'] else []}")
+        if g.get("coverage") and r["coverage"]:
+            score["coverage"][0] += r["coverage"] == g["coverage"]
+            score["coverage"][1] += 1
+            print(f"  coverage  expected {g['coverage']:<17} actual {r['coverage']}")
+        gold = next((g[k] for k in ("payout", "payout_if_confirmed", "proposed_payout")
+                     if isinstance(g.get(k), dict) and "payout" in g[k]), None)
+        if gold and r["proposed_payout"] is not None and r["route"] != "info_request":
+            ok = abs(r["proposed_payout"] - gold["payout"]) < 0.01
+            score["payout"][0] += ok
+            score["payout"][1] += 1
+            print(f"  payout    expected {gold['payout']:>10.2f} actual {r['proposed_payout']:>10.2f} paid {r['paid']}"
+                  f" {'OK' if ok else 'MISMATCH'}")
+        for m in r["messages"][-1:]:
+            print(f"  -> [{m['kind']}] {m['text'][:220]}")
         for e in r["errors"]:
             print(f"  !! {e['node']}: {e['error_type']}: {e['message'][:300]}")
 
     n = len(results)
     print(f"\nFNOL {score['fnol']}/{n}  peril {score['peril']}/{n}  "
           f"consistency {score['consistency'][0]}/{score['consistency'][1]}  risk band {score['risk'][0]}/{score['risk'][1]}")
+    print(f"ROUTE {score['route']}/{n}  coverage {score['coverage'][0]}/{score['coverage'][1]}  "
+          f"payout {score['payout'][0]}/{score['payout'][1]}")
     return 0
 
 

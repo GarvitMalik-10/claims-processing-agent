@@ -26,12 +26,11 @@
         "C-1.1",
         "C-1.2",
         "C-6.1",
-        "C-8.2",
         "C-9.1",
         "C-9.2"
       ],
-      "reasoning": "The loss is cracked window glass from a football, which is accidental damage. C-6.1 is the key clause: glass breakage is covered whatever the cause, but only with the Glass extension, subject to a limit and no deductible. C-1.1 and C-1.2 matter for the insured address, the policy period and whether the window is part of the building. C-9.2 matters for the sublimits and the deductible, since C-6.1 says no deductible applies to glass. C-9.1 could apply to depreciation on the double glazing replacement. C-8.2 could cover emergency measures such as boarding up the cracked window. Water, storm, fire and burglary clauses do not apply. The unoccupied-home clause C-8.1 only affects water and burglary, so it is not relevant.",
-      "summary": "Cracked upstairs window glass from a football. The Glass extension clause C-6.1 is central, along with the building scope, the limits and deductible, depreciation, and emergency measures."
+      "reasoning": "The loss is accidental breakage of window glass by a football. C-6.1 (Glass extension) is the key clause: it covers glass breakage whatever the cause, subject to the extension being on the policy, with a limit in the table and no deductible. C-1.1 applies because cover requires damage at the insured address during the policy period. C-1.2 applies because windows and glass are fixed fittings of the building, so the building sum insured is relevant. C-9.2 covers sublimits and the deductible, which matters for the payout because C-6.1 says no deductible applies for glass. C-9.1 could affect the payout if glazing is in the depreciation table. Storm, water, fire and burglary clauses do not apply, since no wind, water, fire or break-in is involved.",
+      "summary": "Glass breakage from a football: relevant clauses are the insured address and period (C-1.1), building definition (C-1.2), Glass extension (C-6.1), depreciation (C-9.1) and limits/deductible (C-9.2)."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -54,11 +53,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 1807,
           "model": null,
-          "output_tokens": 368,
+          "output_tokens": 378,
           "type": "message"
         }
       ],
-      "output_tokens": 368,
+      "output_tokens": 378,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

@@ -34,44 +34,45 @@
       "setting": "interior",
       "room_type": "bathroom",
       "room_type_cues": [
-        "glazed ceramic wall tiles with grout lines",
-        "tiled shower or tub surround corner",
-        "suspended drop ceiling directly above the tiled area"
+        "ceramic wall tiles with grout lines",
+        "tiled corner of a shower or wet area",
+        "suspended drop ceiling with acoustic tiles above the tiled wall"
       ],
       "damage_present": true,
       "damage_types": [
         "water_staining",
+        "tide_marks",
         "mould"
       ],
       "damaged_parts": [
         {
           "part": "suspended acoustic ceiling tile",
-          "condition": "large irregular brown stain with layered, cracked edges and a small dark mould-like spot near the centre"
+          "condition": "large irregular brown water stain with layered edges, cracked and flaking surface, dark speckles near the centre suggesting mould"
         },
         {
-          "part": "ceiling tile grid edge",
-          "condition": "slight dark discolouration along some tile edges"
+          "part": "ceiling grid edge",
+          "condition": "slight darkening along the grid line near the adjacent tile"
         }
       ],
       "materials": [
         "mineral fibre acoustic ceiling tile",
         "metal ceiling grid",
-        "glazed ceramic tile",
+        "ceramic wall tile",
         "grout"
       ],
       "visible_items": [
-        "suspended ceiling tiles",
+        "drop ceiling tiles",
         "ceiling grid",
-        "tiled wall",
-        "tiled corner ledge"
+        "tiled wall corner",
+        "grout lines"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "lay-in suspended ceiling grid with fissured tiles, common in North American buildings"
+        "suspended acoustic tile ceiling over tiled wall, common in North American and commercial-style construction"
       ],
       "confidence": 0.8,
-      "summary_en": "A fissured acoustic ceiling tile in a suspended ceiling above a tiled corner shows a large, brown, layered water stain with cracked edges and a small dark mould-like spot. The surrounding tiles and the ceramic wall tiles appear undamaged."
+      "summary_en": "A suspended acoustic ceiling tile in a tiled bathroom or shower area shows a large brown stain with layered edges, cracking and dark speckled spots. The surrounding ceramic wall tiles look clean and undamaged."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -94,11 +95,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 464,
+          "output_tokens": 474,
           "type": "message"
         }
       ],
-      "output_tokens": 464,
+      "output_tokens": 474,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

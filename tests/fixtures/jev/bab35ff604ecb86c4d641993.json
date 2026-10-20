@@ -44,7 +44,7 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5393,
+      "input_tokens": 5390,
       "output_tokens": 198
     },
     "answers": {
@@ -72,7 +72,7 @@
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.94
+        "noul": 0.93
       },
       "long_term_moisture_signs": {
         "type": "noul",

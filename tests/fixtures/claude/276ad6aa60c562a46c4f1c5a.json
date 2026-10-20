@@ -30,7 +30,7 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "A large part of the tiled farmhouse roof blew away in the storm",
+        "value": "A large part of the tiled farmhouse roof was blown away in the storm",
         "quote": "is een groot stuk van het pannendak van de boerderij weggewaaid",
         "evidence_id": "EV-0001"
       },
@@ -40,7 +40,7 @@
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "Roof of the farmhouse and the attic",
+        "value": "Farmhouse roof and attic",
         "quote": "Het regent binnen op zolder.",
         "evidence_id": "EV-0001"
       },
@@ -65,8 +65,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Message sent Friday 2026-10-16; 'dinsdag' resolved to the most recent Tuesday, 2026-10-13. No item ages stated by the customer; the 48-year age on the estimate is not from the customer. No time, emergency measures or stopped status mentioned.",
-      "summary": "Customer reports that a storm on Tuesday blew a large part of the tiled farmhouse roof away, and rain is now entering the attic."
+      "reasoning": "Message sent Friday 2026-10-16; 'dinsdag' resolved to the most recent Tuesday, 2026-10-13. No ages, times, or stop measures stated by the customer.",
+      "summary": "Customer reports that a storm on Tuesday blew a large part of the tiled farmhouse roof away, and rain is now coming into the attic."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3190,
           "model": null,
-          "output_tokens": 602,
+          "output_tokens": 572,
           "type": "message"
         }
       ],
-      "output_tokens": 602,
+      "output_tokens": 572,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

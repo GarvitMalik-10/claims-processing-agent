@@ -31,8 +31,8 @@
         "C-9.1",
         "C-9.2"
       ],
-      "reasoning": "Storm damage to the roof and chimney. C-1.1 and C-1.2 set the insured address, policy period and building sum insured, which covers the roof and chimney. C-3.1 is the storm cover, including the 14 m/s wind threshold. C-3.2 could exclude the damage if poor roof or chimney maintenance was the main cause. C-8.2 covers the temporary cover estimate line (TEMP-COVER). C-9.1 may apply depreciation to tiles and rebuild items. C-9.2 sets the sublimits, sum insured and deductible for the payout. C-3.3 (fallen trees) does not apply because no tree is involved. Water, fire and burglary clauses are not relevant. C-8.1 is not relevant because it only affects water and burglary damage.",
-      "summary": "Storm wind damage: chimney collapse and broken roof tiles. The relevant clauses are the storm cover, the roof maintenance exclusion, emergency measures (temporary cover), depreciation, and the deductible and limits."
+      "reasoning": "Loss is storm damage to the roof from a collapsed chimney. C-1.1 and C-1.2 set the insured address, policy period and building sum insured (chimney and roof are part of the building). C-3.1 is the storm cover, including the 14 m/s wind threshold. C-3.2 is relevant because roof or chimney maintenance could be the main cause. C-8.2 applies to the temporary cover (TEMP-COVER) as an emergency measure. C-9.1 may apply to depreciation on roof tiles and rebuild costs. C-9.2 sets the sublimits, sum insured and deductible. C-3.3 does not apply because no tree fell. Water, fire and burglary clauses do not apply as there is no escape of water, fire or theft, and C-8.1 concerns only water and burglary damage.",
+      "summary": "Storm clauses (C-3.1, C-3.2), the building and address basics, emergency measures for the temporary cover, depreciation and deductible/limits are relevant to the chimney collapse and roof tile damage."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -55,11 +55,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 1802,
           "model": null,
-          "output_tokens": 401,
+          "output_tokens": 406,
           "type": "message"
         }
       ],
-      "output_tokens": 401,
+      "output_tokens": 406,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

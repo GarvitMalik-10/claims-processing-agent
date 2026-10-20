@@ -35,8 +35,8 @@
       "room_type": "exterior_facade",
       "room_type_cues": [
         "stucco exterior wall",
-        "window set into the outer wall",
-        "white window frame seen from outside"
+        "window set in white frame on outer wall face",
+        "window blinds visible behind glass"
       ],
       "damage_present": true,
       "damage_types": [
@@ -45,29 +45,32 @@
       ],
       "damaged_parts": [
         {
-          "part": "window glass pane",
-          "condition": "Impact point with a small hole and radiating and concentric cracks, plus a longer crack running toward the centre mullion"
+          "part": "window glass pane (lower left)",
+          "condition": "impact point with a small hole and radiating and concentric cracks, glass still in frame"
+        },
+        {
+          "part": "window glass pane (right of mullion)",
+          "condition": "a single crack running across from the impact area toward the upper right"
         }
       ],
       "materials": [
         "glass",
         "stucco",
-        "vinyl or painted frame",
-        "window blinds"
+        "vinyl or aluminium window frame"
       ],
       "visible_items": [
         "window with white frame",
-        "glass pane with grid divider",
-        "interior horizontal blinds",
+        "window mullion/grille bar",
+        "horizontal blinds behind glass",
         "textured stucco wall"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [
-        "textured stucco facade with vinyl-style sliding window, common in North American homes"
+        "textured stucco facade with white vinyl-framed window, typical of North American housing"
       ],
       "confidence": 0.85,
-      "summary_en": "A close view of an exterior stucco wall with a white-framed window whose lower-left glass pane has a small impact hole with radiating and concentric cracks. Horizontal blinds are visible behind the glass, and there are no obvious signs of long-term deterioration."
+      "summary_en": "A close view of an exterior stucco wall with a white-framed window whose lower left pane has a circular impact point with radiating and concentric cracks. A further crack extends across the adjoining pane, and blinds are visible behind the glass with no signs of long-term deterioration."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -90,11 +93,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 387,
+          "output_tokens": 429,
           "type": "message"
         }
       ],
-      "output_tokens": 387,
+      "output_tokens": 429,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

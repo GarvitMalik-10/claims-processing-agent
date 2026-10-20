@@ -48,39 +48,39 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 5452,
+      "input_tokens": 5453,
       "output_tokens": 216
     },
     "answers": {
       "severity": {
         "type": "choice",
         "choice": "severe_extensive_damage",
-        "confidence": 0.97,
+        "confidence": 0.96,
         "probabilities": {
           "none_no_visible_damage": 0.0,
           "minor_surface_staining": 0.0,
-          "moderate_localized_damage": 0.02,
-          "severe_extensive_damage": 0.98,
+          "moderate_localized_damage": 0.03,
+          "severe_extensive_damage": 0.97,
           "other_cannot_assess": 0.0
         }
       },
       "sudden_vs_gradual": {
         "type": "choice",
         "choice": "sudden_recent_event",
-        "confidence": 0.89,
+        "confidence": 0.91,
         "probabilities": {
-          "sudden_recent_event": 0.93,
-          "gradual_long_term": 0.07,
+          "sudden_recent_event": 0.94,
+          "gradual_long_term": 0.06,
           "unclear_cannot_tell": 0.0
         }
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.64
+        "noul": 0.63
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.84
+        "noul": 0.82
       },
       "item_1": {
         "type": "noul",
@@ -88,7 +88,7 @@
       },
       "item_2": {
         "type": "noul",
-        "noul": 0.86
+        "noul": 0.84
       }
     }
   }

@@ -25,23 +25,23 @@
       "language": "nl",
       "loss_date": {
         "value": "2026-10-07",
-        "quote": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen",
+        "quote": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen.",
         "evidence_id": "EV-0001"
       },
       "loss_time": null,
       "what_happened": {
         "value": "Black spots suddenly appeared at the bottom of the shower wall; customer thinks the shower leaks behind the tiles",
-        "quote": "Volgens mij lekt de douche achter de tegels",
+        "quote": "Volgens mij lekt de douche achter de tegels.",
         "evidence_id": "EV-0001"
       },
       "source": {
         "value": "shower leaking behind the tiles",
-        "quote": "Volgens mij lekt de douche achter de tegels",
+        "quote": "Volgens mij lekt de douche achter de tegels.",
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "shower wall (bathroom)",
-        "quote": "onderaan de douchewand",
+        "value": "bottom of the shower wall in the shower",
+        "quote": "zwarte plekken onderaan de douchewand",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
@@ -53,20 +53,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "shower wall tiles",
-          "quote": "de tegels laten vervangen",
+          "label": "shower wall (mould spots)",
+          "quote": "zwarte plekken onderaan de douchewand",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "mould on shower wall",
-          "quote": "zwarte plekken onderaan de douchewand",
+          "label": "tiles",
+          "quote": "de tegels laten vervangen",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.7,
-      "reasoning": "'Vorige week' is vague, so the loss date is approximated as 7 days before the message (2026-10-07) and is uncertain. The leak cause is the customer's assumption. No ages, stop status or other details were given.",
-      "summary": "Customer reports black mould spots on the lower shower wall since last week, suspects a leak behind the tiles, and wants the mould removed and the tiles replaced."
+      "extraction_confidence": 0.6,
+      "reasoning": "Loss date is approximate: 'last week' resolved to one week before the message date (2026-10-07), the exact day is unknown. Leak cause is the customer's assumption. No info on whether the leak is stopped, or on item ages.",
+      "summary": "Customer reports black mould spots on the bottom of the shower wall, suspects a leak behind the tiles, and wants the mould removed and the tiles replaced."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3204,
           "model": null,
-          "output_tokens": 607,
+          "output_tokens": 623,
           "type": "message"
         }
       ],
-      "output_tokens": 607,
+      "output_tokens": 623,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

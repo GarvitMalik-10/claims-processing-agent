@@ -32,7 +32,7 @@
     "answers": {
       "story_consistent": {
         "type": "noul",
-        "noul": 0.85
+        "noul": 0.88
       },
       "timeline_plausible": {
         "type": "noul",

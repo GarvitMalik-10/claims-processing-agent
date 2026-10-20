@@ -57,15 +57,15 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Upstairs window double glazing",
+          "label": "Upstairs window double glazing (cracked)",
           "quote": "the glass is cracked but still in the frame",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'this afternoon' against the message timestamp of 2026-10-18. No age was given for the glazing, no time of day beyond afternoon, and no police report mentioned.",
-      "summary": "Customer reports that neighbour's kids cracked an upstairs double-glazed window with a football this afternoon; a glazier has quoted for replacement."
+      "reasoning": "Loss date resolved from 'this afternoon' against the message timestamp of 2026-10-18. No time given, no age stated for the glazing, no police report mentioned.",
+      "summary": "Customer reports that neighbour's kids cracked an upstairs window with a football this afternoon and a glazier has quoted for replacing the double glazing."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -88,11 +88,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3117,
           "model": null,
-          "output_tokens": 580,
+          "output_tokens": 576,
           "type": "message"
         }
       ],
-      "output_tokens": 580,
+      "output_tokens": 576,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

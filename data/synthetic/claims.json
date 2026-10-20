@@ -295,7 +295,8 @@
         "consistency_reasons": ["charring consistent with a small fire", "soot on the wall not visible in frame (single close-up) -> WALL-PAINT line not evidenced"],
         "coverage": "covered", "clauses": ["C-4.1", "C-4.2", "C-9.1"],
         "risk_band": "low", "risk_signals": [],
-        "expected_route": "stp",
+        "expected_route": "info_request",
+        "route_note": "Changed 2026-10-20 (decision 2): the claimed wall repaint is clearly not visible in the socket close-up, so the customer is asked for a photo before payment. With that photo the claim goes STP at the payout below.",
         "payout": {"lines": [
           {"code": "ELEC-SOCKET-REPL", "validated": 135.00, "depreciation": 67.50, "covered": 67.50, "reason": "DEP-ELECTRICAL: (28-2) x 5% = 130%, capped at 50%"},
           {"code": "SOOT-CLEAN-ROOM", "validated": 480.00, "depreciation": 0, "covered": 480.00},
@@ -430,7 +431,7 @@
       "images": ["IMG-15"],
       "loss_date": "2026-10-14", "reported_at": "2026-10-16T16:00:00+02:00",
       "messages": [
-        {"lang": "nl", "text": "Bij de storm van dinsdag is een groot stuk van het pannendak van de boerderij weggewaaid. Je kunt zo de lucht in kijken. Het regent binnen op zolder.", "en": "In Tuesday's storm a big part of the farmhouse's pantile roof blew away. You can see straight up into the sky. It's raining into the attic."}
+        {"lang": "nl", "text": "Bij de storm van woensdag is een groot stuk van het pannendak van de boerderij weggewaaid. Je kunt zo de lucht in kijken. Het regent binnen op zolder.", "en": "In Wednesday's storm a big part of the farmhouse's pantile roof blew away. You can see straight up into the sky. It's raining into the attic."}
       ],
       "claimed_facts": {"peril": "storm_wind_hail", "room": "roof / attic", "affected_items": ["pantiles", "battens"]},
       "estimate": {"contractor": "Rietdek & Pannen Brabant", "date": "2026-10-16", "lines": [
@@ -589,7 +590,7 @@
         "coverage": "unresolved", "clauses": ["C-2.1"],
         "risk_band": "medium", "risk_signals": ["POLICY_STARTED_LT_60_DAYS (21 days)", "NO_DAMAGE_IN_EVIDENCE"],
         "expected_route": "info_request",
-        "route_after_info": "human_review (if still no damage evidence after 2 rounds)",
+        "route_after_info": "info_request (second and last round; human_review if still no damage photo)",
         "info_requested": ["photo of the damage", "what was the source of the water and has it stopped", "age of the floor", "repair estimate"],
         "demo_point": "Robustness with unscripted input: the prospect uploads a normal room photo. The system politely asks for a damage photo instead of inventing an assessment."
       }

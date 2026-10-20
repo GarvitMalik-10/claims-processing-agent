@@ -34,63 +34,64 @@
       "setting": "exterior",
       "room_type": "exterior_facade",
       "room_type_cues": [
-        "white horizontal lap siding on a single-storey house",
-        "asphalt shingle roof",
-        "window with dark shutters",
-        "garden with fallen branches and uprooted tree"
+        "white horizontal lap siding",
+        "shingled roof",
+        "dark window shutters",
+        "double-hung windows",
+        "garden with fallen branches"
       ],
       "damage_present": true,
       "damage_types": [
         "tree_impact",
         "roof_tiles_missing_or_broken",
         "structural_collapse",
-        "broken_glass",
-        "debris"
+        "debris",
+        "broken_glass"
       ],
       "damaged_parts": [
         {
           "part": "roof",
-          "condition": "Large tree has fallen onto the roof; shingles torn and roof section caved in"
+          "condition": "Large tree has fallen through the roof; shingles torn and roof deck and framing broken open"
         },
         {
           "part": "eaves and fascia",
-          "condition": "Broken and hanging loose where the trunk struck"
+          "condition": "Fascia and gutter line broken and hanging down where the tree struck"
         },
         {
           "part": "wall siding",
-          "condition": "Buckled and displaced beside the tree trunk"
+          "condition": "Siding pushed in and buckled beside the tree trunk"
         },
         {
           "part": "window",
-          "condition": "Window beside the impact point appears broken, with the frame and interior exposed"
+          "condition": "Window next to the trunk appears broken or removed with the frame disrupted"
         }
       ],
       "materials": [
-        "asphalt shingles",
-        "vinyl or wood lap siding",
-        "timber",
         "wood",
-        "soil and roots",
-        "plastic barrel"
+        "asphalt shingle",
+        "vinyl or wood lap siding",
+        "glass",
+        "soil and roots"
       ],
       "visible_items": [
         "uprooted tree with exposed root ball",
-        "standing tree trunk with wooden board nailed to it",
-        "white house wall",
-        "dark window shutters",
-        "wire fence",
+        "tree trunk lying on the roof",
+        "standing tree trunk in foreground",
         "white plastic barrel",
-        "scattered branches",
-        "moss on roof"
+        "chain-link fencing",
+        "fallen branches",
+        "dark window shutters",
+        "wooden board nailed to the tree"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "North American style clapboard siding with louvred shutters and asphalt shingle roof",
-        "deciduous woodland setting"
+        "single-storey house with white lap siding and louvred shutters typical of North America",
+        "asphalt shingle roofing",
+        "bare deciduous trees"
       ],
       "confidence": 0.9,
-      "summary_en": "A large tree has been uprooted and fallen onto the corner of a single-storey white-sided house, crushing part of the roof and eaves and damaging the wall and a window. Branches and debris cover the ground in front, and moss on the roof and ground suggests some background weathering."
+      "summary_en": "A large uprooted tree has fallen against the side of a single-storey house, crashing through the roof and eaves and pushing in the wall and a window. The yard is littered with branches and the exposed root ball, and moss on the roof and ground suggests some pre-existing weathering."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -113,11 +114,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4128,
           "model": null,
-          "output_tokens": 592,
+          "output_tokens": 602,
           "type": "message"
         }
       ],
-      "output_tokens": 592,
+      "output_tokens": 602,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

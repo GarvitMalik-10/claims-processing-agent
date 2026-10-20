@@ -34,7 +34,7 @@
       "setting": "close_up_detail",
       "room_type": "unknown",
       "room_type_cues": [
-        "close-up of wall meeting a flat pale surface (possibly tile or ledge)",
+        "close-up of wall meeting a tiled or smooth beige surface",
         "no wider room context visible"
       ],
       "damage_present": true,
@@ -45,30 +45,31 @@
       ],
       "damaged_parts": [
         {
-          "part": "wall surface near the junction with the tile or ledge",
-          "condition": "covered with black mould spotting concentrated along the lower edge"
+          "part": "textured wall surface above tile or edge",
+          "condition": "covered in clusters of black mould spots, with flaking and bubbling paint or coating"
         },
         {
-          "part": "paint or plaster coating",
-          "condition": "textured, bubbled and flaking with a lifted, peeling edge"
+          "part": "junction between wall and tiled surface",
+          "condition": "mould concentrated along the joint with lifted, peeling white sealant or paint"
         }
       ],
       "materials": [
-        "painted plaster",
-        "tile or ceramic",
-        "sealant or paint film"
+        "textured painted plaster",
+        "ceramic tile",
+        "paint or sealant"
       ],
       "visible_items": [
-        "wall",
-        "tile or ledge edge",
-        "mould colonies",
-        "flaking paint"
+        "textured wall",
+        "tile surface",
+        "wall-tile junction",
+        "black mould colonies",
+        "peeling paint"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [],
       "confidence": 0.8,
-      "summary_en": "Extreme close-up of a wall where black mould spots cluster along the bottom edge, just above a pale tile or ledge surface. The wall coating is bubbled and peeling, indicating prolonged moisture exposure."
+      "summary_en": "Close-up of a textured wall where it meets a beige tiled surface, with dense black mould spotting concentrated along the joint. The paint or sealant there is bubbling and peeling, which suggests persistent moisture."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -91,11 +92,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4072,
           "model": null,
-          "output_tokens": 386,
+          "output_tokens": 396,
           "type": "message"
         }
       ],
-      "output_tokens": 386,
+      "output_tokens": 396,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

@@ -51,11 +51,17 @@
       "police_report_ref": null,
       "fire_brigade_report_ref": null,
       "theft_reported": null,
-      "affected_items": [],
+      "affected_items": [
+        {
+          "label": "Living room",
+          "quote": "Alles is zwart en ingestort",
+          "evidence_id": "EV-0001"
+        }
+      ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-18 as 2026-10-17. The fire brigade attended but the customer does not yet know the report number, so the reference is null. The customer does not say the fire is out, so source_stopped is null. No item ages or specific affected items were given.",
-      "summary": "Customer reports a stove fire in the living room last evening that left the room black and collapsed, the fire brigade attended, the report number is not yet known, and the home is uninhabitable so they ask for quick payment."
+      "reasoning": "Fire brigade attended but the customer does not know the report number, so no reference is extracted. The fire being out is not explicitly stated, so source_stopped is null. Loss time is only 'last night' with no specific time.",
+      "summary": "Customer reports a stove fire in the living room last night that left the room black and collapsed, the fire brigade attended, and the home is uninhabitable so they ask for fast payment."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",

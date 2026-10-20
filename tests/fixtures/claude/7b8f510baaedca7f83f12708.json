@@ -30,18 +30,18 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "A pipe burst in the basement stairwell, severely damaging the wall (paint off, rust stains)",
+        "value": "The pipe in the basement stairwell burst",
         "quote": "Gisteren is de leiding in de kelderopgang gesprongen.",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "burst pipe",
+        "value": "burst pipe in the basement stairwell",
         "quote": "de leiding in de kelderopgang gesprongen",
         "evidence_id": "EV-0001"
       },
       "location": {
         "value": "basement stairwell",
-        "quote": "kelderopgang",
+        "quote": "de kelderopgang",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
@@ -51,7 +51,7 @@
         "evidence_id": "EV-0001"
       },
       "emergency_measures": {
-        "value": "Plumber repaired the pipe",
+        "value": "A plumber repaired the pipe",
         "quote": "Loodgieter heeft de leiding gerepareerd",
         "evidence_id": "EV-0001"
       },
@@ -61,15 +61,15 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Wall in basement stairwell",
+          "label": "Wall in basement stairwell (destroyed, paint peeled off, rust stains)",
           "quote": "De muur is helemaal kapot, verf eraf, roestvlekken.",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'Gisteren' relative to 2026-10-19. No time, third party, reports, theft or item ages stated. Location inferred from 'kelderopgang' as given by customer.",
-      "summary": "Customer reports that a pipe in the basement stairwell burst yesterday, damaging the wall; a plumber has already repaired the pipe and the wall still needs repair."
+      "reasoning": "Loss date resolved from 'gisteren' relative to 2026-10-19. No time, third parties, reports, theft or item ages mentioned. The wall is assumed to be in the basement stairwell, but the customer only says 'de muur' after mentioning the pipe there.",
+      "summary": "Customer reports that a pipe in the basement stairwell burst yesterday, damaging the wall; a plumber has already repaired the pipe."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -92,11 +92,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3189,
           "model": null,
-          "output_tokens": 649,
+          "output_tokens": 670,
           "type": "message"
         }
       ],
-      "output_tokens": 649,
+      "output_tokens": 670,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

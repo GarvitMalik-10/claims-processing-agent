@@ -25,13 +25,13 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 4621,
+      "input_tokens": 4619,
       "output_tokens": 60
     },
     "answers": {
       "story_consistent": {
         "type": "noul",
-        "noul": 0.75
+        "noul": 0.76
       },
       "timeline_plausible": {
         "type": "noul",
@@ -39,7 +39,7 @@
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.86
+        "noul": 0.87
       }
     }
   }

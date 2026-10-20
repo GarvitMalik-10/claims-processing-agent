@@ -48,7 +48,7 @@
       },
       "only_informing": {
         "type": "noul",
-        "noul": 0.02
+        "noul": 0.01
       }
     }
   }

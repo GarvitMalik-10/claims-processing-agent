@@ -57,19 +57,19 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 10272,
+      "input_tokens": 10280,
       "output_tokens": 256
     },
     "answers": {
       "severity": {
         "type": "choice",
         "choice": "moderate_localized_damage",
-        "confidence": 0.42,
+        "confidence": 0.49,
         "probabilities": {
           "none_no_visible_damage": 0.0,
           "minor_surface_staining": 0.0,
-          "moderate_localized_damage": 0.54,
-          "severe_extensive_damage": 0.46,
+          "moderate_localized_damage": 0.59,
+          "severe_extensive_damage": 0.41,
           "other_cannot_assess": 0.0
         }
       },
@@ -89,7 +89,7 @@
       },
       "long_term_moisture_signs": {
         "type": "noul",
-        "noul": 0.36
+        "noul": 0.35
       },
       "item_1": {
         "type": "noul",
@@ -97,11 +97,11 @@
       },
       "item_2": {
         "type": "noul",
-        "noul": 0.96
+        "noul": 0.94
       },
       "roof_maintenance_poor": {
         "type": "noul",
-        "noul": 0.21
+        "noul": 0.22
       },
       "building_damage_present": {
         "type": "noul",

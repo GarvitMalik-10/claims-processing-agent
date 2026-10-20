@@ -34,51 +34,52 @@
       "setting": "exterior",
       "room_type": "exterior_roof",
       "room_type_cues": [
-        "clay roof tiles",
+        "clay pan tiles on roof slope",
         "exposed rafters and battens against open sky",
-        "brick wall top edge"
+        "brick wall top at bottom of frame"
       ],
       "damage_present": true,
       "damage_types": [
         "roof_tiles_missing_or_broken",
-        "rot",
-        "structural_collapse"
+        "structural_collapse",
+        "rot"
       ],
       "damaged_parts": [
         {
           "part": "roof tile covering",
-          "condition": "large section missing, exposing battens and rafters to the sky"
+          "condition": "large section of tiles missing, exposing battens and rafters; a broken tile and mortar fragments sit at lower right"
         },
         {
-          "part": "clay tiles at lower right",
-          "condition": "broken and displaced, with mortar debris"
+          "part": "roof battens and rafters",
+          "condition": "weathered, grey, aged timber with no covering"
         },
         {
-          "part": "timber battens and rafters",
-          "condition": "weathered, grey and aged, with some splitting"
+          "part": "roof edge mortar and ridge",
+          "condition": "crumbling mortar and displaced tiles at right edge"
         }
       ],
       "materials": [
-        "clay roof tiles",
+        "clay pantiles",
         "weathered timber",
         "red brick",
-        "mortar"
+        "mortar",
+        "lichen"
       ],
       "visible_items": [
-        "pantiles",
-        "roof battens",
-        "rafters",
-        "brick wall plate/gable edge",
-        "broken tiles",
-        "mortar fragments"
+        "clay S-profile pantiles",
+        "timber battens",
+        "timber rafters",
+        "brick wall top",
+        "broken tile",
+        "mortar remnants"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "S-shaped clay pantiles and old brick construction typical of northern Europe"
+        "clay pantiles and brick construction typical of northern Europe, e.g. Netherlands, Belgium, northern Germany or eastern England"
       ],
       "confidence": 0.85,
-      "summary_en": "A section of clay pantile roof is missing, leaving weathered timber rafters and battens open to the blue sky above a brick wall. Broken tiles and mortar debris sit at the lower right, and the remaining tiles and timbers show lichen, moss and heavy weathering."
+      "summary_en": "A section of a clay pantile roof is missing, leaving weathered timber battens and rafters open to the blue sky. Remaining tiles are covered with lichen and moss, and a broken tile and crumbling mortar sit near the brick wall top."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -101,11 +102,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 465,
+          "output_tokens": 515,
           "type": "message"
         }
       ],
-      "output_tokens": 465,
+      "output_tokens": 515,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

@@ -34,10 +34,10 @@
       "setting": "interior",
       "room_type": "non_residential",
       "room_type_cues": [
-        "museum display cases with artefacts",
-        "exhibit labels and information panels",
-        "glass vitrines on plinths",
-        "dehumidifier and air mover equipment in a gallery space"
+        "glass museum display cases with artefacts",
+        "exhibit information labels and plinths",
+        "white built-in gallery cabinets",
+        "industrial dehumidifier and air mover units"
       ],
       "damage_present": true,
       "damage_types": [
@@ -46,35 +46,35 @@
       "damaged_parts": [
         {
           "part": "wooden parquet floor",
-          "condition": "planks lifted, buckled and ridged across a wide area with gaps between boards"
+          "condition": "planks lifted and buckled in a ridge across the floor, with gaps and raised edges"
         }
       ],
       "materials": [
         "wood parquet",
         "glass",
         "painted wood cabinetry",
-        "plastic chair",
-        "metal"
+        "plastic"
       ],
       "visible_items": [
         "buckled parquet flooring",
         "museum display cases",
         "exhibit labels",
-        "dehumidifier",
-        "industrial air mover",
-        "plastic shell chair with metal legs",
-        "white cabinets",
+        "white display plinth",
+        "portable dehumidifier",
+        "air mover fan",
+        "plastic chair with metal legs",
         "wall socket"
       ],
       "long_term_signs_visible": false,
       "visible_text": [
-        "small illegible exhibit label text, appears German"
+        "illegible German-looking exhibit label text"
       ],
       "regional_indicators": [
-        "exhibit labels appear to be in German"
+        "exhibit labels appear to be in German",
+        "European-style wall socket"
       ],
-      "confidence": 0.85,
-      "summary_en": "A wooden parquet floor in a museum gallery is badly buckled and lifted in a wide ridge, with display cases containing artefacts on either side. Drying equipment such as a dehumidifier and an air mover stands in the background, suggesting moisture-related floor swelling."
+      "confidence": 0.8,
+      "summary_en": "A wooden parquet floor in a museum gallery is heavily buckled and lifted in a ridge, with planks raised and separated. Display cases with artefacts and drying equipment such as a dehumidifier and air mover are visible in the room."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +97,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4128,
           "model": null,
-          "output_tokens": 438,
+          "output_tokens": 429,
           "type": "message"
         }
       ],
-      "output_tokens": 438,
+      "output_tokens": 429,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

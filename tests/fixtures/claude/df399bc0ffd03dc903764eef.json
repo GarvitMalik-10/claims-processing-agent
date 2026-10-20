@@ -30,24 +30,24 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "The socket in the living room caught fire while a phone was charging; flames came out.",
+        "value": "The socket in the living room caught fire while a phone was on the charger; flames came out.",
         "quote": "Vanavond vloog het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag.",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "Socket with phone charger",
+        "value": "socket with phone charger",
         "quote": "het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag",
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "Living room",
-        "quote": "in de woonkamer",
+        "value": "living room",
+        "quote": "de woonkamer",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
       "source_stopped": {
         "value": true,
-        "quote": "ik heb het met een natte theedoek uitgemaakt",
+        "quote": "ik heb het met een natte theedoek uitgemaakt en de groep uitgezet",
         "evidence_id": "EV-0001"
       },
       "emergency_measures": {
@@ -61,25 +61,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Living room socket",
-          "quote": "het stopcontact in de woonkamer",
-          "evidence_id": "EV-0001"
-        },
-        {
-          "label": "Living room (smoke smell)",
+          "label": "living room (smoke odour)",
           "quote": "De hele kamer stinkt naar rook",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Wall above the socket",
+          "label": "wall above socket (soot discolouration)",
           "quote": "de muur erboven is grauw",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.93,
-      "reasoning": "Loss date resolved from 'Vanavond' against the message timestamp of 2026-10-19. No time given beyond 'this evening'. No ages stated by the customer; the 28.0 on the estimate was not stated by them so it is not extracted. No police, fire brigade, theft or third party mentioned.",
-      "summary": "Customer reports that a living room socket caught fire this evening while a phone was charging, put it out with a wet tea towel and switched off the circuit, leaving smoke and soot damage to the room and wall."
+      "extraction_confidence": 0.9,
+      "reasoning": "Loss date resolved from 'vanavond' against the 2026-10-19 timestamp. No exact time given. No ages stated by the customer; the 28.0 on the estimate is not from the customer so not extracted.",
+      "summary": "Customer reports that a living room socket caught fire while a phone was charging, was extinguished with a wet towel and the circuit switched off, leaving smoke odour and a soot-stained wall."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -102,11 +97,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3240,
           "model": null,
-          "output_tokens": 790,
+          "output_tokens": 727,
           "type": "message"
         }
       ],
-      "output_tokens": 790,
+      "output_tokens": 727,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

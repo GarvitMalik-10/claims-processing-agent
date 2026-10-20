@@ -34,10 +34,10 @@
       "setting": "interior",
       "room_type": "living_room",
       "room_type_cues": [
-        "tiled stove (kachelofen) in the left foreground",
-        "charred log or timber walls",
-        "brick stove or chimney structure at the back",
-        "burnt room with debris on the floor"
+        "tiled stove with cast iron firebox door",
+        "charred log walls",
+        "brick chimney or oven structure in background",
+        "burnt room opening between rooms"
       ],
       "damage_present": true,
       "damage_types": [
@@ -50,50 +50,52 @@
       "damaged_parts": [
         {
           "part": "log walls",
-          "condition": "deeply charred with alligator-skin burn pattern"
+          "condition": "heavily charred with alligatored surface"
         },
         {
-          "part": "ceiling and roof beams",
-          "condition": "burnt, with a fallen charred beam hanging diagonally"
+          "part": "ceiling beams and roof framing",
+          "condition": "burnt and collapsed, hanging diagonally"
         },
         {
           "part": "floor",
-          "condition": "covered in ash, charred wood and fire debris"
+          "condition": "covered with ash, charred timber and fire debris"
         },
         {
           "part": "tiled stove",
-          "condition": "soot-blackened on its sides, with missing or damaged tiles on the front panel"
+          "condition": "soot-blackened on the sides, some tiles missing or broken"
         },
         {
-          "part": "interior partition",
-          "condition": "burnt through, opening onto a further burnt room"
+          "part": "white painted wall at left",
+          "condition": "cracked and peeling paint with soot marks"
         }
       ],
       "materials": [
         "charred timber logs",
         "ceramic tile",
+        "cast iron",
         "brick",
-        "metal",
+        "painted plaster",
         "plastic bags",
-        "ash"
+        "metal"
       ],
       "visible_items": [
-        "white tiled stove with iron firing door",
-        "charred beams",
+        "white tiled stove",
+        "stove firebox door",
+        "charred log walls",
+        "fallen burnt beams",
         "overturned wheelbarrow or metal tub",
-        "plastic bags",
+        "plastic carrier bags",
+        "brick chimney or oven",
         "metal rod",
-        "brick stove or chimney",
-        "ash and debris pile",
-        "wire or cable"
+        "ash and debris pile"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [
-        "tiled stove (kachelofen) and log construction typical of Central or Northern Europe"
+        "traditional tiled stove and log construction suggest Northern or Eastern European building style"
       ],
-      "confidence": 0.85,
-      "summary_en": "A heavily fire-damaged interior with charred log walls, collapsed and burnt beams, and a floor covered in ash and debris. A white tiled stove in the foreground is blackened by soot, and the burnt room opens into another fire-damaged space behind it."
+      "confidence": 0.9,
+      "summary_en": "A fire-gutted interior with heavily charred log walls, collapsed burnt beams and a floor covered in ash and debris. A white tiled stove stands at left, soot-stained on its sides with some tiles broken, beside an overturned metal tub or wheelbarrow."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -116,11 +118,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 587,
+          "output_tokens": 586,
           "type": "message"
         }
       ],
-      "output_tokens": 587,
+      "output_tokens": 586,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

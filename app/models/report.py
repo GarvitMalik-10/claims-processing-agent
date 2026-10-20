@@ -95,6 +95,13 @@ class PayoutRecommendation(BaseModel):
     payout: float
 
 
+class RoutingDecision(BaseModel):
+    route: Route
+    reasons: list[str]
+    approver: str
+    info_needed: list[str] = Field(default_factory=list)
+
+
 class HumanApproval(BaseModel):
     status: ApprovalStatus
     reviewer_id: str | None = None

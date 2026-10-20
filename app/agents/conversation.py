@@ -30,9 +30,13 @@ customer for the missing information listed. Rules:
 
 
 def field_hint(field: str, item_labels: dict[str, str]) -> str:
-    if field.startswith("item_age:"):
-        code = field.split(":", 1)[1]
-        return f"how old the {item_labels.get(code, code)} is (or the year it was bought)"
+    kind, _, arg = field.partition(":")
+    if kind == "item_age":
+        return f"how old the {item_labels.get(arg, arg)} is (or the year it was bought)"
+    if kind == "photo_of":
+        return f"a photo that clearly shows the damaged {item_labels.get(arg, arg)}"
+    if kind == "ask":  # free-text question from a human reviewer
+        return arg
     return FIELD_HINTS.get(field, field)
 
 

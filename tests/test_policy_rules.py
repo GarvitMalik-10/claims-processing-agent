@@ -77,6 +77,26 @@ def test_vacancy_exclusion_bands():
     assert pol.rule("C-8.1", ctx(unoccupied=0.1)).status == "not_applicable"
 
 
+@pytest.mark.parametrize("p,expected", [(0.27, "not_applicable"), (0.49, "not_applicable"), (0.6, "unresolved"),
+                                        (0.8, "excluded")])
+def test_maintenance_exclusion_only_unresolved_when_evidence_leans_toward_it(p, expected):  # S14: 0.27
+    from app.rules.coverage import resolve_clause
+
+    status, _ = resolve_clause(pol.rule("C-3.2", ctx(peril="storm_wind_hail")),
+                               {"roof_maintenance_poor": p, "long_term_moisture_signs": 0.1})
+    assert status == expected
+
+
+@pytest.mark.parametrize("p,expected", [(0.1, "excluded"), (0.3, "unresolved"), (0.55, "covered")])
+def test_forced_entry_condition_bands(p, expected):
+    from app.rules.coverage import resolve_clause
+
+    x = ctx("CUST-02", peril="theft_burglary", codes=("DOOR-FRAME-REPAIR",), x=extraction(
+        police_report_ref={"value": "PV-1", "quote": "Eergisteren", "evidence_id": "EV-0001"}))
+    status, _ = resolve_clause(pol.rule("C-5.1", x), {"forced_entry_visible": p})
+    assert status == expected
+
+
 def test_clause_without_rule_goes_to_a_human():
     assert pol.rule("C-99.9", ctx()).status == "unresolved"
 

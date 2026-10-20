@@ -34,60 +34,59 @@
       "setting": "exterior",
       "room_type": "exterior_facade",
       "room_type_cues": [
-        "red brick Victorian semi-detached house seen from the street",
-        "pitched roof with brick chimneys",
-        "bay windows with white frames",
-        "stone boundary wall and brick gate pillars"
+        "red brick Victorian-style house seen from the street",
+        "roof structure with burnt timbers",
+        "bay windows and chimneys",
+        "stone boundary wall and pavement in front"
       ],
       "damage_present": true,
       "damage_types": [
         "burn_charring",
         "structural_collapse",
-        "roof_tiles_missing_or_broken",
         "soot",
+        "roof_tiles_missing_or_broken",
         "broken_glass"
       ],
       "damaged_parts": [
         {
           "part": "roof structure and rafters",
-          "condition": "burnt through and charred, with the roof covering largely gone and timbers exposed"
+          "condition": "burnt through, charred and partly collapsed with tiles missing"
         },
         {
-          "part": "upper floor side window",
-          "condition": "window opening blackened with soot and the frame burnt, glass appears missing"
+          "part": "upper-floor side window",
+          "condition": "window opening blackened with soot, glazing appears missing or destroyed"
         },
         {
-          "part": "gable and eaves",
-          "condition": "dark charring and smoke staining beneath the burnt roof"
+          "part": "roof covering",
+          "condition": "tiles and slates missing or burnt away over a large section"
         },
         {
-          "part": "chimney stacks",
-          "condition": "still standing but exposed by the loss of surrounding roof"
+          "part": "gable and eaves area",
+          "condition": "scorched and soot-stained"
         }
       ],
       "materials": [
         "red brick",
-        "slate or roof tile",
-        "timber rafters",
-        "white painted timber window frames",
-        "stone wall",
-        "metal downpipe"
+        "timber",
+        "roof tiles",
+        "stone",
+        "painted timber window frames",
+        "cast iron or metal guttering and downpipes"
       ],
       "visible_items": [
-        "burnt roof",
-        "brick chimneys with pots",
+        "brick chimney stacks with chimney pots",
         "bay windows",
         "downpipes",
         "stone boundary wall",
         "brick gate pillars",
-        "traffic cones",
         "red and white barrier tape",
-        "utility pole with overhead wires",
-        "street name sign",
+        "traffic cones",
+        "telegraph pole",
+        "overhead cables",
         "parked car",
+        "street name sign",
         "evergreen tree",
-        "bare deciduous tree",
-        "pedestrian crossing markings"
+        "bare deciduous tree"
       ],
       "long_term_signs_visible": false,
       "visible_text": [
@@ -95,13 +94,14 @@
         "J652 HHS"
       ],
       "regional_indicators": [
-        "UK-style number plate on parked car",
+        "UK-style street name plate",
+        "UK-style number plate",
         "Victorian red brick terraced or semi-detached architecture",
-        "road sign style and street markings consistent with the UK",
-        "traffic cones and barrier tape at the property boundary"
+        "road markings with white give-way lines",
+        "traffic cones and tape cordon"
       ],
       "confidence": 0.93,
-      "summary_en": "A red brick Victorian house on a street corner has a severely fire-damaged roof, with charred, exposed timbers and a sooty, burnt-out upper side window. Cones and hazard tape at the front boundary suggest the site has been cordoned off, and the lower walls and ground-floor windows look largely intact."
+      "summary_en": "A red brick Victorian-style house on a street corner has suffered severe fire damage, with the roof timbers burnt and collapsed, tiles missing and soot staining around an upper-floor window. Barrier tape and traffic cones are placed by the front boundary wall, and a street sign reading Westbourne Rd is visible."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -124,11 +124,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3247,
           "model": null,
-          "output_tokens": 710,
+          "output_tokens": 677,
           "type": "message"
         }
       ],
-      "output_tokens": 710,
+      "output_tokens": 677,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

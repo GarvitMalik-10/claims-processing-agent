@@ -17,3 +17,5 @@ class ClaimGraphState(BaseModel):
     info_request_rounds: int = 0
     pending_interrupt: InterruptReason | None = None
     route_reasons: list[str] = Field(default_factory=list)
+    # Items to ask the customer for when the request comes from routing or a reviewer (not completeness)
+    pending_missing: list[str] = Field(default_factory=list)

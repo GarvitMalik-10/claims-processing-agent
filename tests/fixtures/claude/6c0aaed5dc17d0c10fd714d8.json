@@ -35,7 +35,7 @@
       "room_type": "unknown",
       "room_type_cues": [
         "only a ceiling surface is visible",
-        "no furniture, fixtures or walls shown"
+        "no furniture, fixtures or room features in frame"
       ],
       "damage_present": true,
       "damage_types": [
@@ -45,23 +45,23 @@
       "damaged_parts": [
         {
           "part": "ceiling paint and plaster surface",
-          "condition": "large irregular areas of paint peeling and flaking away, exposing paper or plaster layer with brown/orange staining"
+          "condition": "large areas of paint peeled and lifting in sheets, exposing brownish-yellow stained underlayer"
         }
       ],
       "materials": [
-        "painted plasterboard or plaster",
+        "painted plaster or plasterboard",
         "paint"
       ],
       "visible_items": [
         "ceiling",
-        "peeled paint flakes",
-        "exposed substrate"
+        "peeling paint flakes",
+        "exposed stained substrate"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [],
       "confidence": 0.8,
-      "summary_en": "A close view of a white ceiling shows large patches of paint peeling and curling away from the surface. The exposed areas beneath have brownish-orange staining consistent with moisture exposure."
+      "summary_en": "A close view of a white ceiling with several large patches of paint peeling away in sheets, exposing a tan to brown stained surface beneath. The pattern and yellow-brown discolouration are consistent with moisture affecting the ceiling, though no active dripping or mould is visible."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +84,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 2850,
           "model": null,
-          "output_tokens": 320,
+          "output_tokens": 350,
           "type": "message"
         }
       ],
-      "output_tokens": 320,
+      "output_tokens": 350,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

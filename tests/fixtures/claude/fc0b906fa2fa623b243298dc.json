@@ -34,68 +34,67 @@
       "setting": "interior",
       "room_type": "kitchen",
       "room_type_cues": [
-        "white upper kitchen cabinets with black handles",
-        "range hood alcove",
-        "exposed plumbing and drain pipes where base cabinets are removed",
-        "tile floor"
+        "white upper wall cabinets with black pulls",
+        "range hood space with no appliances",
+        "exposed plumbing where base cabinets and sink were removed",
+        "ceiling light fixture",
+        "tiled floor"
       ],
       "damage_present": true,
       "damage_types": [
-        "flood_line",
         "water_staining",
+        "tide_marks",
+        "flood_line",
         "mould",
         "debris",
         "other"
       ],
       "damaged_parts": [
         {
-          "part": "lower wall sections",
-          "condition": "drywall removed up to a uniform height, exposing studs that are dark and stained"
-        },
-        {
-          "part": "floor",
-          "condition": "covered in dark grime and residue, with tiles partly removed or soiled"
+          "part": "lower wall studs and framing",
+          "condition": "drywall and insulation stripped to the studs; wood dark and stained, with possible mould growth up to a consistent height"
         },
         {
           "part": "base cabinets",
-          "condition": "removed, leaving only upper cabinets and exposed plumbing"
+          "condition": "removed or missing, leaving upper cabinets hanging above bare framing"
         },
         {
-          "part": "wall studs",
-          "condition": "discolored with dark staining and possible mould growth"
+          "part": "floor",
+          "condition": "tile section visible; surrounding floor covered in dark residue, with debris and sediment"
         },
         {
           "part": "plumbing and electrical",
-          "condition": "pipes, wiring and outlets exposed and showing corrosion and dirt"
+          "condition": "pipes, drain traps and wall outlets exposed; some corrosion and staining visible, with wiring hanging loose"
         }
       ],
       "materials": [
-        "painted wood cabinets",
+        "painted wood cabinetry",
         "timber studs",
         "ceramic tile",
-        "black iron drain pipe",
-        "copper or brass pipe",
+        "black iron or ABS drain pipe",
+        "copper pipe",
         "porcelain toilet"
       ],
       "visible_items": [
-        "upper kitchen cabinets",
-        "range hood",
+        "white upper kitchen cabinets",
+        "range hood recess",
         "ceiling light fixture",
+        "smoke detector",
         "exposed wall studs",
         "electrical outlets",
-        "toilet",
-        "drain pipes",
-        "tile floor",
-        "wiring"
+        "drain pipes and P-trap",
+        "toilet visible through an opening in the stripped wall",
+        "tile floor patch",
+        "loose electrical cables"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "US-style two-prong grounded electrical outlets",
-        "North American wood-frame stud construction"
+        "North American style duplex electrical outlets",
+        "US style cabinetry and framing with timber studs"
       ],
       "confidence": 0.8,
-      "summary_en": "A gutted kitchen where the lower walls have been stripped to the studs at a consistent height and the base cabinets removed, leaving the upper cabinets hanging above exposed pipes and wiring. The studs and floor are dark, stained and dirty, consistent with a flood line from prior water inundation, and a toilet is visible in the adjoining space."
+      "summary_en": "A gutted kitchen with the lower walls stripped to bare, dark-stained studs, base cabinets removed and plumbing and outlets exposed, while the upper cabinets remain intact. The consistent height of the stripping, dark staining and residue on the floor suggest earlier water or flood damage, and a toilet is visible in the adjoining space."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -118,11 +117,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 636,
+          "output_tokens": 689,
           "type": "message"
         }
       ],
-      "output_tokens": 636,
+      "output_tokens": 689,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

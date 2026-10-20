@@ -36,47 +36,46 @@
       "room_type_cues": [
         "long upholstered sofa with cushions",
         "side table with table lamp",
-        "coffee table with books",
         "curtained window with string lights",
+        "coffee table with books and papers",
         "hardwood floor",
-        "houseplant on stand"
+        "potted plant on stand"
       ],
       "damage_present": false,
       "damage_types": [],
       "damaged_parts": [],
       "materials": [
         "hardwood flooring",
+        "upholstery fabric",
+        "silk-like curtain fabric",
         "dark stained wood window frame",
         "painted plaster walls",
-        "fabric upholstery",
-        "satin curtains",
-        "glass",
-        "mosaic tile tabletop"
+        "ceramic lampshade and base"
       ],
       "visible_items": [
-        "green brocade sofa",
+        "green patterned sofa",
         "velvet cushions",
-        "patchwork quilt",
+        "quilt or blanket",
         "table lamp",
         "wooden side table",
         "crucifix on wall",
-        "string of red bulb lights",
+        "teal framed art tile",
         "curtains",
-        "pothos plant on stand",
-        "coffee table with books and cardboard box",
-        "teal wall art tile",
-        "window with security bars",
-        "neighbouring house through window"
+        "string of red globe lights",
+        "coffee table with mosaic top",
+        "books and papers",
+        "potted pothos plant",
+        "Mardi Gras style bead necklaces",
+        "cardboard box"
       ],
       "long_term_signs_visible": false,
       "visible_text": [],
       "regional_indicators": [
-        "window security bars",
-        "neighbouring wooden clapboard house with pale blue paint",
-        "Mardi Gras style bead necklaces on side table"
+        "Mardi Gras style beads",
+        "neighbouring timber house with barred windows suggesting a southern US style"
       ],
       "confidence": 0.8,
-      "summary_en": "A lived-in living room shows a long green brocade sofa in front of a tall dark-framed window with gold curtains and a string of red lights. Furniture, books and decor are visible, and no clear damage is apparent; there are only faint marks on the wall to the right of the window."
+      "summary_en": "A cluttered living room shows a long green patterned sofa below a tall curtained window, with a lamp, side table, plants and a coffee table with books. No clear damage is visible, apart from minor light marks on the wall at right."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -99,11 +98,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 469,
+          "output_tokens": 456,
           "type": "message"
         }
       ],
-      "output_tokens": 469,
+      "output_tokens": 456,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

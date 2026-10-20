@@ -34,8 +34,8 @@
         "C-9.1",
         "C-9.2"
       ],
-      "reasoning": "Water escape from a dishwasher hose is the core peril: C-2.1 sets cover for sudden escape, C-2.3 excludes the hose repair (estimate line PLB-HOSE-REPL), and C-2.4 matters because the facts do not rule out gradual leakage and the buckled floor could be moisture damage. C-2.2 may apply to leak detection, opening and repair of floors and drying costs. C-1.1 and C-1.2 cover address, policy period and the building classification of the oak floor (flooring is part of the building). C-8.1 is relevant as the loss happened over a weekend and occupancy should be checked. C-8.2 may apply to emergency or drying measures. C-9.1 may affect the floor replacement value through depreciation. C-9.2 applies sublimits and the deductible to the payout. Storm, fire, burglary and glass clauses and the flood extension are not relevant to this loss.",
-      "summary": "Water leak from a dishwasher hose damaging an oak floor: clauses on water cover, hose-repair exclusion, gradual damage, leak detection and access costs, occupancy, emergency measures, depreciation, and deductible and limits."
+      "reasoning": "Water escape from a dishwasher hose is covered by C-2.1 if sudden. C-1.1 and C-1.2 set the insured address, policy period and building cover for the fixed oak floor. C-2.2 may apply to leak detection and access costs. C-2.3 matters because the estimate includes replacing the hose, which is the source of the leak. C-2.4 matters if the buckling came from gradual leakage rather than a sudden event. C-8.1 matters if the home was unoccupied over 60 days. C-8.2 may apply to the drying equipment as an emergency measure to limit damage. C-9.1 may apply to depreciation on the floor. C-9.2 sets the sublimits and the deductible. Storm, fire, burglary and glass clauses do not apply. C-2.6 is a flood extension for flooding from outside and does not apply to an internal appliance leak.",
+      "summary": "Dishwasher hose leak damaged the oak floor. Relevant clauses cover the insured location, building cover, sudden water escape, leak and access costs, source repair exclusion, gradual damage, unoccupancy, emergency measures, depreciation, and deductible and limits."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -58,11 +58,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 1818,
           "model": null,
-          "output_tokens": 467,
+          "output_tokens": 465,
           "type": "message"
         }
       ],
-      "output_tokens": 467,
+      "output_tokens": 465,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

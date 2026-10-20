@@ -26,12 +26,12 @@
       "loss_date": null,
       "loss_time": null,
       "what_happened": {
-        "value": "Heavy downpour last week flooded the street and water entered the kitchen about 40 cm deep",
+        "value": "Water from heavy downpour flooded the street and entered the kitchen about 40 cm deep",
         "quote": "Na de hoosbui van vorige week stond de hele straat blank en kwam het water ook bij ons de keuken in, wel 40 cm.",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "heavy rainfall flooding from the street",
+        "value": "heavy downpour, street flooding",
         "quote": "Na de hoosbui van vorige week stond de hele straat blank",
         "evidence_id": "EV-0001"
       },
@@ -43,7 +43,7 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "The kitchen has already been stripped because it started to smell",
+        "value": "Kitchen has already been stripped because it started to smell",
         "quote": "We hebben de keuken al gestript want het begon te stinken.",
         "evidence_id": "EV-0001"
       },
@@ -60,8 +60,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.8,
-      "reasoning": "Loss date only given as 'last week' (vorige week), which is not a specific day, so loss_date is left null. No item ages stated by the customer; the 14.0 age on the estimate is not from the customer. Source stopped is not stated.",
-      "summary": "Customer reports that after heavy rain last week, about 40 cm of water entered the kitchen, which has since been stripped, and asks who pays for the new kitchen."
+      "reasoning": "Loss date only given as 'last week' (vorige week), which is too vague to resolve to a specific date, so loss_date is null. No item ages stated by customer. Source_stopped not stated.",
+      "summary": "Customer reports that after last week's heavy downpour, 40 cm of water entered the kitchen, which has already been stripped, and asks who pays for the new kitchen."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +84,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3211,
           "model": null,
-          "output_tokens": 597,
+          "output_tokens": 581,
           "type": "message"
         }
       ],
-      "output_tokens": 597,
+      "output_tokens": 581,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

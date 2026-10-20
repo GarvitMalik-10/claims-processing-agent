@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Bij de storm van woensdag is een groot stuk van het pannendak van de boerderij weggewaaid. Je kunt zo de lucht in kijken. Het regent binnen op zolder.",
+      "reported_at": "2026-10-16T16:00:00+02:00",
+      "photo_1": "image:sha256:afcd25834cd2f427deb0fb3bf33914fe849dbddcf3f94a1773f14afc481a892d"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5155,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.89
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.85
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.94
+      }
+    }
+  }
+}

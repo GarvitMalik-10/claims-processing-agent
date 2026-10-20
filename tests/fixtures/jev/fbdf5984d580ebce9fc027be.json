@@ -48,29 +48,29 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 4982,
+      "input_tokens": 4985,
       "output_tokens": 215
     },
     "answers": {
       "severity": {
         "type": "choice",
         "choice": "moderate_localized_damage",
-        "confidence": 0.64,
+        "confidence": 0.65,
         "probabilities": {
           "none_no_visible_damage": 0.0,
           "minor_surface_staining": 0.0,
-          "moderate_localized_damage": 0.71,
-          "severe_extensive_damage": 0.29,
+          "moderate_localized_damage": 0.72,
+          "severe_extensive_damage": 0.28,
           "other_cannot_assess": 0.0
         }
       },
       "sudden_vs_gradual": {
         "type": "choice",
         "choice": "gradual_long_term",
-        "confidence": 0.91,
+        "confidence": 0.89,
         "probabilities": {
-          "sudden_recent_event": 0.06,
-          "gradual_long_term": 0.94,
+          "sudden_recent_event": 0.07,
+          "gradual_long_term": 0.93,
           "unclear_cannot_tell": 0.0
         }
       },
@@ -84,7 +84,7 @@
       },
       "item_1": {
         "type": "noul",
-        "noul": 0.93
+        "noul": 0.92
       },
       "item_2": {
         "type": "noul",

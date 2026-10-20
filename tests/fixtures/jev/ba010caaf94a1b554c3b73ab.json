@@ -52,19 +52,19 @@
   "response": {
     "model": "jev-1.13.0",
     "usage": {
-      "input_tokens": 6270,
+      "input_tokens": 6272,
       "output_tokens": 236
     },
     "answers": {
       "severity": {
         "type": "choice",
         "choice": "moderate_localized_damage",
-        "confidence": 0.97,
+        "confidence": 0.99,
         "probabilities": {
           "none_no_visible_damage": 0.0,
           "minor_surface_staining": 0.01,
-          "moderate_localized_damage": 0.98,
-          "severe_extensive_damage": 0.01,
+          "moderate_localized_damage": 0.99,
+          "severe_extensive_damage": 0.0,
           "other_cannot_assess": 0.0
         }
       },
@@ -80,7 +80,7 @@
       },
       "photo_supports_story": {
         "type": "noul",
-        "noul": 0.88
+        "noul": 0.91
       },
       "long_term_moisture_signs": {
         "type": "noul",

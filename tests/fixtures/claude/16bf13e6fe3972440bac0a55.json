@@ -1,0 +1,114 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-13T10:30:00+02:00:\nOur dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly. We already have dryers running. The floor was laid in 2016. Estimate attached.\n\n[EV-0004] sent 2026-10-20T13:01:56.193343+00:00:\nIt was Saturday 10 October. We turned off the water to the dishwasher straight away and the hose has been replaced.\n\nRepair estimate lines:\n- PLB-HOSE-REPL: Replace dishwasher hose (age on estimate: not stated)\n- FLOOR-WOOD-REPL: Replace oak strip floor living room (age on estimate: 10.0)\n- DRYING-EQUIP: Drying equipment 5 days (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "en",
+      "loss_date": {
+        "value": "2026-10-10",
+        "quote": "It was Saturday 10 October.",
+        "evidence_id": "EV-0004"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Dishwasher hose came loose over the weekend, causing the oak floor in the living room to buckle badly",
+        "quote": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly.",
+        "evidence_id": "EV-0001"
+      },
+      "source": {
+        "value": "dishwasher hose",
+        "quote": "Our dishwasher hose came loose",
+        "evidence_id": "EV-0001"
+      },
+      "location": {
+        "value": "living room",
+        "quote": "the oak floor in the living room has buckled badly",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "We turned off the water to the dishwasher straight away and the hose has been replaced.",
+        "evidence_id": "EV-0004"
+      },
+      "emergency_measures": {
+        "value": "Water to the dishwasher was turned off straight away, drying equipment is running, and the hose has been replaced",
+        "quote": "We already have dryers running.",
+        "evidence_id": "EV-0001"
+      },
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "Oak floor in living room",
+          "quote": "the oak floor in the living room has buckled badly",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [
+        {
+          "line_code": "FLOOR-WOOD-REPL",
+          "age_years": 10.0,
+          "quote": "The floor was laid in 2016.",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "extraction_confidence": 0.9,
+      "reasoning": "Loss date stated explicitly as Saturday 10 October in EV-0004, consistent with 'over the weekend' in EV-0001 (sent 2026-10-13). Floor laid in 2016 gives about 10 years relative to 2026, matching the estimate's age of 10.0. No time of loss given.",
+      "summary": "Customer reports a dishwasher hose that came loose on 10 October 2026, buckling the oak living room floor; the water was shut off, the hose replaced and drying equipment is running."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3249,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3249,
+          "model": null,
+          "output_tokens": 753,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 753,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

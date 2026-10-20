@@ -8,6 +8,12 @@ risk:
   human_from: 0.3
   siu_from: 0.7
 price_tolerance: 0.10
+# Line exclusions that are standard, explained deductions rather than (partial) denials, so they do not
+# by themselves force human review. C-2.3: the leaking pipe/hose itself is never paid, only the damage.
+non_adverse_line_clauses: [C-2.3]
+# Item-visibility checks: "unresolved" on a minor line does not block STP (decision 2026-10-20);
+# a clear "not visible" asks the customer for a photo, then goes to a human.
+visibility_unresolved_blocks_stp: false
 missing_info:
   max_rounds: 2
 claim_vs_incident:

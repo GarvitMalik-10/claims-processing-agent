@@ -26,6 +26,10 @@ AGENT = "policy_agent"
 VERSION = "policy_v1"
 PROMPT_VERSION = "clause_select_v1"
 BAND = [0.25, 0.75]
+# Uncertainty is only "unresolved" when the evidence leans toward the adverse outcome; otherwise the
+# customer gets the benefit of the doubt (decision 2026-10-20).
+LEANS_EXCLUDED = [0.5, 0.75]   # exclusion facts (high = adverse): excluded >= 0.75, review in [0.5, 0.75)
+LEANS_NOT_MET = [0.25, 0.5]    # cover-condition facts (low = adverse): excluded < 0.25, review in [0.25, 0.5)
 TENANT_BURGLARY_CODES = {"DOOR-FRAME-REPAIR", "LOCK-REPL", "WINDOW-FRAME-REPL"}
 
 SYSTEM = """You help a claims handler find the clauses of a home insurance policy that are relevant to a loss.
@@ -59,8 +63,8 @@ def _c(cid: str, kind: str, status: str, reason: str, **kw: Any) -> ClauseCondit
     return ClauseCondition(clause_id=cid, kind=kind, status=status, reason=reason, **kw)
 
 
-def _band(key: str) -> FactCondition:
-    return FactCondition(fact_key=key, op="in_band", value=BAND)
+def _band(key: str, band: list[float]) -> FactCondition:
+    return FactCondition(fact_key=key, op="in_band", value=band)
 
 
 def rule(cid: str, x: Ctx) -> ClauseCondition:
@@ -125,7 +129,7 @@ def rule(cid: str, x: Ctx) -> ClauseCondition:
             return _c(cid, "exclusion", "conditional", "Storm damage mainly caused by poor roof maintenance is excluded",
                       exclude_if=[FactCondition(fact_key="roof_maintenance_poor", op=">=", value=BAND[1]),
                                   FactCondition(fact_key="long_term_moisture_signs", op=">=", value=BAND[1])],
-                      unresolved_if=[_band("roof_maintenance_poor")])
+                      unresolved_if=[_band("roof_maintenance_poor", LEANS_EXCLUDED)])
         case "C-3.3":
             lines = x.codes(lambda c: c == "TREE-REMOVAL")
             if not lines:
@@ -133,7 +137,7 @@ def rule(cid: str, x: Ctx) -> ClauseCondition:
             return _c(cid, "cover", "conditional", "Tree removal only when the tree damaged the building",
                       scope="lines", line_codes=lines,
                       exclude_if=[FactCondition(fact_key="building_damage_present", op="<", value=BAND[0])],
-                      unresolved_if=[_band("building_damage_present")])
+                      unresolved_if=[_band("building_damage_present", LEANS_NOT_MET)])
         case "C-4.1":
             if p != "fire_smoke":
                 return _c(cid, "cover", "not_applicable", f"Peril is {p}")
@@ -143,7 +147,7 @@ def rule(cid: str, x: Ctx) -> ClauseCondition:
                 return _c(cid, "exclusion", "not_applicable", f"Peril is {p}")
             return _c(cid, "exclusion", "conditional", "Scorching or melting without fire is excluded",
                       exclude_if=[FactCondition(fact_key="open_fire_evident", op="<", value=BAND[0])],
-                      unresolved_if=[FactCondition(fact_key="open_fire_evident", op="in_band", value=[0.25, 0.5])])
+                      unresolved_if=[_band("open_fire_evident", LEANS_NOT_MET)])
         case "C-5.1":
             if p != "theft_burglary":
                 return _c(cid, "cover", "not_applicable", f"Peril is {p}")
@@ -153,7 +157,7 @@ def rule(cid: str, x: Ctx) -> ClauseCondition:
                           scope="lines", line_codes=theft_lines)
             return _c(cid, "cover", "conditional", "Burglary requires visible signs of forced entry",
                       exclude_if=[FactCondition(fact_key="forced_entry_visible", op="<", value=BAND[0])],
-                      unresolved_if=[_band("forced_entry_visible")])
+                      unresolved_if=[_band("forced_entry_visible", LEANS_NOT_MET)])
         case "C-5.2":
             lines = x.codes(lambda c: c in TENANT_BURGLARY_CODES)
             if x.product_code != "INBOEDEL-HUUR" or p != "theft_burglary" or not lines:

@@ -26,9 +26,9 @@ def sqlite_checkpointer(path: str) -> Any:
 
 
 class ClaimService:
-    def __init__(self, deps: Deps, checkpointer: Any) -> None:
+    def __init__(self, deps: Deps, checkpointer: Any, *, upto: str = "full") -> None:
         self.deps = deps
-        self.graph = build_claim_graph(deps, checkpointer)
+        self.graph = build_claim_graph(deps, checkpointer, upto=upto)  # type: ignore[arg-type]
         self._open_lock = threading.Lock()
 
     # --- intake -------------------------------------------------------------------------------
@@ -59,15 +59,40 @@ class ClaimService:
     def _config(self, claim_id: str) -> dict:
         return {"configurable": {"thread_id": claim_id}}
 
+    def _waiting_for(self, snapshot) -> str | None:
+        for task in snapshot.tasks:
+            for intr in task.interrupts:
+                return intr.value.get("reason")
+        return None
+
     def process(self, claim_id: str) -> dict:
-        """Run the graph until it finishes or waits. Safe to call after every new input."""
+        """Run the graph until it finishes or waits. Safe to call after every new customer input:
+        it resumes a claim waiting for the customer, but never one waiting for a human reviewer."""
         cfg = self._config(claim_id)
         snapshot = self.graph.get_state(cfg)
-        if snapshot.next:  # waiting on interrupt() -> resume with the new evidence
-            self.graph.invoke(Command(resume=True), cfg)
+        if snapshot.next:
+            if self._waiting_for(snapshot) == "awaiting_customer_info":
+                self.graph.invoke(Command(resume=True), cfg)
         elif not snapshot.values:  # never started
             self.graph.invoke({"claim_id": claim_id}, cfg)
         return self.status(claim_id)
+
+    def review(self, claim_id: str, decision: dict) -> dict:
+        """Submit a human reviewer's decision (approve / override / request_info / escalate_siu)."""
+        from app.graph.decision import ReviewDecision
+
+        ReviewDecision.model_validate(decision)  # fail fast, before touching the graph
+        cfg = self._config(claim_id)
+        snapshot = self.graph.get_state(cfg)
+        if self._waiting_for(snapshot) != "awaiting_human_review":
+            raise ValueError(f"{claim_id} is not waiting for a human review")
+        self.graph.invoke(Command(resume=decision), cfg)
+        return self.status(claim_id)
+
+    def report(self, claim_id: str):
+        from app.report.builder import build_report
+
+        return build_report(self.deps.store, self.deps.data, claim_id)
 
     def status(self, claim_id: str) -> dict:
         snapshot = self.graph.get_state(self._config(claim_id))
@@ -76,6 +101,7 @@ class ClaimService:
             "claim_id": claim_id,
             "stage": values.get("stage"),
             "waiting": bool(snapshot.next),
+            "waiting_for": self._waiting_for(snapshot),
             "info_request_rounds": values.get("info_request_rounds", 0),
             "route_reasons": values.get("route_reasons", []),
         }

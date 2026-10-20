@@ -34,57 +34,58 @@
       "setting": "interior",
       "room_type": "kitchen",
       "room_type_cues": [
-        "wooden upper wall cabinet with hinges below the damaged ceiling",
-        "textured popcorn-style ceiling and wall finish"
+        "wooden wall-mounted cabinet with hinges below the damaged ceiling",
+        "corner of textured ceiling and wall",
+        "dark appliance or surface at bottom left"
       ],
       "damage_present": true,
       "damage_types": [
         "water_staining",
         "mould",
-        "paint_peeling",
         "rot",
+        "paint_peeling",
         "swelling_buckling",
-        "structural_collapse"
+        "cracks"
       ],
       "damaged_parts": [
         {
           "part": "textured ceiling",
-          "condition": "extensive brown water stains with black mould patches, with sections peeling and fallen away"
+          "condition": "extensive brown stain rings and black mould patches, with sections of ceiling material fallen away"
         },
         {
-          "part": "ceiling joist or wooden beam",
-          "condition": "exposed, dark, weathered and apparently rotted timber where the ceiling lining has broken away"
+          "part": "ceiling joist or timber beam",
+          "condition": "exposed and dark, appears decayed and water-damaged"
         },
         {
-          "part": "wall to ceiling junction",
-          "condition": "peeling, flaking paint and plaster with black mould spotting and a missing patch of wall surface"
+          "part": "ceiling-wall junction",
+          "condition": "plaster or texture peeling and flaking away, with black mould along the edge"
         },
         {
-          "part": "upper cabinet",
-          "condition": "top surface cracked and discoloured, possibly from moisture"
+          "part": "wall-mounted cabinet",
+          "condition": "cracked veneer on the top or side panel, with some staining"
         }
       ],
       "materials": [
-        "textured popcorn ceiling",
+        "popcorn textured ceiling",
         "plaster or drywall",
-        "wood timber",
-        "oak-veneer cabinet",
-        "painted textured wall"
+        "wood joist",
+        "wood veneer cabinet",
+        "textured painted wall"
       ],
       "visible_items": [
-        "wall-mounted kitchen cabinet",
+        "wall cabinet",
         "exposed ceiling timber",
-        "mould-stained ceiling",
-        "green-painted textured wall",
-        "dark appliance or furniture at lower left"
+        "textured ceiling",
+        "textured green and beige wall",
+        "dark appliance or counter"
       ],
       "long_term_signs_visible": true,
       "visible_text": [],
       "regional_indicators": [
-        "textured popcorn ceiling and stucco-style wall finish common in North American homes"
+        "popcorn textured ceiling and oak-style cabinetry typical of North American homes"
       ],
       "confidence": 0.85,
-      "summary_en": "A kitchen ceiling corner shows heavy brown water staining and black mould, with the lining broken away to reveal dark, rotted-looking timber. Paint and plaster are peeling along the wall junction above a wooden wall cabinet."
+      "summary_en": "A ceiling corner above a wooden wall cabinet shows heavy brown water staining, widespread black mould, and a section of collapsed or peeled ceiling exposing a dark, decayed timber joist. The adjoining textured wall is peeling at the top edge, and the cabinet veneer is cracked."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -107,11 +108,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 4352,
           "model": null,
-          "output_tokens": 595,
+          "output_tokens": 593,
           "type": "message"
         }
       ],
-      "output_tokens": 595,
+      "output_tokens": 593,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

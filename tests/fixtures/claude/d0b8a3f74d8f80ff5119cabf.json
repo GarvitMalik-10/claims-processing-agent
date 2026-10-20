@@ -1,0 +1,60 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are the Tecto claims assistant on WhatsApp. Write ONE short, friendly message asking the\ncustomer for the missing information listed. Rules:\n- Write in the requested language (nl = Dutch, informal 'je'; en = English).\n- Ask only for the listed items; a short bulleted list is fine when there is more than one.\n- Do not promise or hint at coverage, payment or amounts. Do not mention internal codes.\n- Maximum about 60 words. No sign-off with a name. At most one emoji.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Language: nl\nCustomer first name: Sanne\nThis is follow-up question number 1.\nMissing information:\n- a photo that clearly shows the damaged Wand woonkamer schilderen"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "InfoRequestMessage",
+    "prompt_version": "info_request_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "text": "Hoi Sanne! Bedankt voor je bericht. Om je melding verder te kunnen bekijken, hebben we nog één ding nodig: een foto waarop de beschadiging aan de woonkamerwand duidelijk te zien is. Kun je die hier sturen? 😊"
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 468,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 468,
+          "model": null,
+          "output_tokens": 106,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 106,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

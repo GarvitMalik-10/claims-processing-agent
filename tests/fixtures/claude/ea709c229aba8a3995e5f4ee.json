@@ -28,15 +28,19 @@
         "quote": "de storm van gisteravond",
         "evidence_id": "EV-0001"
       },
-      "loss_time": null,
+      "loss_time": {
+        "value": "evening",
+        "quote": "gisteravond",
+        "evidence_id": "EV-0001"
+      },
       "what_happened": {
-        "value": "Storm caused the roof to leak and the kitchen ceiling collapsed",
+        "value": "Storm caused the roof to leak and the kitchen ceiling came down",
         "quote": "Door de storm van gisteravond is het dak gaan lekken en is het plafond in de keuken naar beneden gekomen",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "roof leak caused by storm",
-        "quote": "is het dak gaan lekken",
+        "value": "leaking roof due to storm",
+        "quote": "het dak gaan lekken",
         "evidence_id": "EV-0001"
       },
       "location": {
@@ -64,9 +68,9 @@
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.85,
-      "reasoning": "'Gisteravond' resolved against 2026-10-15 timestamp gives 2026-10-14. No time, stopped status, or item ages stated. Roof beam damage is not mentioned by the customer.",
-      "summary": "Customer reports that a storm last night caused a roof leak, a collapsed kitchen ceiling, wetness and mould, and requests an expert quickly."
+      "extraction_confidence": 0.8,
+      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-15. Exact time not given, so loss_time is only a rough 'evening' value. Source stopped, emergency measures and other fields not mentioned.",
+      "summary": "Customer reports that a storm last night made the roof leak, the kitchen ceiling collapsed, everything is wet and mould has appeared; requests an expert quickly."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +93,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3193,
           "model": null,
-          "output_tokens": 570,
+          "output_tokens": 606,
           "type": "message"
         }
       ],
-      "output_tokens": 570,
+      "output_tokens": 606,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

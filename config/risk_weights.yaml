@@ -13,6 +13,9 @@ weights:
   photo_not_supporting_story: 0.20  # 1 - Jev noul photo_supports_story
   visible_text_location_mismatch: 0.05   # demo images are internationally sourced -> low weight
   late_reporting_days_gt_7: 0.05
+  # Added at the join from the Damage agent: photos contradict the claim (room/setting, damage type,
+  # photo-supports-story). Long-term damage alone is a coverage question, not a fraud signal.
+  image_claim_mismatch: 0.30
 max_frequency_contribution: 0.30
 policy_recent_days: 60
 gps_far_km: 5

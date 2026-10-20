@@ -20,7 +20,7 @@ def make_service(store, blobs):
         jev = StubJev(blobs, **jev_kw)
         deps = Deps(store=store, blobs=blobs, claude=claude, jev=jev, data=load_synthetic(),
                     thresholds=load_config("thresholds"), completeness=load_config("completeness"))
-        return ClaimService(deps, InMemorySaver()), claude, jev
+        return ClaimService(deps, InMemorySaver(), upto="assessment"), claude, jev
     return _make
 
 
