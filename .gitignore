@@ -6,3 +6,4 @@ __pycache__/
 var/
 web/node_modules/
 web/dist/
+web/*.tsbuildinfo
