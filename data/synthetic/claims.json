@@ -78,6 +78,7 @@
       "customer_id": "CUST-02",
       "images": ["IMG-03"],
       "loss_date": "2026-10-15", "reported_at": "2026-10-16T21:05:00+02:00",
+      "followup": {"lang": "en", "text": "It happened on Thursday 15 October. The neighbours turned their water off that night and their plumber has fixed the shower.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "en", "text": "Hi, water came through my bedroom ceiling from the flat upstairs - their shower leaked I think. There's a brown stain and a crack where the ceiling meets the wall. Can you cover the repair? Quote attached.", "nl": "Hoi, er kwam water door het plafond van mijn slaapkamer vanuit de bovenburen - hun douche lekte denk ik. Er is een bruine vlek en een scheur waar plafond en muur samenkomen. Kunnen jullie het herstel vergoeden? Offerte bijgevoegd."}
       ],
@@ -107,6 +108,7 @@
       "customer_id": "CUST-05",
       "images": ["IMG-04"],
       "loss_date": "2026-10-12", "reported_at": "2026-10-13T10:30:00+02:00",
+      "followup": {"lang": "en", "text": "It was Saturday 10 October. We turned off the water to the dishwasher straight away and the hose has been replaced.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "en", "text": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly. We already have dryers running. The floor was laid in 2016. Estimate attached.", "nl": "De slang van onze vaatwasser is in het weekend losgeschoten en de eiken vloer in de woonkamer is flink opgebold. De droogapparaten draaien al. De vloer is in 2016 gelegd. Offerte bijgevoegd."}
       ],
@@ -135,6 +137,7 @@
       "customer_id": "CUST-06",
       "images": ["IMG-05"],
       "loss_date": "2026-10-09", "reported_at": "2026-10-19T14:00:00+02:00",
+      "followup": {"lang": "nl", "text": "Het was op vrijdag 9 oktober. Het water is de volgende ochtend weer gezakt.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "nl", "text": "Na de hoosbui van vorige week stond de hele straat blank en kwam het water ook bij ons de keuken in, wel 40 cm. We hebben de keuken al gestript want het begon te stinken. Wie betaalt de nieuwe keuken?", "en": "After last week's downpour the whole street was flooded and the water also came into our kitchen, about 40 cm. We've already stripped the kitchen because it started to smell. Who pays for the new kitchen?"}
       ],
@@ -165,6 +168,7 @@
       "customer_id": "CUST-01",
       "images": ["IMG-06"],
       "loss_date": "2026-10-17", "reported_at": "2026-10-17T22:15:00+02:00",
+      "followup": {"lang": "nl", "text": "De loodgieter heeft vanochtend de afvoer van het bad gerepareerd, het lekt niet meer.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "nl", "text": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie.", "en": "Water is leaking from the bathroom above through the kitchen ceiling. Yesterday a big brown stain suddenly appeared in the plaster ceiling. Plumber is coming tomorrow for leak detection."}
       ],
@@ -192,6 +196,7 @@
       "customer_id": "CUST-03",
       "images": ["IMG-07"],
       "loss_date": "2026-10-13", "reported_at": "2026-10-14T09:20:00+02:00",
+      "followup": {"lang": "nl", "text": "De loodgieter heeft de kitrand en de afvoer vervangen, het lekt niet meer.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "nl", "text": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen. Volgens mij lekt de douche achter de tegels. Ik wil de schimmel laten verwijderen en de tegels laten vervangen.", "en": "Last week black spots suddenly appeared at the bottom of the shower wall. I think the shower is leaking behind the tiles. I want the mould removed and the tiles replaced."}
       ],
@@ -286,8 +291,8 @@
       ], "total": 903.00},
       "golden": {
         "peril": "fire_smoke", "completeness": "complete",
-        "image_claim_consistency": "consistent",
-        "consistency_reasons": ["charring consistent with a small fire", "soot on the wall not visible in frame (single close-up)"],
+        "image_claim_consistency": "partially_consistent",
+        "consistency_reasons": ["charring consistent with a small fire", "soot on the wall not visible in frame (single close-up) -> WALL-PAINT line not evidenced"],
         "coverage": "covered", "clauses": ["C-4.1", "C-4.2", "C-9.1"],
         "risk_band": "low", "risk_signals": [],
         "expected_route": "stp",
@@ -318,8 +323,8 @@
       ], "total": 67800.00},
       "golden": {
         "peril": "fire_smoke", "completeness": "complete",
-        "image_claim_consistency": "consistent",
-        "consistency_reasons": ["severe roof fire matches story"],
+        "image_claim_consistency": "partially_consistent",
+        "consistency_reasons": ["severe roof fire matches story", "exterior photo only: the claimed top-floor interior rebuild is not evidenced"],
         "coverage": "covered", "clauses": ["C-4.1"],
         "risk_band": "low", "risk_signals": ["VISIBLE_TEXT_LOCATION_MISMATCH (UK street sign) - demo config: warning only"],
         "expected_route": "human_review",
@@ -334,6 +339,7 @@
       "customer_id": "CUST-03",
       "images": ["IMG-12"],
       "loss_date": "2026-10-17", "reported_at": "2026-10-18T11:45:00+02:00",
+      "followup": {"lang": "nl", "text": "Het rapportnummer van de brandweer is BRW-2026-45102.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "nl", "text": "Gisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort, de brandweer was er. Ik weet het rapportnummer nog niet. Kunnen jullie snel betalen want we kunnen er niet wonen.", "en": "Last night there was a fire in the living room, from the stove. Everything is black and has collapsed; the fire brigade was there. I don't know the report number yet. Can you pay quickly because we can't live there."}
       ],
@@ -566,6 +572,7 @@
       "customer_id": "CUST-03",
       "images": ["IMG-20"],
       "loss_date": "2026-10-19", "reported_at": "2026-10-19T18:00:00+02:00",
+      "followup": {"lang": "nl", "text": "Het was gisteren. Een slang van de wasmachine was los, die zit weer vast. De vloer is ongeveer 10 jaar oud.", "note": "eval only: customer answer to the info request"},
       "messages": [
         {"lang": "nl", "text": "Er is lekkage geweest in de woonkamer, de muren en de vloer zijn beschadigd. Hierbij een foto. Ik wil graag dat de vloer en de muren worden vergoed.", "en": "There's been a leak in the living room; the walls and floor are damaged. Here's a photo. I'd like the floor and walls to be paid for."}
       ],

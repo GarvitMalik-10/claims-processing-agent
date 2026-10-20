@@ -1,0 +1,115 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You extract facts from a customer's first notification of a home insurance loss.\nThe customer writes in Dutch or English on WhatsApp. Messages may arrive over several turns.\n\nRules:\n- Only extract what the customer actually says. If something is not stated, return null. Never guess.\n- For every value, copy the exact supporting words from the message into `quote` (verbatim, in the\n  original language, no translation, no ellipsis) and give that message's id as `evidence_id`.\n- Write `value` in English. Resolve relative dates (\"yesterday\", \"last night\", \"Tuesday\") against the\n  message's sent timestamp and give dates as YYYY-MM-DD.\n- `source_stopped` is true only if the customer says the cause was stopped, fixed or put out.\n- `item_ages`: when the customer states how old something on the repair estimate is (or when it was\n  bought), map it to that estimate line's code.\n- If the customer later corrects an earlier statement, use the latest statement.\n- `extraction_confidence` is your own overall confidence; it is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Customer messages:\n\n[EV-0001] sent 2026-10-19T18:00:00+02:00:\nEr is lekkage geweest in de woonkamer, de muren en de vloer zijn beschadigd. Hierbij een foto. Ik wil graag dat de vloer en de muren worden vergoed.\n\n[EV-0004] sent 2026-10-20T12:45:45.703498+00:00:\nHet was gisteren. Een slang van de wasmachine was los, die zit weer vast. De vloer is ongeveer 10 jaar oud.\n\nRepair estimate lines:\n- FLOOR-WOOD-REPL: Vloer woonkamer (age on estimate: not stated)\n- WALL-PAINT: Muren schilderen (age on estimate: not stated)"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "medium"
+    },
+    "output_schema": "FnolExtraction",
+    "prompt_version": "fnol_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "language": "nl",
+      "loss_date": {
+        "value": "2026-10-19",
+        "quote": "Het was gisteren.",
+        "evidence_id": "EV-0004"
+      },
+      "loss_time": null,
+      "what_happened": {
+        "value": "Leakage in the living room damaged the walls and floor; a washing machine hose came loose",
+        "quote": "Een slang van de wasmachine was los",
+        "evidence_id": "EV-0004"
+      },
+      "source": {
+        "value": "washing machine hose",
+        "quote": "Een slang van de wasmachine was los",
+        "evidence_id": "EV-0004"
+      },
+      "location": {
+        "value": "living room",
+        "quote": "in de woonkamer",
+        "evidence_id": "EV-0001"
+      },
+      "loss_address_differs": null,
+      "source_stopped": {
+        "value": true,
+        "quote": "die zit weer vast",
+        "evidence_id": "EV-0004"
+      },
+      "emergency_measures": null,
+      "third_party_involved": null,
+      "police_report_ref": null,
+      "fire_brigade_report_ref": null,
+      "theft_reported": null,
+      "affected_items": [
+        {
+          "label": "walls",
+          "quote": "de muren en de vloer zijn beschadigd",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "floor",
+          "quote": "de muren en de vloer zijn beschadigd",
+          "evidence_id": "EV-0001"
+        }
+      ],
+      "item_ages": [
+        {
+          "line_code": "FLOOR-WOOD-REPL",
+          "age_years": 10.0,
+          "quote": "De vloer is ongeveer 10 jaar oud.",
+          "evidence_id": "EV-0004"
+        }
+      ],
+      "extraction_confidence": 0.9,
+      "reasoning": "Loss date resolved from 'gisteren' against the EV-0004 timestamp (2026-10-20 UTC), giving 2026-10-19. Floor age is approximate (~10 years). No age given for walls. The hose being 'weer vast' is read as the source being stopped.",
+      "summary": "Customer reports a leak from a loose washing machine hose on 2026-10-19 that damaged the living room floor and walls; the hose has been re-secured and the floor is about 10 years old."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3225,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3225,
+          "model": null,
+          "output_tokens": 670,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 670,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; active_leak for water visibly dripping or running\n  from a pipe, hose or fitting; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:156ce40bca1e4c9b29f2db932f291de69bf2dc94552baddde9fde1e0766fce6b"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "exterior",
+      "room_type": "exterior_facade",
+      "room_type_cues": [
+        "stucco exterior wall",
+        "window set into the outer wall",
+        "white window frame seen from outside"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "broken_glass",
+        "cracks"
+      ],
+      "damaged_parts": [
+        {
+          "part": "window glass pane",
+          "condition": "Impact point with a small hole and radiating and concentric cracks, plus a longer crack running toward the centre mullion"
+        }
+      ],
+      "materials": [
+        "glass",
+        "stucco",
+        "vinyl or painted frame",
+        "window blinds"
+      ],
+      "visible_items": [
+        "window with white frame",
+        "glass pane with grid divider",
+        "interior horizontal blinds",
+        "textured stucco wall"
+      ],
+      "long_term_signs_visible": false,
+      "visible_text": [],
+      "regional_indicators": [
+        "textured stucco facade with vinyl-style sliding window, common in North American homes"
+      ],
+      "confidence": 0.85,
+      "summary_en": "A close view of an exterior stucco wall with a white-framed window whose lower-left glass pane has a small impact hole with radiating and concentric cracks. Horizontal blinds are visible behind the glass, and there are no obvious signs of long-term deterioration."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 4352,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 4352,
+          "model": null,
+          "output_tokens": 387,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 387,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Gisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort, de brandweer was er. Ik weet het rapportnummer nog niet. Kunnen jullie snel betalen want we kunnen er niet wonen.\n\nHet rapportnummer van de brandweer is BRW-2026-45102."
+    },
+    "questions": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "instructions": "According to `messages`, had the home been unoccupied for more than 60 days in a row when the damage happened?"
+      }
+    },
+    "question_set_version": "policy_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 383,
+      "output_tokens": 29
+    },
+    "answers": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "noul": 0.03
+      }
+    }
+  }
+}

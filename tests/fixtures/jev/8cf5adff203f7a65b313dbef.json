@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "A huge tree from our garden came down on the house in the storm last night. Part of the roof is crushed and a window is smashed. Kids are fine, we're at my sister's. Contractor sent an estimate already.",
+      "reported_at": "2026-10-15T07:10:00+02:00",
+      "photo_1": "image:sha256:9509c97401719cf1d462d74b86aa7e7356f07d3e36d7ca07ccaa7817be9c0a83"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4706,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.91
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.85
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.96
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie.\n\nDe loodgieter heeft vanochtend de afvoer van het bad gerepareerd, het lekt niet meer."
+    },
+    "questions": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "instructions": "According to `messages`, had the home been unoccupied for more than 60 days in a row when the damage happened?"
+      }
+    },
+    "question_set_version": "policy_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 376,
+      "output_tokens": 29
+    },
+    "answers": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "noul": 0.03
+      }
+    }
+  }
+}

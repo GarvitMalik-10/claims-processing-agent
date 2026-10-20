@@ -22,7 +22,7 @@
   },
   "response": {
     "parsed_output": {
-      "text": "Hoi Fatima! Om je melding verder te kunnen behandelen, heb ik nog één ding van je nodig: het rapportnummer van de brandweer. Kun je dat aan mij doorgeven? Alvast bedankt! 🙂"
+      "text": "Hoi Fatima! Bedankt voor je bericht. Om je melding verder te kunnen verwerken, hebben we nog één ding nodig: wat is het rapportnummer van de brandweer? Stuur dat gerust door zodra je het bij de hand hebt. 😊"
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -45,11 +45,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 451,
           "model": null,
-          "output_tokens": 93,
+          "output_tokens": 104,
           "type": "message"
         }
       ],
-      "output_tokens": 93,
+      "output_tokens": 104,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

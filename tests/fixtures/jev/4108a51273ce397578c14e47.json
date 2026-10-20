@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Vorige week zijn er ineens zwarte plekken onderaan de douchewand gekomen. Volgens mij lekt de douche achter de tegels. Ik wil de schimmel laten verwijderen en de tegels laten vervangen.\n\nDe loodgieter heeft de kitrand en de afvoer vervangen, het lekt niet meer.",
+      "reported_at": "2026-10-14T09:20:00+02:00",
+      "photo_1": "image:sha256:6a3a7003fc22a491e169f2026d1f9be21893492a5c1cf46cdd3bd5c5e4969795"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4621,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.75
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.86
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.86
+      }
+    }
+  }
+}

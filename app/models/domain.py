@@ -154,6 +154,7 @@ class ClaimScenario(_Data):
     claimed_facts: dict[str, Any]
     estimate: Estimate | None
     exif_override: dict[str, Any] | None = None
+    followup: dict[str, str] | None = None
     golden: dict[str, Any]
 
 

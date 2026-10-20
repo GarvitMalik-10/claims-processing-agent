@@ -31,7 +31,7 @@
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "heavy rainfall / street flooding",
+        "value": "heavy rainfall flooding from the street",
         "quote": "Na de hoosbui van vorige week stond de hele straat blank",
         "evidence_id": "EV-0001"
       },
@@ -60,8 +60,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.8,
-      "reasoning": "Loss date only given as 'last week' with no specific day, so loss_date left null rather than guessed. No item ages stated by customer; the 14.0 age on the estimate is not customer-provided. Source stopped not stated.",
-      "summary": "Customer reports that after heavy rain last week, street flooding put about 40 cm of water in their kitchen, which they have already stripped, and asks who pays for the new kitchen."
+      "reasoning": "Loss date only given as 'last week' (vorige week), which is not a specific day, so loss_date is left null. No item ages stated by the customer; the 14.0 age on the estimate is not from the customer. Source stopped is not stated.",
+      "summary": "Customer reports that after heavy rain last week, about 40 cm of water entered the kitchen, which has since been stripped, and asks who pays for the new kitchen."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +84,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3211,
           "model": null,
-          "output_tokens": 596,
+          "output_tokens": 597,
           "type": "message"
         }
       ],
-      "output_tokens": 596,
+      "output_tokens": 597,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

@@ -1,0 +1,105 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; active_leak for water visibly dripping or running\n  from a pipe, hose or fitting; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:a4155350f8efd37a39a9d95095cab5fee77f959e811f47953aedb4284d2ff9b9"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "close_up_detail",
+      "room_type": "unknown",
+      "room_type_cues": [
+        "white plastic P-trap under a sink",
+        "blurred wall background",
+        "slip-joint nut fittings"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "active_leak",
+        "water_staining"
+      ],
+      "damaged_parts": [
+        {
+          "part": "plastic P-trap bottom bend",
+          "condition": "water visibly dripping from the lowest point of the trap"
+        },
+        {
+          "part": "slip-joint coupling nuts",
+          "condition": "scuffed and grimy with brownish discolouration, possible seepage residue at the joints"
+        }
+      ],
+      "materials": [
+        "white plastic (PVC/ABS)",
+        "painted or textured wall"
+      ],
+      "visible_items": [
+        "sink P-trap",
+        "slip-joint nut",
+        "wall outlet pipe",
+        "supply line at top edge"
+      ],
+      "long_term_signs_visible": true,
+      "visible_text": [],
+      "regional_indicators": [],
+      "confidence": 0.8,
+      "summary_en": "A close-up of a white plastic sink P-trap with a stream of water dripping from the bottom of the bend. The pipe and coupling nuts show brownish grime and discolouration, suggesting prolonged dampness or age, against a blurred beige wall."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 4072,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 4072,
+          "model": null,
+          "output_tokens": 398,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 398,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

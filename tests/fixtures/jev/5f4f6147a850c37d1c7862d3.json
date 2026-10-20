@@ -1,0 +1,28 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Na de hoosbui van vorige week stond de hele straat blank en kwam het water ook bij ons de keuken in, wel 40 cm. We hebben de keuken al gestript want het begon te stinken. Wie betaalt de nieuwe keuken?\n\nHet was op vrijdag 9 oktober. Het water is de volgende ochtend weer gezakt."
+    },
+    "questions": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "instructions": "According to `messages`, had the home been unoccupied for more than 60 days in a row when the damage happened?"
+      }
+    },
+    "question_set_version": "policy_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 374,
+      "output_tokens": 29
+    },
+    "answers": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "noul": 0.02
+      }
+    }
+  }
+}

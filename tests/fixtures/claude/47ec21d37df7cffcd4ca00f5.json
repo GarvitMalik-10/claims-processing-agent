@@ -64,17 +64,12 @@
           "label": "Bedroom ceiling paint",
           "quote": "De verf komt er in grote stukken af.",
           "evidence_id": "EV-0001"
-        },
-        {
-          "label": "Bedroom ceiling",
-          "quote": "het water door het plafond van de slaapkamer eronder gelopen",
-          "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Message sent 2026-10-17, so 'eergisteren' (day before yesterday) resolves to 2026-10-15. No item ages stated. No time of loss given.",
-      "summary": "Customer reports that a washing machine supply hose in the attic burst two days before the message, causing water damage to the bedroom ceiling below; the hose is already replaced and a photo and plasterer's quote were provided."
+      "reasoning": "'Eergisteren' (day before yesterday) resolved against 2026-10-17 gives 2026-10-15. No time, ages, or third parties mentioned. Photo and plasterer's quote were referenced as attached.",
+      "summary": "Customer reports that the washing machine supply hose in the attic burst two days ago, causing water damage to the bedroom ceiling below; the hose has been replaced and a plasterer's quote and photo were sent."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +92,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3240,
           "model": null,
-          "output_tokens": 755,
+          "output_tokens": 715,
           "type": "message"
         }
       ],
-      "output_tokens": 755,
+      "output_tokens": 715,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

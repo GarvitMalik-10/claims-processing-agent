@@ -30,18 +30,18 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "The socket in the living room caught fire while a phone was on the charger; flames came out.",
-        "quote": "vloog het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag",
+        "value": "The socket in the living room caught fire while a phone was charging; flames came out.",
+        "quote": "Vanavond vloog het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag.",
         "evidence_id": "EV-0001"
       },
       "source": {
-        "value": "socket with phone charger",
+        "value": "Socket with phone charger",
         "quote": "het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag",
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "living room",
-        "quote": "de woonkamer",
+        "value": "Living room",
+        "quote": "in de woonkamer",
         "evidence_id": "EV-0001"
       },
       "loss_address_differs": null,
@@ -51,7 +51,7 @@
         "evidence_id": "EV-0001"
       },
       "emergency_measures": {
-        "value": "Extinguished the fire with a wet tea towel and switched off the circuit group.",
+        "value": "Put out the fire with a wet tea towel and switched off the circuit group.",
         "quote": "ik heb het met een natte theedoek uitgemaakt en de groep uitgezet",
         "evidence_id": "EV-0001"
       },
@@ -61,20 +61,25 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Living room smoke odour",
+          "label": "Living room socket",
+          "quote": "het stopcontact in de woonkamer",
+          "evidence_id": "EV-0001"
+        },
+        {
+          "label": "Living room (smoke smell)",
           "quote": "De hele kamer stinkt naar rook",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Living room wall above socket",
+          "label": "Wall above the socket",
           "quote": "de muur erboven is grauw",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.9,
-      "reasoning": "The loss date is resolved from 'vanavond' against the message timestamp of 2026-10-19. No time is stated. The customer gave no ages for estimate lines; the 28.0 on the estimate is not a customer statement, so item_ages is empty.",
-      "summary": "Customer reports that a living room socket caught fire while a phone was charging; they put it out with a wet tea towel and switched off the circuit, leaving smoke odour and a sooty wall."
+      "extraction_confidence": 0.93,
+      "reasoning": "Loss date resolved from 'Vanavond' against the message timestamp of 2026-10-19. No time given beyond 'this evening'. No ages stated by the customer; the 28.0 on the estimate was not stated by them so it is not extracted. No police, fire brigade, theft or third party mentioned.",
+      "summary": "Customer reports that a living room socket caught fire this evening while a phone was charging, put it out with a wet tea towel and switched off the circuit, leaving smoke and soot damage to the room and wall."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +102,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3240,
           "model": null,
-          "output_tokens": 719,
+          "output_tokens": 790,
           "type": "message"
         }
       ],
-      "output_tokens": 719,
+      "output_tokens": 790,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

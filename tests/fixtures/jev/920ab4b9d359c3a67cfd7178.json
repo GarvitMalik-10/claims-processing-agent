@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Eergisteren is de toevoerslang van de wasmachine op zolder geknapt. Voordat ik het doorhad was het water door het plafond van de slaapkamer eronder gelopen. De verf komt er in grote stukken af. Slang is al vervangen. Hierbij foto en offerte van de stukadoor.",
+      "reported_at": "2026-10-17T19:40:00+02:00",
+      "photo_1": "image:sha256:6af1c1098b2860f5d58b15a1962e122713f25bdbc69951f3a7b74e45f65a1dfd"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 2179,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.89
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.89
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.93
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+# Image-claim consistency rules (README 8.1 step 3). Business-rule config.
+version: 1
+
+# Damage types that fit each peril. A photo whose damage types share none of these with the claimed
+# peril fails the "damage type fits peril" check.
+expected_damage_types:
+  water_burst_or_leak: [active_leak, water_staining, tide_marks, paint_peeling, swelling_buckling, mould, rot, rust_corrosion, efflorescence, cracks, structural_collapse]
+  flood_surface_water: [flood_line, water_staining, swelling_buckling, mould, debris, structural_collapse]
+  storm_wind_hail: [roof_tiles_missing_or_broken, chimney_collapse, tree_impact, broken_glass, structural_collapse, debris, water_staining, cracks]
+  fire_smoke: [burn_charring, soot, melting, structural_collapse, debris]
+  theft_burglary: [forced_entry_marks, broken_glass, cracks]
+  accidental_damage: [broken_glass, cracks, structural_collapse, other]
+
+# English keywords in the FNOL location value -> image room types they are compatible with.
+room_keywords:
+  kitchen: [kitchen]
+  bathroom: [bathroom, shower, toilet, washroom]
+  living_room: [living room, lounge, sitting room]
+  bedroom: [bedroom, study, nursery]
+  hallway: [hall, corridor, door, entrance]
+  stairwell_or_basement: [stair, basement, cellar]
+  attic: [attic, loft]
+  exterior_roof: [roof, chimney, gutter, tile]
+  exterior_facade: [facade, window, wall outside, exterior, frame, house]
+  garden: [garden, yard, tree]
+# Image room types that can never be consistent with a home claim.
+always_inconsistent_rooms: [non_residential]
+# Image room types that say nothing about the room (e.g. only a ceiling in frame).
+uninformative_rooms: [unknown]
+# Rooms that may legitimately appear together in a claim (e.g. a roof leak photographed in the attic).
+compatible_rooms:
+  exterior_roof: [attic, exterior_facade]
+  attic: [exterior_roof]
+  exterior_facade: [exterior_roof, garden, hallway]
+  hallway: [exterior_facade, living_room, bedroom]
+
+# Line categories excluded from the "is this item visible in the photos" check.
+visibility_exempt_categories: [service, plumbing]
+# Stolen items cannot be photographed: contents lines are exempt for these perils.
+visibility_exempt_contents_for_perils: [theft_burglary]

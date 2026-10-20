@@ -1,0 +1,28 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "We had a fire on Saturday night that started in the attic. The fire brigade came (report BRW-2026-44871). The roof is gone and the top floor is badly damaged. We're staying with family. What happens now?"
+    },
+    "questions": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "instructions": "According to `messages`, had the home been unoccupied for more than 60 days in a row when the damage happened?"
+      }
+    },
+    "question_set_version": "policy_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 355,
+      "output_tokens": 29
+    },
+    "answers": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "noul": 0.03
+      }
+    }
+  }
+}

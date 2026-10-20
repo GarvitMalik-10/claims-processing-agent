@@ -30,7 +30,7 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "Water leaking from the bathroom above through the kitchen ceiling; suddenly a large brown stain in the plaster ceiling",
+        "value": "Water is leaking from the bathroom upstairs through the kitchen ceiling; a large brown stain suddenly appeared in the plaster ceiling",
         "quote": "Er lekt water uit de badkamer boven door het keukenplafond.",
         "evidence_id": "EV-0001"
       },
@@ -53,15 +53,15 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Plastered kitchen ceiling",
+          "label": "Plaster ceiling in kitchen",
           "quote": "een grote bruine vlek in het stucplafond",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Loss date is the stain discovery date ('gisteren' relative to 2026-10-17); the leak itself may have started earlier. Leak is described as ongoing, so source_stopped is null. Plumber coming tomorrow for leak detection is not an emergency measure.",
-      "summary": "Customer reports water leaking from the upstairs bathroom through the kitchen ceiling, with a large brown stain noticed yesterday; a plumber comes tomorrow for leak detection."
+      "reasoning": "Loss date is the day the stain was noticed (yesterday relative to 2026-10-17). The leak is described in the present tense, so it is not stated as stopped. A plumber is coming tomorrow for leak detection, but no emergency measures were mentioned. The upstairs bathroom could belong to a neighbor, but the message does not say.",
+      "summary": "Customer reports water leaking from the upstairs bathroom through the kitchen ceiling, causing a large brown stain first noticed yesterday; a plumber will do leak detection tomorrow."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +84,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3188,
           "model": null,
-          "output_tokens": 588,
+          "output_tokens": 619,
           "type": "message"
         }
       ],
-      "output_tokens": 588,
+      "output_tokens": 619,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

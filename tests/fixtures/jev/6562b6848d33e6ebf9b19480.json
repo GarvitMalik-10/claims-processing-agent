@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Vanavond vloog het stopcontact in de woonkamer in brand toen de telefoon aan de lader lag. Er kwamen vlammen uit, ik heb het met een natte theedoek uitgemaakt en de groep uitgezet. De hele kamer stinkt naar rook en de muur erboven is grauw.",
+      "reported_at": "2026-10-19T20:30:00+02:00",
+      "photo_1": "image:sha256:dbab94e58b701cafaea1ebb5eba513551f932a11cc6a609f3770944a695634ae"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5965,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.77
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.87
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.88
+      }
+    }
+  }
+}

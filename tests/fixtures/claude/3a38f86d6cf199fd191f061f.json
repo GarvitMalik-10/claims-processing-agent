@@ -1,0 +1,137 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:f4d1dbc1b0fae97105fad83a40e5416eedee1d302393c9a58ac647053d470bae"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "exterior",
+      "room_type": "exterior_roof",
+      "room_type_cues": [
+        "fire-damaged pitched roof with exposed charred rafters",
+        "red brick Victorian villa with chimneys",
+        "street frontage with pavement, boundary wall and road"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "burn_charring",
+        "structural_collapse",
+        "roof_tiles_missing_or_broken",
+        "soot",
+        "broken_glass"
+      ],
+      "damaged_parts": [
+        {
+          "part": "roof structure and rafters",
+          "condition": "burnt through, charred timbers exposed, roof covering largely missing"
+        },
+        {
+          "part": "upper floor side window",
+          "condition": "window opening blackened, sash appears burnt or missing"
+        },
+        {
+          "part": "roof covering",
+          "condition": "tiles missing or collapsed over the left part of the roof"
+        },
+        {
+          "part": "gable and eaves",
+          "condition": "scorched and darkened timber trim"
+        }
+      ],
+      "materials": [
+        "red brick",
+        "slate or clay roof tiles",
+        "timber rafters",
+        "painted timber window frames",
+        "rubble stone wall",
+        "cast iron or metal guttering and downpipes"
+      ],
+      "visible_items": [
+        "brick chimney stacks with clay pots",
+        "bay windows",
+        "downpipes",
+        "stone boundary wall",
+        "brick gate pillars",
+        "red and white barrier tape",
+        "traffic cones",
+        "timber utility pole",
+        "parked car",
+        "street name sign",
+        "evergreen tree",
+        "bare deciduous tree"
+      ],
+      "long_term_signs_visible": false,
+      "visible_text": [
+        "WESTBOURNE RD",
+        "H52 HHS"
+      ],
+      "regional_indicators": [
+        "UK-style street name sign",
+        "UK-format number plate with yellow rear plate",
+        "red brick Victorian/Edwardian villa",
+        "vehicle driving on the left side of the road",
+        "double white give-way road markings"
+      ],
+      "confidence": 0.93,
+      "summary_en": "A red brick Victorian-style house on a street corner shows severe fire damage to its roof, with charred exposed rafters, missing roof covering and a blackened upper side window. Barrier tape and traffic cones sit near the front boundary wall, and the lower brickwork and ground floor windows appear largely intact."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3210,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 3210,
+          "model": null,
+          "output_tokens": 681,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 681,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

@@ -26,8 +26,8 @@
       "loss_date": null,
       "loss_time": null,
       "what_happened": {
-        "value": "Dishwasher hose came loose over the weekend",
-        "quote": "Our dishwasher hose came loose over the weekend",
+        "value": "Dishwasher hose came loose over the weekend, causing the oak floor in the living room to buckle badly",
+        "quote": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly",
         "evidence_id": "EV-0001"
       },
       "source": {
@@ -43,7 +43,7 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "Drying equipment (dryers) already running",
+        "value": "Drying equipment is running",
         "quote": "We already have dryers running.",
         "evidence_id": "EV-0001"
       },
@@ -53,7 +53,7 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Oak floor in living room (buckled)",
+          "label": "Oak floor in living room",
           "quote": "the oak floor in the living room has buckled badly",
           "evidence_id": "EV-0001"
         }
@@ -67,8 +67,8 @@
         }
       ],
       "extraction_confidence": 0.8,
-      "reasoning": "Loss date is only given as 'over the weekend', which is not a specific date, so it is left null. Floor age is computed as 2026 minus 2016 = 10 years from the message timestamp year, which matches the estimate. Whether the leak has been stopped is not stated.",
-      "summary": "Customer reports a dishwasher hose came loose over the weekend, buckling the oak living room floor; dryers are already running and an estimate is attached."
+      "reasoning": "Loss date is only 'over the weekend', which is not a specific date, so it is left null. The message was sent on Tuesday 2026-10-13. The floor age is computed as 2026 minus 2016 = 10 years, which matches the estimate. The customer did not say whether the hose leak was stopped.",
+      "summary": "Customer reports a loose dishwasher hose over the weekend that buckled the oak living room floor; dryers are already running and the floor was laid in 2016."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -91,11 +91,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3180,
           "model": null,
-          "output_tokens": 580,
+          "output_tokens": 617,
           "type": "message"
         }
       ],
-      "output_tokens": 580,
+      "output_tokens": 617,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

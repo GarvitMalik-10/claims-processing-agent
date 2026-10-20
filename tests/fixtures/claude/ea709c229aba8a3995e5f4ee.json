@@ -30,13 +30,13 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "Storm caused the roof to leak and the kitchen ceiling to come down",
+        "value": "Storm caused the roof to leak and the kitchen ceiling collapsed",
         "quote": "Door de storm van gisteravond is het dak gaan lekken en is het plafond in de keuken naar beneden gekomen",
         "evidence_id": "EV-0001"
       },
       "source": {
         "value": "roof leak caused by storm",
-        "quote": "het dak gaan lekken",
+        "quote": "is het dak gaan lekken",
         "evidence_id": "EV-0001"
       },
       "location": {
@@ -65,8 +65,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-15. No info on whether the leak was stopped, emergency measures, or item ages. Roof beam damage not mentioned by the customer.",
-      "summary": "Customer reports that last night's storm made the roof leak, causing the kitchen ceiling to collapse, with everything wet and mould now present, and requests an expert quickly."
+      "reasoning": "'Gisteravond' resolved against 2026-10-15 timestamp gives 2026-10-14. No time, stopped status, or item ages stated. Roof beam damage is not mentioned by the customer.",
+      "summary": "Customer reports that a storm last night caused a roof leak, a collapsed kitchen ceiling, wetness and mould, and requests an expert quickly."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3193,
           "model": null,
-          "output_tokens": 574,
+          "output_tokens": 570,
           "type": "message"
         }
       ],
-      "output_tokens": 574,
+      "output_tokens": 570,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

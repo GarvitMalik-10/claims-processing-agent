@@ -23,6 +23,13 @@ def test_every_image_file_exists(data):
         assert data.image_path(image_id).is_file(), image_id
 
 
+def test_demo_images_carry_no_real_camera_metadata(data):
+    from app.intake.evidence import read_exif
+
+    for image_id in data.observations:
+        assert read_exif(data.image_path(image_id).read_bytes()) == {}, image_id
+
+
 def test_scenarios_reference_known_customers_images_and_codes(data):
     for s in data.scenarios.values():
         assert s.customer_id in data.customers

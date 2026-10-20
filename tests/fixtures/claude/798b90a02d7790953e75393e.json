@@ -31,7 +31,7 @@
       "loss_time": null,
       "what_happened": {
         "value": "Chimney collapsed onto the roof due to yesterday's storm, breaking many roof tiles",
-        "quote": "Door de storm van gisteren is onze schoorsteen op het dak gestort. Overal pannen kapot.",
+        "quote": "Door de storm van gisteren is onze schoorsteen op het dak gestort.",
         "evidence_id": "EV-0001"
       },
       "source": {
@@ -40,7 +40,7 @@
         "evidence_id": "EV-0001"
       },
       "location": {
-        "value": "roof",
+        "value": "roof and chimney",
         "quote": "onze schoorsteen op het dak gestort",
         "evidence_id": "EV-0001"
       },
@@ -65,8 +65,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'gisteren' relative to 2026-10-15. Customer did not state any item ages (the 21.0 on the estimate is not from the customer). No info on emergency measures or whether anything was stopped.",
-      "summary": "Customer reports that yesterday's storm caused their chimney to collapse onto the roof, breaking many roof tiles, and has attached photos and a roofer's quote."
+      "reasoning": "Loss date resolved from 'gisteren' relative to 2026-10-15. Customer gave no ages for estimate lines (the 21.0 on the roof tile line comes from the estimate, not the customer). No info on time, source stopped, or emergency measures.",
+      "summary": "Customer reports that yesterday's storm caused the chimney to collapse onto the roof, breaking many roof tiles; photos and a roofer's quote are attached."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -89,11 +89,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3214,
           "model": null,
-          "output_tokens": 574,
+          "output_tokens": 578,
           "type": "message"
         }
       ],
-      "output_tokens": 574,
+      "output_tokens": 578,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

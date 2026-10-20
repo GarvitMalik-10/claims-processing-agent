@@ -22,7 +22,7 @@
   },
   "response": {
     "parsed_output": {
-      "text": "Hoi Fatima, bedankt voor je bericht! Om je melding verder te kunnen behandelen heb ik nog één ding nodig: is de oorzaak inmiddels gestopt, bijvoorbeeld doordat de kraan dicht is of het lek is gerepareerd? 😊"
+      "text": "Hoi Fatima, bedankt voor je bericht! Om je melding verder te kunnen behandelen heb ik nog één ding nodig: is de oorzaak inmiddels gestopt? Bijvoorbeeld doordat de kraan is dichtgedraaid of het lek is gerepareerd. Laat je het me even weten? 🙂"
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -45,11 +45,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 467,
           "model": null,
-          "output_tokens": 110,
+          "output_tokens": 127,
           "type": "message"
         }
       ],
-      "output_tokens": 110,
+      "output_tokens": 127,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

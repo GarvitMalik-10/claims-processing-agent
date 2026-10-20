@@ -1,6 +1,6 @@
 # Property Claims STP — Explainable Multi-Agent Claims Engine (Demo)
 
-> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). 85 tests green. **Next: M3** parallel Damage / Policy / Risk agents. Voice + video intake (M2b) waits for ffmpeg.
+> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). **M3 done**: parallel Damage / Policy / Risk agents with fan-out and join. Live S01–S20: image–claim consistency 15/19, risk band 17/19 (2 misses need the M4 cross-agent signal). 144 tests green. **Next: M4** coverage resolution, payout, routing, human review, ClaimDecisionReport. Voice + video intake (M2b) skipped for now (no ffmpeg).
 > This README is the full spec/hand-off. A new session should be able to start building from this file alone.
 > **Guiding rule for v1:** this is a **sales demo**. *Simple, explainable and working* beats spec exactness. Domain refinements come later.
 
@@ -704,6 +704,10 @@ The 12 golden scenarios (§11) are the regression suite that makes sure these fr
 | 2026-10-20 | Build go: React + Vite frontend; local `faster-whisper`; **no offline fallback** (venue Wi-Fi is reliable); thresholds start from placeholders and are tuned on S01–S20; brand name **Tecto** |
 | 2026-10-20 | Claim vs incident is **claim by default**: incident only when Jev's `only_informing` noul ≥ 0.75 **and** no repair estimate was sent. This check runs **before** completeness, so people who are only reporting aren't chased for details. (The first version asked "is the customer requesting compensation?", which misread a plain leak report as an incident.) |
 | 2026-10-20 | FNOL extraction: every field must quote the customer verbatim; code checks the quote against the message and drops the field if the quote isn't there |
+| 2026-10-20 | Vision extraction never sees the customer's story (no anchoring); Jev judges the photos against the story |
+| 2026-10-20 | Policy clause selection = Sonnet's choice ∪ a mandatory peril→clause matrix, so no exclusion can be skipped; every clause is decided by a rule function that cites it |
+| 2026-10-20 | Demo images had real camera EXIF/GPS (2007–2011, US); stripped so honest scenarios don't trip fraud signals. Scenario metadata is synthetic and labelled as such |
+| 2026-10-20 | Open for M4: should a *minor* unresolved item-visibility check (e.g. the lock in S19) block STP? |
 | 2026-10-20 | Demo runs locally on the presenter's laptop as a split screen: front stage (customer chat) + backstage (process map, event stream, report, review inbox, audit) |
 
 ## 18. Open decisions

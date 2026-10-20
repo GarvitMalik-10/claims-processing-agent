@@ -1,0 +1,28 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly. We already have dryers running. The floor was laid in 2016. Estimate attached.\n\nIt was Saturday 10 October. We turned off the water to the dishwasher straight away and the hose has been replaced."
+    },
+    "questions": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "instructions": "According to `messages`, had the home been unoccupied for more than 60 days in a row when the damage happened?"
+      }
+    },
+    "question_set_version": "policy_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 369,
+      "output_tokens": 29
+    },
+    "answers": {
+      "home_unoccupied_over_60_days": {
+        "type": "noul",
+        "noul": 0.03
+      }
+    }
+  }
+}

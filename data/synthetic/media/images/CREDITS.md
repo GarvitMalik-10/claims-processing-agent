@@ -2,6 +2,8 @@
 
 All images come from Wikimedia Commons. They were downloaded on 2026-10-20 as Wikimedia's own resized renditions and are otherwise unmodified. Our use in this demo is fictional: the stories, people and addresses attached to them are synthetic and are not related to the real places or owners shown.
 
+**Modification:** on 2026-10-20 the original camera metadata (EXIF capture dates from 2007–2011, plus GPS on IMG-10) was removed from IMG-02, IMG-10, IMG-11 and IMG-12, using `scripts/strip_demo_exif.py`. The images were re-saved with their JPEG quantization unchanged. These photos stand in for customer photos, and their real metadata would otherwise trigger the fraud signals. Scenarios that need metadata supply synthetic values, and those are labelled as such in the claim file.
+
 The demo UI must show this attribution, for example on a "Credits" link in the footer. Under the CC BY-SA licenses, any derivatives we create (such as copies with synthetic EXIF data) have to stay under the same license.
 
 | ID | File | Author | License | Source |

@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Er is lekkage geweest in de woonkamer, de muren en de vloer zijn beschadigd. Hierbij een foto. Ik wil graag dat de vloer en de muren worden vergoed.\n\nHet was gisteren. Een slang van de wasmachine was los, die zit weer vast. De vloer is ongeveer 10 jaar oud.",
+      "reported_at": "2026-10-19T18:00:00+02:00",
+      "photo_1": "image:sha256:23dcbefc9efa3ffd2b088e834b7d1081a94354341c95499b33c79e196a693632"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5188,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.6
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.84
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.2
+      }
+    }
+  }
+}

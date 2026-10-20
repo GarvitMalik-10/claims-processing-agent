@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import uuid
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -27,9 +28,16 @@ class LocalBlobStore:
         target = self.path(digest)
         if not target.exists():
             target.parent.mkdir(parents=True, exist_ok=True)
-            tmp = target.with_suffix(".tmp")
+            tmp = target.with_name(f"{digest}.{uuid.uuid4().hex}.tmp")  # unique: parallel writers can't collide
             tmp.write_bytes(data)
-            tmp.replace(target)
+            try:
+                tmp.replace(target)
+            except PermissionError:
+                # Windows: another writer just stored the same content (or it's open for reading). Content-
+                # addressed, so the existing file is identical - keep it.
+                tmp.unlink(missing_ok=True)
+                if not target.exists():
+                    raise
         return digest
 
     def put_json(self, obj: Any) -> str:

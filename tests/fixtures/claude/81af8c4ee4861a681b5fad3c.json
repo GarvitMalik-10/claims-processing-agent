@@ -76,8 +76,8 @@
         }
       ],
       "extraction_confidence": 0.9,
-      "reasoning": "Message sent 23:40 on 2026-10-17, so 'this evening' resolves to 2026-10-17. Exact time not stated. The lock replacement was not mentioned by the customer, so it is not listed as affected. Locksmith quote is mentioned as attached only.",
-      "summary": "Customer reports a burglary this evening in which the study door frame was split and a 2-year-old laptop was stolen; a police report number was provided."
+      "reasoning": "Loss date taken from 'this evening' relative to the 23:40 timestamp on 2026-10-17. Time of the break-in not stated. Only the laptop has an age given by the customer.",
+      "summary": "Customer reports a burglary at their flat this evening in which the study door frame was split and a laptop was stolen, with a police report number provided."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -100,11 +100,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3198,
           "model": null,
-          "output_tokens": 636,
+          "output_tokens": 606,
           "type": "message"
         }
       ],
-      "output_tokens": 636,
+      "output_tokens": 606,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

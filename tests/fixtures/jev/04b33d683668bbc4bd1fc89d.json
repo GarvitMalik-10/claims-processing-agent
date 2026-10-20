@@ -1,0 +1,127 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "story": "A huge tree from our garden came down on the house in the storm last night. Part of the roof is crushed and a window is smashed. Kids are fine, we're at my sister's. Contractor sent an estimate already.",
+      "photo_1": "image:sha256:9509c97401719cf1d462d74b86aa7e7356f07d3e36d7ca07ccaa7817be9c0a83"
+    },
+    "questions": {
+      "severity": {
+        "type": "choice",
+        "instructions": "How severe is the visible damage in the photo `photo_1`?",
+        "criteria": {
+          "none_no_visible_damage": "No visible damage",
+          "minor_surface_staining": "Light staining, surface marks or a small isolated defect only",
+          "moderate_localized_damage": "Localized damage to materials in one area",
+          "severe_extensive_damage": "Extensive damage across multiple surfaces, materials or rooms",
+          "other_cannot_assess": "The photos do not allow an assessment"
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "instructions": "Does the damage in the photo `photo_1` look sudden or gradual?",
+        "criteria": {
+          "sudden_recent_event": "Fresh damage consistent with a single recent event",
+          "gradual_long_term": "Signs of long-term exposure or neglect: mould, rot, rust, layered tide marks, weathering",
+          "unclear_cannot_tell": "Cannot tell from the photos"
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the customer's account in `story`?"
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "instructions": "Are there signs of mould, rot, rust or long-term moisture in the photo `photo_1`?"
+      },
+      "item_1": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Repair roof structure (battens, rafters, boarding)?"
+      },
+      "item_2": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Replace facade cladding?"
+      },
+      "item_3": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Replace window frame incl. glass?"
+      },
+      "item_4": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Replace roof tiles?"
+      },
+      "roof_maintenance_poor": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` show signs of poor maintenance or long-standing deterioration of the roof (weathered or rotten battens, moss or lichen, gaps without fresh debris)?"
+      },
+      "building_damage_present": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` show damage to the building itself?"
+      }
+    },
+    "question_set_version": "damage_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5106,
+      "output_tokens": 292
+    },
+    "answers": {
+      "severity": {
+        "type": "choice",
+        "choice": "severe_extensive_damage",
+        "confidence": 0.89,
+        "probabilities": {
+          "none_no_visible_damage": 0.0,
+          "minor_surface_staining": 0.0,
+          "moderate_localized_damage": 0.09,
+          "severe_extensive_damage": 0.91,
+          "other_cannot_assess": 0.0
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "choice": "sudden_recent_event",
+        "confidence": 1.0,
+        "probabilities": {
+          "sudden_recent_event": 1.0,
+          "gradual_long_term": 0.0,
+          "unclear_cannot_tell": 0.0
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.97
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "noul": 0.48
+      },
+      "item_1": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "item_2": {
+        "type": "noul",
+        "noul": 0.88
+      },
+      "item_3": {
+        "type": "noul",
+        "noul": 0.92
+      },
+      "item_4": {
+        "type": "noul",
+        "noul": 0.78
+      },
+      "roof_maintenance_poor": {
+        "type": "noul",
+        "noul": 0.22
+      },
+      "building_damage_present": {
+        "type": "noul",
+        "noul": 0.99
+      }
+    }
+  }
+}

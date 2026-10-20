@@ -52,6 +52,13 @@ def _send(deps: Deps, claim_id: str, text: str, language: str, *, kind: str, pro
 
 
 def build_fnol_graph(deps: Deps, checkpointer: Any):
+    """FNOL only (ends at registration). The full claim graph is app.graph.claim.build_claim_graph."""
+    g = StateGraph(ClaimGraphState)
+    add_fnol(g, deps, after_registration=END)
+    return g.compile(checkpointer=checkpointer)
+
+
+def add_fnol(g: StateGraph, deps: Deps, *, after_registration: str) -> None:
     store = deps.store
     th = deps.thresholds.data
 
@@ -184,7 +191,7 @@ def build_fnol_graph(deps: Deps, checkpointer: Any):
         return {"stage": "assessment"}
 
     def after_match(state: ClaimGraphState) -> str:
-        return "handover" if state.route_reasons else END
+        return "handover" if state.route_reasons else after_registration
 
     def record_incident(state: ClaimGraphState) -> dict:
         cid = state.claim_id
@@ -213,7 +220,6 @@ def build_fnol_graph(deps: Deps, checkpointer: Any):
               language, kind="handover")
         return {"stage": "review", "route_reasons": reasons}
 
-    g = StateGraph(ClaimGraphState)
     for name, fn in [("extract", extract), ("classify", classify), ("check_completeness", check_completeness),
                      ("request_info", request_info), ("wait_for_customer", wait_for_customer),
                      ("match_policy", match_policy), ("record_incident", record_incident), ("handover", handover)]:
@@ -224,7 +230,6 @@ def build_fnol_graph(deps: Deps, checkpointer: Any):
     g.add_conditional_edges("check_completeness", after_completeness, ["match_policy", "request_info", "handover"])
     g.add_edge("request_info", "wait_for_customer")
     g.add_edge("wait_for_customer", "extract")
-    g.add_conditional_edges("match_policy", after_match, ["handover", END])
+    g.add_conditional_edges("match_policy", after_match, ["handover", after_registration])
     g.add_edge("record_incident", END)
     g.add_edge("handover", END)
-    return g.compile(checkpointer=checkpointer)

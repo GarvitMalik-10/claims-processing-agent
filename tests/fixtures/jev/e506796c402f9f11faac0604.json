@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Our dishwasher hose came loose over the weekend and the oak floor in the living room has buckled badly. We already have dryers running. The floor was laid in 2016. Estimate attached.\n\nIt was Saturday 10 October. We turned off the water to the dishwasher straight away and the hose has been replaced.",
+      "reported_at": "2026-10-13T10:30:00+02:00",
+      "photo_1": "image:sha256:48e6d11f3fb4a117ba4ca2b0b8a20d2534fc75792aec34c8cb8c8d0b9213e246"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4728,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.82
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.88
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.87
+      }
+    }
+  }
+}

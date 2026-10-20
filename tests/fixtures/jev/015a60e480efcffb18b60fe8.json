@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Tijdens de storm van gisteravond is de schoorsteen omgewaaid en op het dak gevallen. Een paar pannen zijn kapot. De dakdekker heeft het vanochtend al noodafgedekt. Foto en offerte bijgevoegd.",
+      "reported_at": "2026-10-15T09:20:00+02:00",
+      "photo_1": "image:sha256:fa8331e5ca3fceb2a6ceb49f1a3dbcf37fcbf9c256fcc79779cddda4fb5d21b7"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5167,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.83
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.9
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.92
+      }
+    }
+  }
+}

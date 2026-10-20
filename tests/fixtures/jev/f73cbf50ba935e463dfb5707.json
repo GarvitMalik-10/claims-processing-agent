@@ -1,0 +1,47 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Door de storm van gisteren is onze schoorsteen op het dak gestort. Overal pannen kapot. Foto's van voor en zijkant bijgevoegd, offerte dakdekker ook.",
+      "reported_at": "2026-10-15T08:30:00+02:00",
+      "photo_1": "image:sha256:12ec7b55bdafe6639f7f9cd6dfc8534cf1c7362e2c1eebdbbed0083c57fe37ad",
+      "photo_2": "image:sha256:fa8331e5ca3fceb2a6ceb49f1a3dbcf37fcbf9c256fcc79779cddda4fb5d21b7"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photos (`photo_1`, `photo_2`) support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 9905,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.85
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.85
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.93
+      }
+    }
+  }
+}

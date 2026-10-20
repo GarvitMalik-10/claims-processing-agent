@@ -22,7 +22,7 @@
   },
   "response": {
     "parsed_output": {
-      "text": "Hi James, thanks for your message! To move your claim forward, could you please let me know:\n• The date the damage happened\n• Whether the cause has been stopped (for example, tap closed or leak repaired)\n\nThanks for your help 🙂"
+      "text": "Hi James, thanks for getting in touch. To help us move forward with your claim, could you please let us know:\n• The date the damage happened\n• Whether the cause has been stopped (for example, tap closed or leak repaired)\n\nThanks so much! 😊"
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -45,11 +45,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 472,
           "model": null,
-          "output_tokens": 89,
+          "output_tokens": 94,
           "type": "message"
         }
       ],
-      "output_tokens": 89,
+      "output_tokens": 94,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

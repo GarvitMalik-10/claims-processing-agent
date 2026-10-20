@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Goedemorgen, vanochtend stond er water in het keukenkastje onder de gootsteen. De sifon lekt, ik heb de kraan dichtgedraaid. De bodem van het kastje is opgezwollen en het laminaat ervoor ook. Foto van de sifon bijgevoegd. Offerte van de klusjesman volgt.",
+      "reported_at": "2026-10-18T08:12:00+02:00",
+      "photo_1": "image:sha256:a4155350f8efd37a39a9d95095cab5fee77f959e811f47953aedb4284d2ff9b9"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4630,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.89
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.95
+      }
+    }
+  }
+}

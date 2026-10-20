@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie.\n\nDe loodgieter heeft vanochtend de afvoer van het bad gerepareerd, het lekt niet meer.",
+      "reported_at": "2026-10-17T22:15:00+02:00",
+      "photo_1": "image:sha256:513745873e2cefd7b24959eaaab2239173af193eb0fdab49fc3f380c2b4c3206"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5184,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.75
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.84
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.88
+      }
+    }
+  }
+}

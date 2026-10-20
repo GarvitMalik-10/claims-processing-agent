@@ -26,7 +26,7 @@
       "loss_date": null,
       "loss_time": null,
       "what_happened": {
-        "value": "There has been a leak in the living room",
+        "value": "There was a leak in the living room",
         "quote": "Er is lekkage geweest in de woonkamer",
         "evidence_id": "EV-0001"
       },
@@ -56,8 +56,8 @@
         }
       ],
       "item_ages": [],
-      "extraction_confidence": 0.85,
-      "reasoning": "Customer gave no date, time, source of the leak, or whether it was stopped. No item ages stated. A photo is mentioned but cannot be read here.",
+      "extraction_confidence": 0.8,
+      "reasoning": "Customer gave no date, time, source of the leak, or whether it was stopped. No item ages were stated. A photo is mentioned but cannot be read here.",
       "summary": "Customer reports a leak in the living room that damaged the walls and floor and asks for both to be reimbursed."
     },
     "model": "claude-sonnet-5-5",

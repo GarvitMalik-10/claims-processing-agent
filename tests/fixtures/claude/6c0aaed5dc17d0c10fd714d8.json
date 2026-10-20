@@ -1,0 +1,99 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; active_leak for water visibly dripping or running\n  from a pipe, hose or fitting; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:6af1c1098b2860f5d58b15a1962e122713f25bdbc69951f3a7b74e45f65a1dfd"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "interior",
+      "room_type": "unknown",
+      "room_type_cues": [
+        "only a ceiling surface is visible",
+        "no furniture, fixtures or walls shown"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "paint_peeling",
+        "water_staining"
+      ],
+      "damaged_parts": [
+        {
+          "part": "ceiling paint and plaster surface",
+          "condition": "large irregular areas of paint peeling and flaking away, exposing paper or plaster layer with brown/orange staining"
+        }
+      ],
+      "materials": [
+        "painted plasterboard or plaster",
+        "paint"
+      ],
+      "visible_items": [
+        "ceiling",
+        "peeled paint flakes",
+        "exposed substrate"
+      ],
+      "long_term_signs_visible": false,
+      "visible_text": [],
+      "regional_indicators": [],
+      "confidence": 0.8,
+      "summary_en": "A close view of a white ceiling shows large patches of paint peeling and curling away from the surface. The exposed areas beneath have brownish-orange staining consistent with moisture exposure."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 2850,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 2850,
+          "model": null,
+          "output_tokens": 320,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 320,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

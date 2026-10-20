@@ -47,7 +47,7 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "The roofer made an emergency cover this morning",
+        "value": "The roofer provided emergency covering this morning",
         "quote": "De dakdekker heeft het vanochtend al noodafgedekt.",
         "evidence_id": "EV-0001"
       },
@@ -69,8 +69,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-15. Customer gave no ages; the 18.0 age on the estimate line is not from the customer message so not extracted. Storm is the cause; no stop statement beyond the emergency cover, so source_stopped left null.",
-      "summary": "Customer reports that last night's storm blew the chimney onto the roof and broke several tiles; a roofer has already applied an emergency cover."
+      "reasoning": "Storm 'gisteravond' relative to 2026-10-15 gives 2026-10-14. No time of day given. Customer did not state item ages; the 18.0 age on the estimate was not stated by the customer so it is not extracted. 'Noodafgedekt' is an emergency measure but not clearly a stopped source.",
+      "summary": "Customer reports that during last night's storm the chimney blew over onto the roof, breaking some roof tiles, and a roofer has already emergency-covered the roof."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -93,11 +93,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3245,
           "model": null,
-          "output_tokens": 670,
+          "output_tokens": 688,
           "type": "message"
         }
       ],
-      "output_tokens": 670,
+      "output_tokens": 688,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

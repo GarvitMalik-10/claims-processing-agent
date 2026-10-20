@@ -7,7 +7,25 @@ from typing import Any
 
 from app.jev.client import JevAnswer, JevCall
 from app.llm.claude import ModelCall
+from app.models.assessment import ClauseSelection, ImageObservation
 from app.models.fnol import FnolExtraction, InfoRequestMessage
+
+
+def observation(**overrides: Any) -> ImageObservation:
+    base = dict(image_quality="good", setting="interior", room_type="bedroom", room_type_cues=["bed"],
+                damage_present=True, damage_types=["water_staining", "paint_peeling"],
+                damaged_parts=[{"part": "ceiling", "condition": "stained"}], materials=["plaster"],
+                visible_items=["ceiling"], long_term_signs_visible=False, visible_text=[], regional_indicators=[],
+                confidence=0.8, summary_en="Stained ceiling.")
+    base.update(overrides)
+    return ImageObservation.model_validate(base)
+
+
+DEFAULTS = {
+    InfoRequestMessage: lambda: InfoRequestMessage(text="Kun je nog een paar dingen laten weten?"),
+    ImageObservation: observation,
+    ClauseSelection: lambda: ClauseSelection(clause_ids=["C-2.1", "C-2.4"], reasoning="r", summary="s"),
+}
 
 
 class StubClaude:
@@ -25,31 +43,39 @@ class StubClaude:
         if self.fail_next:
             self.fail_next = False
             raise RuntimeError("simulated API outage")
-        if output_model is InfoRequestMessage and not self.queue[output_model]:
-            out = InfoRequestMessage(text="Kun je nog een paar dingen laten weten?")
-        else:
+        if self.queue[output_model]:
             out = self.queue[output_model].popleft()
+        else:
+            out = DEFAULTS[output_model]()
         return ModelCall(output=out, model="stub-sonnet", stop_reason="end_turn", usage={},
                          raw_request_blob=self.blobs.put_json({"stub": prompt_version}),
                          raw_response_blob=self.blobs.put_json(out.model_dump(mode="json")))
 
 
 class StubJev:
+    """Answers any question set: nouls default to 0.9 (only_informing and long-term/neg signals to low),
+    choices to their first option. Override per question id with `answers`."""
+
+    LOW_BY_DEFAULT = {"only_informing", "long_term_moisture_signs", "roof_maintenance_poor", "home_unoccupied_over_60_days"}
+
     def __init__(self, blobs, peril: str = "water_burst_or_leak", peril_conf: float = 0.9,
-                 only_informing: float = 0.05) -> None:
+                 only_informing: float = 0.05, answers: dict[str, Any] | None = None) -> None:
         self.blobs = blobs
-        self.peril, self.peril_conf, self.only_informing = peril, peril_conf, only_informing
+        self.overrides = {"peril": (peril, peril_conf), "only_informing": only_informing, **(answers or {})}
         self.calls: list[dict] = []
 
     def ask(self, state, questions, *, question_set_version):
-        self.calls.append({"state": state, "questions": questions})
-        answers = {
-            "peril": JevAnswer(type="choice", choice=self.peril, confidence=self.peril_conf,
-                               probabilities={self.peril: self.peril_conf}),
-            "only_informing": JevAnswer(type="noul", noul=self.only_informing),
-        }
-        return JevCall(answers={k: answers[k] for k in questions}, model="jev-stub",
-                       question_set_version=question_set_version,
+        self.calls.append({"state": state, "questions": questions, "set": question_set_version})
+        out = {}
+        for qid, q in questions.items():
+            ov = self.overrides.get(qid)
+            if q["type"] == "noul":
+                p = ov if ov is not None else (0.05 if qid in self.LOW_BY_DEFAULT else 0.9)
+                out[qid] = JevAnswer(type="noul", noul=p)
+            else:
+                choice, conf = ov if ov is not None else (next(iter(q["criteria"])), 0.9)
+                out[qid] = JevAnswer(type="choice", choice=choice, confidence=conf, probabilities={choice: conf})
+        return JevCall(answers=out, model="jev-stub", question_set_version=question_set_version,
                        raw_request_blob=self.blobs.put_json({"stub": "jev"}),
                        raw_response_blob=self.blobs.put_json({"answers": list(questions)}))
 

@@ -1,0 +1,116 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:afcd25834cd2f427deb0fb3bf33914fe849dbddcf3f94a1773f14afc481a892d"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "exterior",
+      "room_type": "exterior_roof",
+      "room_type_cues": [
+        "clay pantiles on roof",
+        "exposed rafters and battens against open sky",
+        "brick wall top edge at bottom of frame"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "roof_tiles_missing_or_broken",
+        "structural_collapse",
+        "rot"
+      ],
+      "damaged_parts": [
+        {
+          "part": "roof covering (clay pantiles)",
+          "condition": "large section missing, exposing battens and rafters; broken tile fragments piled at lower right"
+        },
+        {
+          "part": "roof battens and rafters",
+          "condition": "grey, weathered, and aged timber exposed to open sky"
+        },
+        {
+          "part": "tile edges and mortar at verge",
+          "condition": "crumbling mortar and displaced tiles at right"
+        }
+      ],
+      "materials": [
+        "clay pantiles",
+        "weathered timber",
+        "brick",
+        "lime mortar"
+      ],
+      "visible_items": [
+        "clay pantiles",
+        "timber battens",
+        "timber rafters",
+        "brick wall top",
+        "broken tile fragments",
+        "mortar verge"
+      ],
+      "long_term_signs_visible": true,
+      "visible_text": [],
+      "regional_indicators": [
+        "red clay pantiles and brick construction typical of northern Europe"
+      ],
+      "confidence": 0.85,
+      "summary_en": "A roof section with a large area of clay pantiles missing, leaving weathered timber battens and rafters open to the sky above a brick wall. Broken tiles and crumbling mortar sit at the lower right, and the remaining tiles and timbers show lichen, moss and heavy weathering."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 4315,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 4315,
+          "model": null,
+          "output_tokens": 497,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 497,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

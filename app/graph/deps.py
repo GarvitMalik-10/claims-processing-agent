@@ -23,10 +23,18 @@ class Deps:
     data: SyntheticData
     thresholds: VersionedConfig
     completeness: VersionedConfig
+    consistency: VersionedConfig | None = None
+    risk_weights: VersionedConfig | None = None
+    storm_days: VersionedConfig | None = None
+    peril_clauses: VersionedConfig | None = None
+
+    def __post_init__(self) -> None:
+        for name in ("consistency", "risk_weights", "storm_days", "peril_clauses"):
+            if getattr(self, name) is None:
+                setattr(self, name, load_config(name))
 
     def config_versions(self, *names: str) -> dict[str, str]:
-        cfgs = {"thresholds": self.thresholds, "completeness": self.completeness}
-        return {n: cfgs[n].sha256[:12] for n in names}
+        return {n: getattr(self, n).sha256[:12] for n in names}
 
 
 def build_deps(settings: Settings | None = None, *, fixture_mode: FixtureMode = "off",

@@ -5,6 +5,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 from app.data.loader import load_synthetic
 from app.graph.deps import Deps
+from app.jev.question_sets import FNOL_V1
 from app.models.events import EventType
 from app.service import ClaimService
 from app.settings import load_config
@@ -36,11 +37,11 @@ def test_complete_water_claim_is_registered(make_service, store):
 
     status = svc.process(cid)
 
-    assert status["stage"] == "assessment" and not status["waiting"]
+    assert status["stage"] == "join" and not status["waiting"]
     t = types(store, cid)
     assert EventType.CLAIM_REGISTERED in t
     assert t.count(EventType.FNOL_FIELD_EXTRACTED) == 5
-    assert t.count(EventType.JEV_ANSWERED) == 2
+    assert sum(1 for e in store.events(cid, {EventType.JEV_ANSWERED}) if e.payload["question_set"] == FNOL_V1) == 2
     assert svc.outbound_messages(cid)[-1]["kind"] == "registered"
     assert store.verify_chain(cid).intact
 
@@ -62,7 +63,7 @@ def test_missing_info_loop_waits_then_resumes(make_service, store):
     claude.push(extraction(source_stopped={"value": True, "quote": "de kraan is dicht", "evidence_id": ev}))
     status = svc.process(cid)
 
-    assert status["stage"] == "assessment"
+    assert status["stage"] == "join"
     received = store.events(cid, {EventType.FNOL_INFO_RECEIVED})
     assert received[0].payload["new_evidence"] == [ev]
     assert status["info_request_rounds"] == 1
@@ -111,7 +112,7 @@ def test_estimate_means_claim_even_if_customer_sounds_informative(make_service, 
     svc.add_estimate(cid, Estimate(contractor="x", date=None, total=380.0, lines=[
         EstimateLine(code="CEIL-PAINT", description="plafond", qty=20, unit_price=19, total=380)]))
     claude.push(extraction())
-    assert svc.process(cid)["stage"] == "assessment"
+    assert svc.process(cid)["stage"] == "join"
 
 
 def test_low_confidence_peril_is_treated_as_missing(make_service, store):
@@ -158,6 +159,50 @@ def test_hallucinated_quote_is_dropped_and_field_becomes_missing(make_service, s
     assert finding["finding"]["source_stopped"] is None
     assert any(w["code"] == "QUOTE_NOT_FOUND" for w in finding["warnings"])
     assert "source_stopped" in store.events(cid, {EventType.FNOL_COMPLETENESS_EVALUATED})[-1].payload["missing"]
+
+
+def test_parallel_claim_opening_gets_unique_ids(make_service, store):
+    import threading
+
+    svc, _, _ = make_service()
+    ids: list[str] = []
+    threads = [threading.Thread(target=lambda: ids.append(svc.open_claim("CUST-01"))) for _ in range(10)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert len(set(ids)) == 10
+
+
+def test_parallel_assessment_produces_all_three_findings(make_service, store):
+    svc, claude, _ = make_service()
+    cid = svc.open_claim("CUST-04")
+    svc.add_text(cid, WATER_TEXT)
+    svc.add_image(cid, jpeg_bytes())
+    claude.push(extraction())
+    status = svc.process(cid)
+    agents = {e.payload["agent"] for e in store.events(cid, {EventType.FINDING_CREATED})}
+    assert {"damage_agent", "policy_agent", "risk_agent"} <= agents
+    assert status["stage"] == "join" and status["route_reasons"] == []
+    assert EventType.VISION_EXTRACTED in types(store, cid) and EventType.RISK_SCORED in types(store, cid)
+    assert store.verify_chain(cid).intact
+
+
+def test_failed_agent_is_reported_at_the_join(make_service, store, monkeypatch):
+    from app.agents import risk
+
+    def boom(**_):
+        raise RuntimeError("risk service down")
+
+    monkeypatch.setattr(risk, "assess", boom)
+    svc, claude, _ = make_service()
+    cid = svc.open_claim("CUST-04")
+    svc.add_text(cid, WATER_TEXT)
+    svc.add_image(cid, jpeg_bytes())
+    claude.push(extraction())
+    status = svc.process(cid)
+    assert status["route_reasons"] == ["ASSESSMENT_FAILED:risk_agent"]
+    assert any(e.payload["node"] == "assess.risk" for e in store.events(cid, {EventType.SYSTEM_ERROR}))
 
 
 def test_every_model_event_has_raw_io_provenance(make_service, store):

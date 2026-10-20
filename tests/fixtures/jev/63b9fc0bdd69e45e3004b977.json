@@ -1,0 +1,95 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "story": "Gisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort, de brandweer was er. Ik weet het rapportnummer nog niet. Kunnen jullie snel betalen want we kunnen er niet wonen.\n\nHet rapportnummer van de brandweer is BRW-2026-45102.",
+      "photo_1": "image:sha256:c92e863f378fdbfd798e6ab9e98d3861d2619b717b2c530fb5b2c9d8e5692b91"
+    },
+    "questions": {
+      "severity": {
+        "type": "choice",
+        "instructions": "How severe is the visible damage in the photo `photo_1`?",
+        "criteria": {
+          "none_no_visible_damage": "No visible damage",
+          "minor_surface_staining": "Light staining, surface marks or a small isolated defect only",
+          "moderate_localized_damage": "Localized damage to materials in one area",
+          "severe_extensive_damage": "Extensive damage across multiple surfaces, materials or rooms",
+          "other_cannot_assess": "The photos do not allow an assessment"
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "instructions": "Does the damage in the photo `photo_1` look sudden or gradual?",
+        "criteria": {
+          "sudden_recent_event": "Fresh damage consistent with a single recent event",
+          "gradual_long_term": "Signs of long-term exposure or neglect: mould, rot, rust, layered tide marks, weathering",
+          "unclear_cannot_tell": "Cannot tell from the photos"
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the customer's account in `story`?"
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "instructions": "Are there signs of mould, rot, rust or long-term moisture in the photo `photo_1`?"
+      },
+      "item_1": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Strip and rebuild fire-damaged interior?"
+      },
+      "open_fire_evident": {
+        "type": "noul",
+        "instructions": "Do `story` and the photo `photo_1` indicate an actual fire with flames, rather than only scorching or melting?"
+      }
+    },
+    "question_set_version": "damage_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5476,
+      "output_tokens": 218
+    },
+    "answers": {
+      "severity": {
+        "type": "choice",
+        "choice": "severe_extensive_damage",
+        "confidence": 0.97,
+        "probabilities": {
+          "none_no_visible_damage": 0.0,
+          "minor_surface_staining": 0.0,
+          "moderate_localized_damage": 0.02,
+          "severe_extensive_damage": 0.98,
+          "other_cannot_assess": 0.0
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "choice": "sudden_recent_event",
+        "confidence": 1.0,
+        "probabilities": {
+          "sudden_recent_event": 1.0,
+          "gradual_long_term": 0.0,
+          "unclear_cannot_tell": 0.0
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "noul": 0.37
+      },
+      "item_1": {
+        "type": "noul",
+        "noul": 0.64
+      },
+      "open_fire_evident": {
+        "type": "noul",
+        "noul": 0.89
+      }
+    }
+  }
+}

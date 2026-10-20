@@ -1,0 +1,127 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You are a property damage assessor examining a single photo submitted with a home insurance claim.\nDescribe only what is visible. You are deliberately not told the customer's story - do not guess one.\n\n- room_type: the room or part of the building shown. Use non_residential when the setting is clearly not a\n  private home (shop, museum, office, public building). Use unknown when only a ceiling/wall/detail is visible.\n- image_quality: not_a_damage_photo when the photo shows no damage at all.\n- damage_types: choose every type that is visible; use other only when nothing else fits.\n- long_term_signs_visible: mould, rot, rust, layered tide marks, salt deposits, weathering, lichen.\n- visible_text / regional_indicators: report readable street signs, plates, socket or plug types, building\n  styles that hint at a country. These are recorded as observations, not accusations.\n- confidence is your own estimate and is never used for decisions.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "image",
+            "source": {
+              "type": "base64",
+              "media_type": "image/jpeg",
+              "data": "sha256:e49e37f49d2532afe5e7cab5c344abef205c00542d47c2537a85dc776e620e7a"
+            }
+          },
+          {
+            "type": "text",
+            "text": "Describe this photo."
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ImageObservation",
+    "prompt_version": "vision_extract_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "image_quality": "good",
+      "setting": "interior",
+      "room_type": "kitchen",
+      "room_type_cues": [
+        "wall-mounted wooden cabinet with hinges in the corner",
+        "dark appliance or surface at the bottom left",
+        "textured ceiling and wall in a residential style"
+      ],
+      "damage_present": true,
+      "damage_types": [
+        "water_staining",
+        "mould",
+        "rot",
+        "paint_peeling",
+        "swelling_buckling"
+      ],
+      "damaged_parts": [
+        {
+          "part": "textured ceiling",
+          "condition": "extensive brown water stains with black mould colonies, with the surface layer peeling and collapsing"
+        },
+        {
+          "part": "ceiling joist or timber beam",
+          "condition": "exposed, dark, degraded and apparently rotted wood where the ceiling material has fallen away"
+        },
+        {
+          "part": "wall-to-ceiling corner",
+          "condition": "peeling and detached paint and plaster with black mould spotting along the edge"
+        },
+        {
+          "part": "upper wall",
+          "condition": "a patch of paint or texture has peeled away to expose the brown substrate beneath"
+        },
+        {
+          "part": "wall cabinet top",
+          "condition": "cracked veneer or finish on the cabinet's top and side panel"
+        }
+      ],
+      "materials": [
+        "popcorn textured ceiling",
+        "plaster or drywall",
+        "timber joist",
+        "wood veneer cabinet",
+        "painted textured wall"
+      ],
+      "visible_items": [
+        "wall cabinet",
+        "exposed timber beam",
+        "textured ceiling",
+        "textured green and beige wall",
+        "dark appliance or surface"
+      ],
+      "long_term_signs_visible": true,
+      "visible_text": [],
+      "regional_indicators": [
+        "popcorn ceiling and textured walls common in North American homes",
+        "oak-style wall cabinet typical of North American builder-grade kitchens"
+      ],
+      "confidence": 0.85,
+      "summary_en": "A ceiling corner above a wall cabinet shows widespread brown water staining, black mould growth and peeling textured plaster, with a section of dark, degraded timber joist exposed. The adjacent wall also shows peeled paint and mould spotting along the ceiling edge, indicating prolonged moisture exposure."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 4315,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 4315,
+          "model": null,
+          "output_tokens": 663,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 663,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

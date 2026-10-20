@@ -43,7 +43,7 @@
       "loss_address_differs": null,
       "source_stopped": null,
       "emergency_measures": {
-        "value": "Customer will have the fallen tree removed themselves",
+        "value": "Customer will have the tree removed themselves",
         "quote": "Ik laat hem zelf weghalen.",
         "evidence_id": "EV-0001"
       },
@@ -54,8 +54,8 @@
       "affected_items": [],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "The customer says the storm date is not given, so loss_date is null. The customer explicitly states there is no damage and only wants to report the fallen tree for information. No estimate lines exist, so no item ages.",
-      "summary": "Customer reports that a large ash tree fell in the front garden during the storm without damaging the house or garage, and will remove it themselves."
+      "reasoning": "The customer does not give the date of the storm, so loss_date is null. The customer states there is no damage and only wants to report the fallen tree, so affected_items is empty. No estimate has been received, so item_ages is empty.",
+      "summary": "Customer reports that a large ash tree fell in the front garden during the storm without hitting the house or garage, with no damage, and will remove it themselves."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -78,11 +78,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3101,
           "model": null,
-          "output_tokens": 457,
+          "output_tokens": 465,
           "type": "message"
         }
       ],
-      "output_tokens": 457,
+      "output_tokens": 465,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

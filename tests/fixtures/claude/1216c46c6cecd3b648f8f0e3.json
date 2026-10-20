@@ -30,8 +30,8 @@
       },
       "loss_time": null,
       "what_happened": {
-        "value": "Fire in the living room",
-        "quote": "Gisteravond is er brand geweest in de woonkamer, de kachel.",
+        "value": "Fire in the living room caused by the stove; everything is black and collapsed",
+        "quote": "Gisteravond is er brand geweest in de woonkamer, de kachel. Alles is zwart en ingestort",
         "evidence_id": "EV-0001"
       },
       "source": {
@@ -51,17 +51,11 @@
       "police_report_ref": null,
       "fire_brigade_report_ref": null,
       "theft_reported": null,
-      "affected_items": [
-        {
-          "label": "living room interior",
-          "quote": "Alles is zwart en ingestort",
-          "evidence_id": "EV-0001"
-        }
-      ],
+      "affected_items": [],
       "item_ages": [],
       "extraction_confidence": 0.85,
-      "reasoning": "Fire brigade attended, but the customer does not yet know the report number, so no reference was extracted. The customer did not say the fire was out, so source_stopped is null. The loss date is resolved from 'gisteravond' against the 2026-10-18 timestamp. No item ages were given.",
-      "summary": "Customer reports a fire from the stove in the living room last evening, with the fire brigade attending, the home uninhabitable, and asks for quick payment."
+      "reasoning": "Loss date resolved from 'gisteravond' relative to 2026-10-18 as 2026-10-17. The fire brigade attended but the customer does not yet know the report number, so the reference is null. The customer does not say the fire is out, so source_stopped is null. No item ages or specific affected items were given.",
+      "summary": "Customer reports a stove fire in the living room last evening that left the room black and collapsed, the fire brigade attended, the report number is not yet known, and the home is uninhabitable so they ask for quick payment."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -84,11 +78,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3229,
           "model": null,
-          "output_tokens": 498,
+          "output_tokens": 510,
           "type": "message"
         }
       ],
-      "output_tokens": 498,
+      "output_tokens": 510,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

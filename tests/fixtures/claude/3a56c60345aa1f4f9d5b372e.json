@@ -48,7 +48,7 @@
       "source_stopped": null,
       "emergency_measures": null,
       "third_party_involved": {
-        "value": "Neighbour's children kicked the football",
+        "value": "Neighbour's kids kicked the football",
         "quote": "The neighbour's kids kicked a football",
         "evidence_id": "EV-0001"
       },
@@ -64,8 +64,8 @@
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Loss date resolved from 'this afternoon' against the message timestamp of 2026-10-18. No time given, no item age stated, no emergency measures mentioned.",
-      "summary": "Neighbour's children kicked a football against the customer's upstairs window, cracking the double glazing, and a glazier has quoted a replacement."
+      "reasoning": "Loss date resolved from 'this afternoon' against the message timestamp of 2026-10-18. No age was given for the glazing, no time of day beyond afternoon, and no police report mentioned.",
+      "summary": "Customer reports that neighbour's kids cracked an upstairs double-glazed window with a football this afternoon; a glazier has quoted for replacement."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -88,11 +88,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3117,
           "model": null,
-          "output_tokens": 566,
+          "output_tokens": 580,
           "type": "message"
         }
       ],
-      "output_tokens": 566,
+      "output_tokens": 580,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

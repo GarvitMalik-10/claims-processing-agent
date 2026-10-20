@@ -6,12 +6,13 @@ Inputs only ever append evidence; `process` then starts the graph or resumes it 
 from __future__ import annotations
 
 import sqlite3
+import threading
 from typing import Any
 
 from langgraph.types import Command
 
 from app.graph.deps import Deps
-from app.graph.fnol import build_fnol_graph
+from app.graph.claim import build_claim_graph
 from app.intake import evidence as intake
 from app.models.domain import Estimate
 from app.models.events import Actor, EventType, NewEvent
@@ -27,17 +28,19 @@ def sqlite_checkpointer(path: str) -> Any:
 class ClaimService:
     def __init__(self, deps: Deps, checkpointer: Any) -> None:
         self.deps = deps
-        self.graph = build_fnol_graph(deps, checkpointer)
+        self.graph = build_claim_graph(deps, checkpointer)
+        self._open_lock = threading.Lock()
 
     # --- intake -------------------------------------------------------------------------------
     def open_claim(self, customer_id: str, *, channel: str = "chat") -> str:
         customer = self.deps.data.customers[customer_id]
-        claim_id = f"CLM-2026-{len(self.deps.store.claim_ids()) + 1:06d}"
-        self.deps.store.append(claim_id, NewEvent(
-            type=EventType.CLAIM_NOTIFIED, actor=Actor(kind="customer", id=customer_id),
-            payload={"customer_id": customer_id, "policy_hint": customer.policy_id, "channel": channel,
-                     "language_preference": customer.language},
-        ))
+        with self._open_lock:  # number allocation + first event must be atomic (parallel intake)
+            claim_id = f"CLM-2026-{len(self.deps.store.claim_ids()) + 1:06d}"
+            self.deps.store.append(claim_id, NewEvent(
+                type=EventType.CLAIM_NOTIFIED, actor=Actor(kind="customer", id=customer_id),
+                payload={"customer_id": customer_id, "policy_hint": customer.policy_id, "channel": channel,
+                         "language_preference": customer.language},
+            ))
         return claim_id
 
     def add_text(self, claim_id: str, text: str, *, sent_at: str | None = None) -> str:

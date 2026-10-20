@@ -61,20 +61,20 @@
       "theft_reported": null,
       "affected_items": [
         {
-          "label": "Cabinet base under the sink",
+          "label": "Cabinet base under sink",
           "quote": "De bodem van het kastje is opgezwollen",
           "evidence_id": "EV-0001"
         },
         {
-          "label": "Laminate flooring in front of the cabinet",
+          "label": "Laminate flooring in front of cabinet",
           "quote": "het laminaat ervoor ook",
           "evidence_id": "EV-0001"
         }
       ],
       "item_ages": [],
       "extraction_confidence": 0.9,
-      "reasoning": "Customer gave no ages for any item; the ages on the estimate were not stated by the customer so none were extracted. 'Vanochtend' resolved against the 2026-10-18 timestamp. No time of loss given.",
-      "summary": "Customer reports a leaking sink trap that flooded the kitchen sink cabinet, swelling the cabinet base and the laminate in front; the tap has been closed."
+      "reasoning": "Customer gave no ages for any estimate lines. 'Vanochtend' resolved to the message date 2026-10-18. Loss time not stated. Estimate ages are not from the customer so not extracted.",
+      "summary": "Customer reports a leaking sink trap that flooded the kitchen cabinet under the sink, swelling the cabinet base and laminate; the tap was closed."
     },
     "model": "claude-sonnet-5-5",
     "stop_reason": "end_turn",
@@ -97,11 +97,11 @@
           "cache_read_input_tokens": 0,
           "input_tokens": 3258,
           "model": null,
-          "output_tokens": 697,
+          "output_tokens": 690,
           "type": "message"
         }
       ],
-      "output_tokens": 697,
+      "output_tokens": 690,
       "output_tokens_details": {
         "thinking_tokens": 0
       },

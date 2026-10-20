@@ -1,0 +1,69 @@
+{
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You help a claims handler find the clauses of a home insurance policy that are relevant to a loss.\nYou get the policy wording (clause id, title, text) and structured facts about the loss.\nReturn the ids of every clause that could affect cover, exclusions, conditions or the payout for this loss.\nReturn ids exactly as given. Do not decide whether the claim is covered.",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Policy wording:\n\n[C-1.1] Insured parties and address: Cover applies only to damage at the insured address stated on the policy schedule, during the policy period.\n\n[C-1.2] Building and contents: The building (walls, roof, fixed fittings, kitchen, flooring) is insured up to the building sum insured. Movable property is insured up to the contents sum insured.\n\n[C-2.1] Sudden escape of water: We cover damage caused by water that escapes suddenly and unexpectedly from pipes, appliances or installations connected to the water supply or central heating, as a result of a defect or burst.\n\n[C-2.2] Leak detection and access costs: If the damage under 2.1 is covered, we also pay the cost of finding the leak and of opening and repairing walls and floors, up to the amount in the policy table.\n\n[C-2.3] Repair of the source: We do not pay for repairing or replacing the pipe, hose, trap or appliance that caused the leak. We only pay for the resulting damage.\n\n[C-2.4] Gradual damage, moisture and mould: We do not cover damage that develops gradually, such as from long-term leakage, condensation, rising or penetrating damp, mould or rot, or from lack of maintenance.\n\n[C-2.5] Flooding from outside: We do not cover damage from water entering the home from outside at ground level because of flooding of streets, rivers or waterways, or water rising from the ground, unless the policy includes the Flood extension.\n\n[C-3.1] Storm: We cover damage from storm, meaning wind of at least 14 m/s (force 7), and rain, hail or snow entering through openings caused by the storm.\n\n[C-3.2] Poor maintenance of roof: We do not cover storm damage that is mainly caused by poor maintenance of the roof or its covering.\n\n[C-3.3] Fallen trees: If a tree falls on the insured building during a storm and damages it, we also pay the cost of removing the tree, up to the amount in the policy table. We do not pay to remove trees that did not damage the building.\n\n[C-4.1] Fire, smoke and soot: We cover damage from fire, and from smoke and soot that are suddenly released. Fire means a burning with flames that spread by themselves.\n\n[C-4.2] Scorching and melting: Scorching, singeing, melting or short-circuit damage without fire is not covered.\n\n[C-5.1] Burglary and theft: We cover theft of contents after a break-in, and damage caused by a break-in or attempted break-in. There must be visible signs of forced entry, and theft must be reported to the police.\n\n[C-5.3] Valuables and electronics: Theft of electronics is covered up to the amount in the policy table per event.\n\n[C-6.1] Glass: With the Glass extension, we cover breakage of window and door glass in the home, whatever the cause, up to the amount in the policy table. No deductible applies.\n\n[C-8.1] Unoccupied home: If the home has been unoccupied for more than 60 days in a row, water and burglary damage are not covered.\n\n[C-8.2] Emergency measures: We pay reasonable costs of emergency measures to prevent or limit covered damage, such as a temporary roof cover, up to the amount in the policy table.\n\n[C-9.1] Depreciation (current value): For items in the depreciation table, we pay the new-value amount for the first years shown in the table. After that, we deduct depreciation per year of age up to the stated maximum.\n\n[C-9.2] Deductible and limits: The total payment per event is limited to the sublimits and the sum insured. After that, the deductible on the policy schedule is subtracted.\n\nLoss facts:\nperil: accidental_damage\nwhat_happened: Neighbour's kids kicked a football against the upstairs window, cracking the glass\nsource: football kicked by neighbour's kids\nlocation: upstairs window\npolice_report_ref: None\nfire_brigade_report_ref: None\ntheft_reported: None\nestimate_lines: ['GLASS-DG-REPL: Replace HR++ double glazing 1.6 m2']"
+          }
+        ]
+      }
+    ],
+    "output_config": {
+      "effort": "low"
+    },
+    "output_schema": "ClauseSelection",
+    "prompt_version": "clause_select_v1"
+  },
+  "response": {
+    "parsed_output": {
+      "clause_ids": [
+        "C-1.1",
+        "C-1.2",
+        "C-6.1",
+        "C-8.2",
+        "C-9.1",
+        "C-9.2"
+      ],
+      "reasoning": "The loss is cracked window glass from a football, which is accidental damage. C-6.1 is the key clause: glass breakage is covered whatever the cause, but only with the Glass extension, subject to a limit and no deductible. C-1.1 and C-1.2 matter for the insured address, the policy period and whether the window is part of the building. C-9.2 matters for the sublimits and the deductible, since C-6.1 says no deductible applies to glass. C-9.1 could apply to depreciation on the double glazing replacement. C-8.2 could cover emergency measures such as boarding up the cracked window. Water, storm, fire and burglary clauses do not apply. The unoccupied-home clause C-8.1 only affects water and burglary, so it is not relevant.",
+      "summary": "Cracked upstairs window glass from a football. The Glass extension clause C-6.1 is central, along with the building scope, the limits and deductible, depreciation, and emergency measures."
+    },
+    "model": "claude-sonnet-5-5",
+    "stop_reason": "end_turn",
+    "usage": {
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 1807,
+      "iterations": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 1807,
+          "model": null,
+          "output_tokens": 368,
+          "type": "message"
+        }
+      ],
+      "output_tokens": 368,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+    }
+  }
+}

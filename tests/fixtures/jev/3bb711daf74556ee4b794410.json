@@ -1,0 +1,112 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "story": "Door de storm van gisteren is onze schoorsteen op het dak gestort. Overal pannen kapot. Foto's van voor en zijkant bijgevoegd, offerte dakdekker ook.",
+      "photo_1": "image:sha256:12ec7b55bdafe6639f7f9cd6dfc8534cf1c7362e2c1eebdbbed0083c57fe37ad",
+      "photo_2": "image:sha256:fa8331e5ca3fceb2a6ceb49f1a3dbcf37fcbf9c256fcc79779cddda4fb5d21b7"
+    },
+    "questions": {
+      "severity": {
+        "type": "choice",
+        "instructions": "How severe is the visible damage in the photos (`photo_1`, `photo_2`)?",
+        "criteria": {
+          "none_no_visible_damage": "No visible damage",
+          "minor_surface_staining": "Light staining, surface marks or a small isolated defect only",
+          "moderate_localized_damage": "Localized damage to materials in one area",
+          "severe_extensive_damage": "Extensive damage across multiple surfaces, materials or rooms",
+          "other_cannot_assess": "The photos do not allow an assessment"
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "instructions": "Does the damage in the photos (`photo_1`, `photo_2`) look sudden or gradual?",
+        "criteria": {
+          "sudden_recent_event": "Fresh damage consistent with a single recent event",
+          "gradual_long_term": "Signs of long-term exposure or neglect: mould, rot, rust, layered tide marks, weathering",
+          "unclear_cannot_tell": "Cannot tell from the photos"
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photos (`photo_1`, `photo_2`) support the customer's account in `story`?"
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "instructions": "Are there signs of mould, rot, rust or long-term moisture in the photos (`photo_1`, `photo_2`)?"
+      },
+      "item_1": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photos (`photo_1`, `photo_2`): Rebuild chimney stack?"
+      },
+      "item_2": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photos (`photo_1`, `photo_2`): Replace roof tiles?"
+      },
+      "roof_maintenance_poor": {
+        "type": "noul",
+        "instructions": "Do the photos (`photo_1`, `photo_2`) show signs of poor maintenance or long-standing deterioration of the roof (weathered or rotten battens, moss or lichen, gaps without fresh debris)?"
+      },
+      "building_damage_present": {
+        "type": "noul",
+        "instructions": "Do the photos (`photo_1`, `photo_2`) show damage to the building itself?"
+      }
+    },
+    "question_set_version": "damage_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 10272,
+      "output_tokens": 256
+    },
+    "answers": {
+      "severity": {
+        "type": "choice",
+        "choice": "moderate_localized_damage",
+        "confidence": 0.42,
+        "probabilities": {
+          "none_no_visible_damage": 0.0,
+          "minor_surface_staining": 0.0,
+          "moderate_localized_damage": 0.54,
+          "severe_extensive_damage": 0.46,
+          "other_cannot_assess": 0.0
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "choice": "sudden_recent_event",
+        "confidence": 1.0,
+        "probabilities": {
+          "sudden_recent_event": 1.0,
+          "gradual_long_term": 0.0,
+          "unclear_cannot_tell": 0.0
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.94
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "noul": 0.36
+      },
+      "item_1": {
+        "type": "noul",
+        "noul": 0.95
+      },
+      "item_2": {
+        "type": "noul",
+        "noul": 0.96
+      },
+      "roof_maintenance_poor": {
+        "type": "noul",
+        "noul": 0.21
+      },
+      "building_damage_present": {
+        "type": "noul",
+        "noul": 0.99
+      }
+    }
+  }
+}

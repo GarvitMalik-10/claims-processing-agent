@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Someone broke into my flat this evening while I was out. They forced the door to my study - the frame is split - and took my laptop (bought 2 years ago, EUR 1,299). Police report number PV-2026-118734. Locksmith quote attached.",
+      "reported_at": "2026-10-17T23:40:00+02:00",
+      "photo_1": "image:sha256:d38b250193a9a250ea7ba878b41ec598d91e67acfbe816d58cdf4ee5386623bc"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4841,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.9
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.92
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.93
+      }
+    }
+  }
+}

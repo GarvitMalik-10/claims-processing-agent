@@ -37,6 +37,7 @@ class SyntheticData:
     scenarios: dict[str, ClaimScenario]
     observations: dict[str, ImageObservationRef]
     history: list[dict[str, Any]]
+    history_meta: dict[str, Any]
 
     def image_path(self, image_id: str) -> Path:
         return self.root / self.observations[image_id].file
@@ -70,6 +71,7 @@ def load_synthetic(root: Path = SYNTHETIC_DIR) -> SyntheticData:
         observations={o["image_id"]: ImageObservationRef.model_validate(o)
                       for o in _read(root, "image_observations.json")["observations"]},
         history=_read(root, "history.json")["past_claims"],
+        history_meta=_read(root, "history.json")["_meta"],
     )
 
 

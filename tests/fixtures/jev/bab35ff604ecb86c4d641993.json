@@ -1,0 +1,87 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "story": "The neighbour's kids kicked a football against our upstairs window this afternoon - the glass is cracked but still in the frame. Glazier quoted for replacing the double glazing. Photo attached.",
+      "photo_1": "image:sha256:156ce40bca1e4c9b29f2db932f291de69bf2dc94552baddde9fde1e0766fce6b"
+    },
+    "questions": {
+      "severity": {
+        "type": "choice",
+        "instructions": "How severe is the visible damage in the photo `photo_1`?",
+        "criteria": {
+          "none_no_visible_damage": "No visible damage",
+          "minor_surface_staining": "Light staining, surface marks or a small isolated defect only",
+          "moderate_localized_damage": "Localized damage to materials in one area",
+          "severe_extensive_damage": "Extensive damage across multiple surfaces, materials or rooms",
+          "other_cannot_assess": "The photos do not allow an assessment"
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "instructions": "Does the damage in the photo `photo_1` look sudden or gradual?",
+        "criteria": {
+          "sudden_recent_event": "Fresh damage consistent with a single recent event",
+          "gradual_long_term": "Signs of long-term exposure or neglect: mould, rot, rust, layered tide marks, weathering",
+          "unclear_cannot_tell": "Cannot tell from the photos"
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the customer's account in `story`?"
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "instructions": "Are there signs of mould, rot, rust or long-term moisture in the photo `photo_1`?"
+      },
+      "item_1": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Replace double glazing?"
+      }
+    },
+    "question_set_version": "damage_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5393,
+      "output_tokens": 198
+    },
+    "answers": {
+      "severity": {
+        "type": "choice",
+        "choice": "moderate_localized_damage",
+        "confidence": 0.96,
+        "probabilities": {
+          "none_no_visible_damage": 0.0,
+          "minor_surface_staining": 0.0,
+          "moderate_localized_damage": 0.97,
+          "severe_extensive_damage": 0.03,
+          "other_cannot_assess": 0.0
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "choice": "sudden_recent_event",
+        "confidence": 1.0,
+        "probabilities": {
+          "sudden_recent_event": 1.0,
+          "gradual_long_term": 0.0,
+          "unclear_cannot_tell": 0.0
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.94
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "item_1": {
+        "type": "noul",
+        "noul": 0.94
+      }
+    }
+  }
+}

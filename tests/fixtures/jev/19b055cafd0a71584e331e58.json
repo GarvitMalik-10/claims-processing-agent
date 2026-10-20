@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Door de storm van gisteravond is het dak gaan lekken en is het plafond in de keuken naar beneden gekomen. Alles is nat en er zit nu ook schimmel. Graag snel een expert.",
+      "reported_at": "2026-10-15T07:55:00+02:00",
+      "photo_1": "image:sha256:e49e37f49d2532afe5e7cab5c344abef205c00542d47c2537a85dc776e620e7a"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5149,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.91
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.96
+      }
+    }
+  }
+}

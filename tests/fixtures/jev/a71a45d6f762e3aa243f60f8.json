@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "The neighbour's kids kicked a football against our upstairs window this afternoon - the glass is cracked but still in the frame. Glazier quoted for replacing the double glazing. Photo attached.",
+      "reported_at": "2026-10-18T17:25:00+02:00",
+      "photo_1": "image:sha256:156ce40bca1e4c9b29f2db932f291de69bf2dc94552baddde9fde1e0766fce6b"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5147,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.93
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.94
+      }
+    }
+  }
+}

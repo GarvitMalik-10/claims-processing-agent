@@ -1,0 +1,95 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "story": "Er lekt water uit de badkamer boven door het keukenplafond. Gisteren ineens een grote bruine vlek in het stucplafond. Loodgieter komt morgen voor lekdetectie.\n\nDe loodgieter heeft vanochtend de afvoer van het bad gerepareerd, het lekt niet meer.",
+      "photo_1": "image:sha256:513745873e2cefd7b24959eaaab2239173af193eb0fdab49fc3f380c2b4c3206"
+    },
+    "questions": {
+      "severity": {
+        "type": "choice",
+        "instructions": "How severe is the visible damage in the photo `photo_1`?",
+        "criteria": {
+          "none_no_visible_damage": "No visible damage",
+          "minor_surface_staining": "Light staining, surface marks or a small isolated defect only",
+          "moderate_localized_damage": "Localized damage to materials in one area",
+          "severe_extensive_damage": "Extensive damage across multiple surfaces, materials or rooms",
+          "other_cannot_assess": "The photos do not allow an assessment"
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "instructions": "Does the damage in the photo `photo_1` look sudden or gradual?",
+        "criteria": {
+          "sudden_recent_event": "Fresh damage consistent with a single recent event",
+          "gradual_long_term": "Signs of long-term exposure or neglect: mould, rot, rust, layered tide marks, weathering",
+          "unclear_cannot_tell": "Cannot tell from the photos"
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the customer's account in `story`?"
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "instructions": "Are there signs of mould, rot, rust or long-term moisture in the photo `photo_1`?"
+      },
+      "item_1": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Repair plaster ceiling?"
+      },
+      "item_2": {
+        "type": "noul",
+        "instructions": "Is the following item visibly damaged in the photo `photo_1`: Paint ceiling?"
+      }
+    },
+    "question_set_version": "damage_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 5448,
+      "output_tokens": 216
+    },
+    "answers": {
+      "severity": {
+        "type": "choice",
+        "choice": "moderate_localized_damage",
+        "confidence": 0.99,
+        "probabilities": {
+          "none_no_visible_damage": 0.0,
+          "minor_surface_staining": 0.0,
+          "moderate_localized_damage": 0.99,
+          "severe_extensive_damage": 0.01,
+          "other_cannot_assess": 0.0
+        }
+      },
+      "sudden_vs_gradual": {
+        "type": "choice",
+        "choice": "sudden_recent_event",
+        "confidence": 0.66,
+        "probabilities": {
+          "sudden_recent_event": 0.77,
+          "gradual_long_term": 0.22,
+          "unclear_cannot_tell": 0.01
+        }
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.87
+      },
+      "long_term_moisture_signs": {
+        "type": "noul",
+        "noul": 0.87
+      },
+      "item_1": {
+        "type": "noul",
+        "noul": 0.82
+      },
+      "item_2": {
+        "type": "noul",
+        "noul": 0.85
+      }
+    }
+  }
+}

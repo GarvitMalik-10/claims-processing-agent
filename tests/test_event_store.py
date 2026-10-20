@@ -75,6 +75,18 @@ def test_concurrent_appends_keep_chain_intact(store):
     assert result.intact and result.event_count == 60
 
 
+def test_blob_store_tolerates_parallel_writes_of_same_content(blobs):
+    data = b"x" * 200_000
+    threads = [threading.Thread(target=blobs.put, args=(data,)) for _ in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    digest = blobs.put(data)
+    assert blobs.get(digest) == data
+    assert not list(blobs.path(digest).parent.glob("*.tmp"))
+
+
 def test_type_filter_and_listener(store):
     seen = []
     store.subscribe(seen.append)

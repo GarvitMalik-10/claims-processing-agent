@@ -1,0 +1,46 @@
+{
+  "request": {
+    "model": "jev-latest",
+    "state": {
+      "messages": "Gisteren is de leiding in de kelderopgang gesprongen. De muur is helemaal kapot, verf eraf, roestvlekken. Loodgieter heeft de leiding gerepareerd, nu moet de muur nog.",
+      "reported_at": "2026-10-19T12:10:00+02:00",
+      "photo_1": "image:sha256:6f7081f70375fcc49161edf92d5445473f7b9109ecef8e7c03ac95f20011d927"
+    },
+    "questions": {
+      "story_consistent": {
+        "type": "noul",
+        "instructions": "Is the account in `messages` internally consistent?"
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "instructions": "Given `reported_at` and `messages`, is the timeline of events plausible?"
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "instructions": "Do the photo `photo_1` support the account in `messages`?"
+      }
+    },
+    "question_set_version": "risk_v1"
+  },
+  "response": {
+    "model": "jev-1.13.0",
+    "usage": {
+      "input_tokens": 4714,
+      "output_tokens": 60
+    },
+    "answers": {
+      "story_consistent": {
+        "type": "noul",
+        "noul": 0.82
+      },
+      "timeline_plausible": {
+        "type": "noul",
+        "noul": 0.91
+      },
+      "photo_supports_story": {
+        "type": "noul",
+        "noul": 0.89
+      }
+    }
+  }
+}
