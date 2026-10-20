@@ -48,9 +48,10 @@ def jev_provenance(call: Any, config_versions: dict[str, str]) -> Provenance | N
 def known_image_hashes(deps: Deps) -> list[dict[str, str]]:
     known = risk.history_hashes(deps.data.history, deps.data.root)
     for other in deps.store.claim_ids():
+        owner = proj.notification(deps.store, other)["customer_id"]
         for e in deps.store.events(other, {EventType.EVIDENCE_NORMALIZED}):
             if e.payload.get("phash"):
-                known.append({"claim_id": other, "customer_ref": "claim file", "phash": e.payload["phash"]})
+                known.append({"claim_id": other, "customer_ref": owner, "phash": e.payload["phash"]})
     return known
 
 
@@ -97,7 +98,8 @@ def add_assessment(g: StateGraph, deps: Deps, *, after_join: str) -> None:
                                 peril=_peril(deps, cid), extraction=_extraction(deps, cid),
                                 estimate=proj.latest_estimate(store, cid), loss_date=_loss_date(deps, cid),
                                 texts=proj.customer_texts(store, cid), storm_days=set(deps.storm_days.data.get("NL", [])),
-                                peril_clauses=deps.peril_clauses.data)
+                                peril_clauses=deps.peril_clauses.data,
+                                storm_window_days=deps.storm_days.data.get("demo_recent_storm_window_days", 0))
         except Exception as exc:
             emit_error(store, cid, node="assess.policy", error=exc)
             return {}

@@ -1,4 +1,8 @@
 # Days with storm (>= Beaufort 7) per region, used by clause C-3.1. Demo stand-in for a KNMI weather feed.
-version: 1
+version: 2
 NL:
   - "2026-10-14"
+# Demo only: in live free play the customer says "last night", so the loss date is always recent.
+# Any loss date within this many days before today also counts as a storm day. Recorded explicitly in
+# the C-3.1 reason as a demo weather stand-in. Set to 0 to use the fixed list only.
+demo_recent_storm_window_days: 10

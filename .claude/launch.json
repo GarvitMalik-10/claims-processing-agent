@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tecto",
+      "runtimeExecutable": "C:\\Users\\malik\\Claims processing\\.venv\\Scripts\\python.exe",
+      "runtimeArgs": ["-m", "uvicorn", "app.api.main:app", "--port", "8000"],
+      "cwd": "C:\\Users\\malik\\Claims processing",
+      "port": 8000
+    }
+  ]
+}

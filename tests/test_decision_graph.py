@@ -152,6 +152,20 @@ def test_missing_damage_evidence_is_not_a_fraud_signal(make, store):  # S20: int
     assert one(store, cid, EventType.ROUTING_DECIDED)["route"] == "info_request"
 
 
+def test_replay_reproduces_logged_outcomes(make, store):
+    from app.audit.replay import replay
+
+    svc, claude = make()
+    cid, _ = start(svc, claude)  # STP
+    r = replay(store, DATA, cid)
+    assert r.replayable and r.all_match
+    assert {c.item for c in r.checks} == {"coverage", "payout", "route"}
+
+    cid2, _ = start(svc, claude, customer="CUST-02", estimate=Estimate(contractor="x", date=None, total=380.0,
+                    lines=[EstimateLine(code="CEIL-PAINT", description="plafond", qty=20, unit_price=19, total=380)]))
+    assert replay(store, DATA, cid2).all_match  # refusal waiting for review replays too
+
+
 def test_image_mismatch_raises_final_risk(make, store):
     svc, claude = make(answers={"photo_supports_story": 0.05})
     cid, _ = start(svc, claude)

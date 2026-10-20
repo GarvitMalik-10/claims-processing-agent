@@ -96,17 +96,27 @@ def assess(
     if images and not taken:
         add("exif_missing", 1.0, "no camera date in any photo")
 
-    # Duplicate photos: claim history + other claims in the claim file (any customer)
+    # Duplicate photos: claim history + other claims in the claim file. Another customer's photo is a
+    # hard flag; the same customer's photo on another claim is a strong (soft) double-claim signal.
+    reused_same = []
     for img in images:
         for known in known_hashes:
             if known["claim_id"] == claim_id or not img.phash:
                 continue
             d = hamming(img.phash, known["phash"])
-            if d <= duplicate_threshold:
+            if d > duplicate_threshold:
+                continue
+            if known.get("customer_ref") == customer.customer_id:
+                reused_same.append(f"{img.evidence_id}~{known['claim_id']}")
+                warnings.append(Warning(code="PHOTO_REUSED_SAME_CUSTOMER", severity="warning",
+                                        message=f"{img.evidence_id} was already sent on {known['claim_id']} (distance {d})"))
+            else:
                 hard_flags.append("duplicate_image")
                 warnings.append(Warning(code="DUPLICATE_IMAGE", severity="critical",
                                         message=f"{img.evidence_id} matches a photo on {known['claim_id']} (distance {d})"))
     hard_flags = sorted(set(hard_flags))
+    if reused_same:
+        add("photo_reused_same_customer", 1.0, f"same customer's photo on another claim: {', '.join(reused_same)}")
 
     # Policy age, frequency, late reporting
     if loss_date:

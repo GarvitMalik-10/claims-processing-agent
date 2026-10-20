@@ -56,6 +56,18 @@ def test_storm_needs_a_recorded_storm_day():
     assert pol.rule("C-3.1", ctx(peril="storm_wind_hail", loss=date(2026, 10, 1))).status == "unresolved"
 
 
+def test_demo_weather_window_covers_recent_losses_and_says_so():
+    from datetime import timedelta
+
+    x = ctx(peril="storm_wind_hail", loss=date.today() - timedelta(days=1))
+    assert pol.rule("C-3.1", x).status == "unresolved"  # window off by default
+    x.storm_window_days = 10
+    c = pol.rule("C-3.1", x)
+    assert c.status == "covered" and "demo weather stand-in" in c.reason
+    x.loss_date = date.today() - timedelta(days=30)
+    assert pol.rule("C-3.1", x).status == "unresolved"
+
+
 def test_source_repair_excluded():
     assert pol.rule("C-2.3", ctx(codes=("PLB-HOSE-REPL", "CEIL-PAINT"))).line_codes == ["PLB-HOSE-REPL"]
 

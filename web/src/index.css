@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #0f766e;
+  --color-brand-dark: #115e59;
+  --color-brand-soft: #ccfbf1;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-chat-bg: #efe7dc;
+  --color-bubble-me: #d9fdd3;
+}
+
+html, body, #root { height: 100%; }
+body { background: #f1f5f9; color: var(--color-ink); font-size: 15px; }
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.55); }
+  100% { box-shadow: 0 0 0 10px rgba(37, 99, 235, 0); }
+}
+.node-active { animation: pulse-ring 1.2s ease-out infinite; }
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.card-in { animation: card-in 0.35s ease-out; }
+
+.chat-wallpaper {
+  background-color: var(--color-chat-bg);
+  background-image: radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.scroll-thin::-webkit-scrollbar { width: 8px; }
+.scroll-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }

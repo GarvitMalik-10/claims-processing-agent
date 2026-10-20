@@ -50,6 +50,7 @@ class Ctx:
     storm_days: set[str]
     extraction: FnolExtraction | None
     unoccupied: float | None
+    storm_window_days: int = 0
     lines: dict[str, Any] = field(default_factory=dict)
 
     def codes(self, pred: Callable[[str], bool]) -> list[str]:
@@ -122,6 +123,9 @@ def rule(cid: str, x: Ctx) -> ClauseCondition:
                 return _c(cid, "cover", "not_applicable", f"Peril is {p}")
             if x.loss_date and x.loss_date.isoformat() in x.storm_days:
                 return _c(cid, "cover", "covered", f"Storm recorded on {x.loss_date} (config:storm_days.yaml)")
+            if x.loss_date and x.storm_window_days and 0 <= (date.today() - x.loss_date).days <= x.storm_window_days:
+                return _c(cid, "cover", "covered",
+                          f"Loss date {x.loss_date} within the demo weather stand-in window (config:storm_days.yaml)")
             return _c(cid, "cover", "unresolved", f"No storm recorded on loss date {x.loss_date}")
         case "C-3.2":
             if p != "storm_wind_hail":
@@ -219,7 +223,7 @@ def _facts_block(peril: str | None, x: FnolExtraction | None, estimate: Estimate
 def assess(
     *, claude: ClaudeClient, jev: Jev, claim_id: str, book: PolicyBook, policy: Policy, prices: PriceBook,
     peril: str | None, extraction: FnolExtraction | None, estimate: Estimate | None, loss_date: date | None,
-    texts: list[EvidenceItem], storm_days: set[str], peril_clauses: dict[str, Any],
+    texts: list[EvidenceItem], storm_days: set[str], peril_clauses: dict[str, Any], storm_window_days: int = 0,
 ) -> PolicyResult:
     product = book.products[policy.product]
     warnings: list[Warning] = []
@@ -247,7 +251,8 @@ def assess(
     unoccupied = jev_call.answers["home_unoccupied_over_60_days"].noul
 
     ctx = Ctx(peril=peril, policy=policy, extensions=product.extensions, product_code=policy.product, estimate=estimate,
-              prices=prices, loss_date=loss_date, storm_days=storm_days, extraction=extraction, unoccupied=unoccupied)
+              prices=prices, loss_date=loss_date, storm_days=storm_days, extraction=extraction, unoccupied=unoccupied,
+              storm_window_days=storm_window_days)
     clauses = []
     for cid in sorted(selected | mandatory, key=lambda c: [int(n) for n in c[2:].split(".")]):
         cond = rule(cid, ctx)

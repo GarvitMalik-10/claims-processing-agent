@@ -41,6 +41,30 @@ def test_duplicate_of_past_claim_photo_is_a_hard_flag(store, blobs):  # S13
     assert f.hard_flags == ["duplicate_image"] and f.band == "high"
 
 
+def test_same_customer_reusing_a_photo_is_a_soft_signal_not_a_hard_flag(store, blobs):
+    from app.intake.images import normalize_image_bytes
+    import imagehash, io
+    from PIL import Image
+
+    data = normalize_image_bytes(DATA.image_path("IMG-14").read_bytes())
+    h = str(imagehash.phash(Image.open(io.BytesIO(data))))
+    known = [{"claim_id": "CLM-OLD", "customer_ref": "CUST-01", "phash": h}]
+    receive_image(store, blobs, "C1", DATA.image_path("IMG-14").read_bytes())
+    c = DATA.customers["CUST-01"]
+    f = risk.assess(jev=StubJev(blobs), blobs=blobs, claim_id="C1", customer=c, policy=DATA.customer_policy("CUST-01"),
+                    loss_date=date(2026, 10, 14), reported_at=None, texts=[], images=proj.images(store, "C1"),
+                    estimate=None, prices=DATA.prices, tolerance=0.1, past_claims=[], known_hashes=known,
+                    weights_cfg=WEIGHTS, thresholds=THRESH, duplicate_threshold=8).output.finding
+    assert f.hard_flags == []
+    assert signal(f, "photo_reused_same_customer").contribution == WEIGHTS["weights"]["photo_reused_same_customer"]
+    other = [{**known[0], "customer_ref": "CUST-99"}]
+    f2 = risk.assess(jev=StubJev(blobs), blobs=blobs, claim_id="C1", customer=c, policy=DATA.customer_policy("CUST-01"),
+                     loss_date=date(2026, 10, 14), reported_at=None, texts=[], images=proj.images(store, "C1"),
+                     estimate=None, prices=DATA.prices, tolerance=0.1, past_claims=[], known_hashes=other,
+                     weights_cfg=WEIGHTS, thresholds=THRESH, duplicate_threshold=8).output.finding
+    assert f2.hard_flags == ["duplicate_image"]
+
+
 def test_same_scene_different_photo_is_not_a_duplicate(store, blobs):  # S14 must stay clean
     f = run(store, blobs, images=["IMG-14"])
     assert f.hard_flags == []

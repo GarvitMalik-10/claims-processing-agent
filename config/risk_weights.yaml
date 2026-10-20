@@ -16,6 +16,9 @@ weights:
   # Added at the join from the Damage agent: photos contradict the claim (room/setting, damage type,
   # photo-supports-story). Long-term damage alone is a coverage question, not a fraud signal.
   image_claim_mismatch: 0.30
+  # Same photo already used on another claim by the SAME customer (possible double claim). Strong signal
+  # but not a hard flag; another customer's photo stays a hard flag (duplicate_image).
+  photo_reused_same_customer: 0.35
 max_frequency_contribution: 0.30
 policy_recent_days: 60
 gps_far_km: 5
