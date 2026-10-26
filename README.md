@@ -1,25 +1,8 @@
-# Property Claims STP — Explainable Multi-Agent Claims Engine (Demo)
+# Property Claims STP — Explainable Multi-Agent Claims Engine 
 
-> **Status (2026-10-20):** build started. **M0 done** (models, append-only hash-chained event store, blob store, views, Claude + Jev wrappers with raw I/O capture and record/replay). **M1 done** (synthetic data + typed loaders; payout rules reproduce every golden payout). **M2 done (text + image)**: intake normalizers, FNOL extraction with verified source quotes, Jev peril + claim-vs-incident, completeness rules, missing-info loop (interrupt/resume), policy match & registration. Live on S01–S20: peril 20/20, FNOL outcome 20/20 (after correcting 3 golden labels). **M3 done**: parallel Damage / Policy / Risk agents with fan-out and join. Live S01–S20: image–claim consistency 15/19, risk band 17/19 (2 misses need the M4 cross-agent signal). **M4 done**: coverage resolution, payout, final risk, routing gate, human review (approve / override / request info / escalate), settlement with Sonnet letter, ClaimDecisionReport. Live end-to-end on S01–S20: **route 20/20, payout 7/7 to the cent**, coverage 16/19. **M6 done**: split-screen web UI. On the left, a WhatsApp-style chat with persona picker and sample gallery. On the right, the backstage: live process map, event stream, report with "Why?", review inbox, and audit (verify / tamper / replay / export). It also has pace control (normal, slow-motion, pause at the decision gate) and a "Reset demo" button. **M7 done**:
 - PDF audit file and PDF decision letter.
 - Reviewer brief for the human (advice only).
 - Letter amount check: every € amount must exist in the decision record, otherwise the letter is regenerated, then falls back to a template.
-- Presenter cheat sheet (`?`).
-
-203 tests green. Remaining: M2b voice and video (needs ffmpeg), plus the content listed in the open decisions.
-
-### How to run the demo
-
-```bash
-cd web && npm install && npm run build && cd ..
-.venv\Scripts\python.exe -m uvicorn app.api.main:app --port 8000
-```
-
-Open http://localhost:8000. Click **Reset demo** before each session; earlier claims are archived to `var/archive/`, and nothing is deleted. Presenter hotkeys: **B** shows or hides the backstage, **1–4** switch tabs, **G** continues past the paused decision gate.
-> This README is the full spec/hand-off. A new session should be able to start building from this file alone.
-> **Guiding rule for v1:** this is a **sales demo**. *Simple, explainable and working* beats spec exactness. Domain refinements come later.
-
----
 
 ## 1. Goal
 
@@ -36,11 +19,9 @@ For every claim the system:
 7. recommends **payout** or **human review**,
 8. and writes **every decision to the audit trail** — every question, answer, probability, rule, model call and human action.
 
-**Scope v1:** a demo with synthetic data, WhatsApp-style chat UI, bilingual (Dutch + English), presentable in **15 minutes** (see §15).
-
 ---
 
-## 2. Architecture principles (non-negotiable)
+## 2. Architecture principles 
 
 The core problem: one big agent drowns in context; a long chain of agents ends up working on "a summary of a summary of a summary". So:
 
@@ -643,103 +624,3 @@ claims-stp/
 ```
 
 ---
-
-## 15. Demo experience — free play (15 minutes)
-
-The demo is **not a script**. It runs on the **presenter's laptop** in a split screen (§13): on the left the prospect **plays the customer** in the WhatsApp-style chat and decides how to report the loss — text, voice note, photo, video, document, in any order, NL or EN, mixed; on the right the audience sees **what happens behind the scenes**, live. The system must handle whatever the prospect does. The presenter only steers.
-
-### 15.1 How a session works
-
-1. **Pick a persona** (customer + address + policy). Needed so the policy match works without real data. Each persona has a distinct policy (e.g. one with a recent start date, one with high deductible).
-2. **Chat freely.** The attach menu offers the laptop camera/mic/files **and a sample media gallery**: labelled damage photos, short videos and voice notes, including "trick" items (photo reused from a past claim, mould/long-term damage, wrong room, old EXIF date). Prospects rarely have damage photos on hand — the gallery lets them provoke any outcome themselves.
-3. **Watch it think.** While the prospect chats, the backstage shows the process map lighting up and the event stream filling (transcripts, vision tags, Jev probabilities, rules, routing). Presenter can hide the backstage for a "pure customer" moment, then reveal it.
-4. **See the outcome.** STP → payout message + letter in chat, report complete in the Report tab. Review → claim appears in the Review inbox tab; the presenter acts as reviewer and the decision lands in the chat. Missing info → the bot asks, and the prospect answers however they like.
-5. **Audit close.** Verify integrity, tamper → red, Replay, "Why?", Export.
-
-Rough shape: ~2 min intro · ~10 min free play · ~3 min review inbox + audit.
-
-### 15.2 Robustness requirements (because input is unscripted)
-
-| Situation | Required behaviour |
-|---|---|
-| Inputs arrive in any order / across many messages | Every input is just `evidence.received`; completeness is re-evaluated after each one |
-| Undamaged photo (e.g. prospect photographs the meeting room) | Vision → `not_a_damage_photo` / Jev severity `none` → polite request for a damage photo; never a crash or a fake assessment |
-| Off-topic or test messages ("hello?", jokes) | Sonnet answers briefly and steers back; no claim events beyond `evidence.received` |
-| Mixed / switched language | Reply in the language of the latest customer message |
-| Customer changes their story mid-chat | New extraction events; the latest sourced value wins, the change is visible in the trail (and is a risk signal) |
-| Slow steps (STT, video, Jev, vision) | Visible progress per step in chat ("transcribing your voice note…") and in the timeline; target < 20 s from last input to outcome |
-| Model/API failure | `system.error` event, one retry, then graceful "a colleague will pick this up" → human review |
-| "Start over" | New claim for the same persona; old claim stays in the file |
-
-### 15.3 Presenter cheat sheet (guide, not script)
-
-| To show | Suggest the prospect… |
-|---|---|
-| STP + depreciation + "Why?" | Kitchen-leak voice note + clean gallery photo + estimate |
-| Missing-info loop | Send only "my kitchen flooded" |
-| Image–claim mismatch → human | Say "kitchen", send the bathroom gallery photo |
-| Exclusion → human | Use the mould photo |
-| Fraud → SIU | Use the "old claim" photo |
-| Incident only | "Just letting you know, no need to pay anything" |
-| Authority limit → human | Fire scenario with a large estimate |
-
-The 12 golden scenarios (§11) are the regression suite that makes sure these free-play paths behave reliably.
-
----
-
-## 16. Build order (milestones)
-
-1. **M0 – Skeleton:** repo, Pydantic models (envelope, events, state, report, config), `EventStore` (append-only, hash chain, replay), blob store, Jev + Sonnet (text/vision) wrappers with raw I/O capture, fixture recorder, `.env`.
-2. **M1 – Synthetic data:** policy docs + tables (incl. depreciation), customers, history, price benchmark, media, 12 scenarios with golden labels.
-3. **M2 – FNOL subgraph:** text + image + voice (STT) + video intake, extraction with source quotes, peril, completeness, missing-info loop, policy match, claim vs incident.
-4. **M3 – Parallel agents:** Damage (vision → Jev → consistency → pricing), Policy (sources only), Risk; fan-out/join.
-5. **M4 – Join, depreciation, payout, routing, human review node, `ClaimDecisionReport`.**
-6. **M5 – Tests + eval harness** (unit tests written alongside M2–M4; eval runs all scenarios headless).
-7. **M6 – Web UI:** chat, live timeline with audit buttons, review inbox.
-8. **M7 – Letters, export (JSON/PDF), demo script polish.**
-
----
-
-## 17. Decision log
-
-| Date | Decision |
-|---|---|
-| 2026-10-20 | v1 is a sales demo: simple, explainable, working > exact spec |
-| 2026-10-20 | Jev **and** Sonnet 5.5 vision: vision extracts, Jev judges, rules compare |
-| 2026-10-20 | In scope v1: video, speech-to-text, depreciation, missing-info loop |
-| 2026-10-20 | Pydantic models for all inputs/outputs/state; uniform `AgentOutput` envelope; prose stripped from agent views |
-| 2026-10-20 | Confidence carries a source; routing ignores `self_reported` |
-| 2026-10-20 | No invented policy rules — every decision cites a clause / table row / config entry |
-| 2026-10-20 | Benchmark trimming + depreciation = valuation (STP-allowed); coverage denial = adverse (human) |
-| 2026-10-20 | Coverage per claim; only per-line exception is `excluded_source_repair` |
-| 2026-10-20 | Payout order: cap (sublimit/sum insured) first, then deductible |
-| 2026-10-20 | One hash chain per claim; raw model I/O stored in blob store |
-| 2026-10-20 | Unit tests never call live models (recorded fixtures); eval harness runs live |
-| 2026-10-20 | Demo is free play: prospect plays the customer and chooses channels freely; persona picker + sample media gallery; presenter steers with a cheat sheet |
-| 2026-10-20 | Build go: React + Vite frontend; local `faster-whisper`; **no offline fallback** (venue Wi-Fi is reliable); thresholds start from placeholders and are tuned on S01–S20; brand name **Tecto** |
-| 2026-10-20 | Claim vs incident is **claim by default**: incident only when Jev's `only_informing` noul ≥ 0.75 **and** no repair estimate was sent. This check runs **before** completeness, so people who are only reporting aren't chased for details. (The first version asked "is the customer requesting compensation?", which misread a plain leak report as an incident.) |
-| 2026-10-20 | FNOL extraction: every field must quote the customer verbatim; code checks the quote against the message and drops the field if the quote isn't there |
-| 2026-10-20 | Vision extraction never sees the customer's story (no anchoring); Jev judges the photos against the story |
-| 2026-10-20 | Policy clause selection = Sonnet's choice ∪ a mandatory peril→clause matrix, so no exclusion can be skipped; every clause is decided by a rule function that cites it |
-| 2026-10-20 | Demo images had real camera EXIF/GPS (2007–2011, US); stripped so honest scenarios don't trip fraud signals. Scenario metadata is synthetic and labelled as such |
-| 2026-10-20 | **Option 2:** an *uncertain* item-visibility result on a minor line doesn't block STP. A *clear* "not visible" asks the customer for a photo, then goes to a human |
-| 2026-10-20 | C-2.3 (the leaking pipe or hose itself is not paid) is a standard, explained deduction, not a partial denial, so it doesn't force human review |
-| 2026-10-20 | Benefit of the doubt: an exclusion is only "unresolved" when Jev leans toward it (0.5–0.75; applies ≥ 0.75). A cover condition is only unresolved in 0.25–0.5 (fails < 0.25) |
-| 2026-10-20 | The image-mismatch risk signal (+0.30 at the join) only counts when the photos contradict the claim. Photos without damage are missing evidence (ask the customer), not a fraud signal |
-| 2026-10-20 | Customer messages never resume a claim that is waiting for a human reviewer; only `review()` does |
-| 2026-10-20 | Demo weather stand-in: in live play, a loss date in the last 10 days counts as a storm day (`storm_days.yaml`). This is stated in the C-3.1 reason. Set it to 0 for fixed dates only |
-| 2026-10-20 | Duplicate photo: another customer's photo is a hard flag (SIU). The same customer's photo on another claim is a +0.35 signal (human review). A demo re-run used to land in SIU |
-| 2026-10-20 | Gallery photos get synthetic camera data (taken now, at the persona's home) at upload, labelled as such. The trick photos keep their trick |
-| 2026-10-20 | Letters: Sonnet phrases, never calculates. The record carries every total. Code checks each € amount against the record: one regeneration with feedback, then a template letter. (Found live: a letter had added up its own wrong subtotal) |
-| 2026-10-20 | Reviewer brief: when a claim goes to review, Sonnet writes a short brief from the structured record. It's for humans only, and its suggested action is advice the system never acts on |
-| 2026-10-20 | The UI polls events by sequence number (no websockets), which is simpler and robust on a demo laptop. One input turn = one graph run, processed in the background per claim |
-| 2026-10-20 | Demo runs locally on the presenter's laptop as a split screen: front stage (customer chat) + backstage (process map, event stream, report, review inbox, audit) |
-
-## 18. Open decisions
-
-1. Frontend: React + Vite (proposed) vs Streamlit?
-2. ~~Damage photos~~ → openly licensed Wikimedia Commons set (20 images, 2026-10-20). Still open: a photo of a water-damaged kitchen cabinet/laminate (for S01), demo **videos** and **voice notes**.
-3. Jev: API key available + `TypeSafe-Danger-Zone-Images` enabled?
-4. Exact STP limit, thresholds, authority amounts, depreciation rates (placeholders above).
-5. Laptop spec for the demo: STT (`faster-whisper`) runs locally — confirm CPU-only speed is fine, otherwise smaller model or GPU. Internet needed for Sonnet + Jev — offline fallback (replay recorded runs) wanted?
-6. `faster-whisper` model size vs Dutch accuracy (test on synthetic NL voice notes).
