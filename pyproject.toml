@@ -1,4 +1,4 @@
-﻿[project]
+[project]
 name = "tecto-claims"
 version = "0.1.0"
 description = "Tecto - explainable multi-agent property claims STP engine (demo)"
